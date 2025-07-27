@@ -13,7 +13,7 @@ A comprehensive web application for managing and analyzing heritage site risk as
 
 ## Live Demo
 
-🌐 **[View Live Application](https://yourusername.github.io/riskassessment)**
+🌐 **[View Live Application](https://xbenedict.github.io/riskassessment)**
 
 ## Getting Started
 
@@ -26,7 +26,7 @@ A comprehensive web application for managing and analyzing heritage site risk as
 
 1. Clone the repository:
 ```bash
-git clone https://github.com/yourusername/riskassessment.git
+git clone https://github.com/xbenedict/riskassessment.git
 cd riskassessment
 ```
 
