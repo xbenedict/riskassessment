@@ -1,0 +1,558 @@
+.formContainer {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 2rem;
+  background: #ffffff;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.formTitle {
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: #2c3e50;
+  margin-bottom: 1.5rem;
+  text-align: center;
+}
+
+.formGrid {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 2rem;
+  margin-bottom: 2rem;
+}
+
+.componentSection {
+  background: #f8f9fa;
+  padding: 1.5rem;
+  border-radius: 6px;
+  border: 2px solid #e9ecef;
+}
+
+.componentTitle {
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: #495057;
+  margin-bottom: 1rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.componentBadge {
+  background: #007bff;
+  color: white;
+  padding: 0.25rem 0.5rem;
+  border-radius: 4px;
+  font-size: 0.8rem;
+  font-weight: 700;
+}
+
+.inputGroup {
+  margin-bottom: 1rem;
+}
+
+.label {
+  display: block;
+  font-weight: 500;
+  color: #495057;
+  margin-bottom: 0.5rem;
+  font-size: 0.9rem;
+}
+
+.rangeInput {
+  width: 100%;
+  height: 6px;
+  border-radius: 3px;
+  background: #dee2e6;
+  outline: none;
+  margin-bottom: 0.5rem;
+}
+
+.rangeInput::-webkit-slider-thumb {
+  appearance: none;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background: #007bff;
+  cursor: pointer;
+  border: 2px solid #ffffff;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.rangeInput::-moz-range-thumb {
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background: #007bff;
+  cursor: pointer;
+  border: 2px solid #ffffff;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.valueDisplay {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 0.5rem;
+}
+
+.currentValue {
+  font-weight: 600;
+  color: #007bff;
+  font-size: 1.1rem;
+}
+
+.description {
+  font-size: 0.85rem;
+  color: #6c757d;
+  line-height: 1.4;
+  min-height: 2.8rem;
+  padding: 0.5rem;
+  background: #ffffff;
+  border-radius: 4px;
+  border: 1px solid #dee2e6;
+}
+
+.uncertaintySection {
+  background: #fff3cd;
+  border: 2px solid #ffeaa7;
+  padding: 1.5rem;
+  border-radius: 6px;
+  margin-bottom: 2rem;
+}
+
+.uncertaintyTitle {
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: #856404;
+  margin-bottom: 1rem;
+}
+
+.select {
+  width: 100%;
+  padding: 0.75rem;
+  border: 2px solid #dee2e6;
+  border-radius: 4px;
+  font-size: 1rem;
+  background: #ffffff;
+  color: #495057;
+}
+
+.select:focus {
+  outline: none;
+  border-color: #007bff;
+  box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.1);
+}
+
+.resultsSection {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  padding: 2rem;
+  border-radius: 8px;
+  text-align: center;
+  margin-bottom: 2rem;
+}
+
+.resultsTitle {
+  font-size: 1.3rem;
+  font-weight: 600;
+  margin-bottom: 1rem;
+}
+
+.magnitudeDisplay {
+  font-size: 3rem;
+  font-weight: 700;
+  margin-bottom: 0.5rem;
+}
+
+.priorityDisplay {
+  font-size: 1.2rem;
+  font-weight: 600;
+  margin-bottom: 1rem;
+  padding: 0.5rem 1rem;
+  border-radius: 20px;
+  display: inline-block;
+}
+
+.priorityLow {
+  background: rgba(40, 167, 69, 0.8);
+}
+
+.priorityMediumHigh {
+  background: rgba(255, 193, 7, 0.8);
+  color: #212529;
+}
+
+.priorityHigh {
+  background: rgba(255, 152, 0, 0.8);
+}
+
+.priorityVeryHigh {
+  background: rgba(220, 53, 69, 0.8);
+}
+
+.priorityExtremelyHigh {
+  background: rgba(108, 117, 125, 0.9);
+  animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+  0% { opacity: 0.8; }
+  50% { opacity: 1; }
+  100% { opacity: 0.8; }
+}
+
+.priorityDescription {
+  font-size: 0.95rem;
+  opacity: 0.9;
+  line-height: 1.4;
+}
+
+.actionButtons {
+  display: flex;
+  gap: 1rem;
+  justify-content: center;
+}
+
+.button {
+  padding: 0.75rem 2rem;
+  border: none;
+  border-radius: 6px;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.buttonPrimary {
+  background: #007bff;
+  color: white;
+}
+
+.buttonPrimary:hover {
+  background: #0056b3;
+  transform: translateY(-1px);
+}
+
+.buttonSecondary {
+  background: #6c757d;
+  color: white;
+}
+
+.buttonSecondary:hover {
+  background: #545b62;
+  transform: translateY(-1px);
+}
+
+.errorMessage {
+  background: #f8d7da;
+  color: #721c24;
+  padding: 0.75rem;
+  border-radius: 4px;
+  margin-bottom: 1rem;
+  border: 1px solid #f5c6cb;
+}
+
+/* Mobile-First Responsive Design for Field Use */
+@media (max-width: 768px) {
+  .formContainer {
+    padding: 1rem;
+    margin: 0.5rem;
+    border-radius: 12px;
+  }
+  
+  .formTitle {
+    font-size: 1.25rem;
+    margin-bottom: 1rem;
+  }
+  
+  .formGrid {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+  
+  .componentSection {
+    padding: 1rem;
+    border-radius: 8px;
+  }
+  
+  .componentTitle {
+    font-size: 1rem;
+    margin-bottom: 0.75rem;
+  }
+  
+  .componentBadge {
+    padding: 0.375rem 0.625rem;
+    font-size: 0.75rem;
+  }
+  
+  /* Enhanced touch-friendly range inputs */
+  .rangeInput {
+    height: 8px;
+    margin-bottom: 0.75rem;
+    /* Enhanced touch target */
+    -webkit-appearance: none;
+    appearance: none;
+  }
+  
+  .rangeInput::-webkit-slider-thumb {
+    width: 28px;
+    height: 28px;
+    border: 3px solid #ffffff;
+    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.3);
+    /* Enhanced touch feedback */
+    -webkit-tap-highlight-color: rgba(0, 123, 255, 0.3);
+  }
+  
+  .rangeInput::-moz-range-thumb {
+    width: 28px;
+    height: 28px;
+    border: 3px solid #ffffff;
+    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.3);
+  }
+  
+  .valueDisplay {
+    margin-bottom: 0.75rem;
+    font-size: 0.9rem;
+  }
+  
+  .currentValue {
+    font-size: 1.25rem;
+    padding: 0.25rem 0.5rem;
+    background: rgba(0, 123, 255, 0.1);
+    border-radius: 6px;
+  }
+  
+  .description {
+    font-size: 0.8rem;
+    min-height: 2.5rem;
+    padding: 0.75rem;
+  }
+  
+  /* Mobile-optimized uncertainty section */
+  .uncertaintySection {
+    padding: 1rem;
+    margin-bottom: 1.5rem;
+  }
+  
+  .uncertaintyTitle {
+    font-size: 1rem;
+    margin-bottom: 0.75rem;
+  }
+  
+  /* Enhanced select inputs for mobile */
+  .select {
+    padding: 1rem 0.75rem;
+    font-size: 1rem;
+    border-radius: 8px;
+    border: 2px solid #dee2e6;
+    /* Enhanced touch target */
+    min-height: 48px;
+    -webkit-tap-highlight-color: rgba(0, 123, 255, 0.1);
+  }
+  
+  .select:focus {
+    border-color: #007bff;
+    box-shadow: 0 0 0 4px rgba(0, 123, 255, 0.15);
+  }
+  
+  /* Mobile-optimized results section */
+  .resultsSection {
+    padding: 1.25rem;
+    margin-bottom: 1.5rem;
+    border-radius: 12px;
+  }
+  
+  .resultsTitle {
+    font-size: 1.1rem;
+    margin-bottom: 0.75rem;
+  }
+  
+  .magnitudeDisplay {
+    font-size: 2.25rem;
+    margin-bottom: 0.75rem;
+  }
+  
+  .priorityDisplay {
+    font-size: 1rem;
+    padding: 0.75rem 1.25rem;
+    margin-bottom: 0.75rem;
+  }
+  
+  .priorityDescription {
+    font-size: 0.9rem;
+    line-height: 1.5;
+  }
+  
+  /* Enhanced input groups for mobile */
+  .inputGroup {
+    margin-bottom: 1.25rem;
+  }
+  
+  .label {
+    font-size: 1rem;
+    margin-bottom: 0.75rem;
+    font-weight: 600;
+  }
+  
+  /* Mobile-optimized action buttons */
+  .actionButtons {
+    flex-direction: column;
+    gap: 0.75rem;
+    margin-top: 1.5rem;
+  }
+  
+  .button {
+    width: 100%;
+    padding: 1rem 1.5rem;
+    font-size: 1rem;
+    border-radius: 8px;
+    /* Enhanced touch targets */
+    min-height: 48px;
+    -webkit-tap-highlight-color: rgba(0, 0, 0, 0.1);
+  }
+  
+  .button:active {
+    transform: scale(0.98);
+    transition: transform 0.1s ease;
+  }
+  
+  .buttonPrimary:active {
+    background: #0056b3;
+  }
+  
+  .buttonSecondary:active {
+    background: #545b62;
+  }
+  
+  /* Enhanced error messages for mobile */
+  .errorMessage {
+    padding: 1rem;
+    border-radius: 8px;
+    margin-bottom: 1rem;
+    font-size: 0.9rem;
+    line-height: 1.4;
+  }
+}
+
+@media (max-width: 480px) {
+  .formContainer {
+    padding: 0.75rem;
+    margin: 0.25rem;
+  }
+  
+  .formTitle {
+    font-size: 1.125rem;
+    text-align: left;
+  }
+  
+  .componentSection {
+    padding: 0.75rem;
+  }
+  
+  .componentTitle {
+    font-size: 0.95rem;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.25rem;
+  }
+  
+  .componentBadge {
+    align-self: flex-start;
+  }
+  
+  /* Larger touch targets for small screens */
+  .rangeInput::-webkit-slider-thumb {
+    width: 32px;
+    height: 32px;
+  }
+  
+  .rangeInput::-moz-range-thumb {
+    width: 32px;
+    height: 32px;
+  }
+  
+  .valueDisplay {
+    font-size: 0.85rem;
+  }
+  
+  .currentValue {
+    font-size: 1.125rem;
+    padding: 0.375rem 0.75rem;
+  }
+  
+  .description {
+    font-size: 0.75rem;
+    min-height: 2rem;
+    padding: 0.5rem;
+  }
+  
+  .select {
+    padding: 0.875rem;
+    font-size: 0.95rem;
+  }
+  
+  .resultsSection {
+    padding: 1rem;
+  }
+  
+  .magnitudeDisplay {
+    font-size: 2rem;
+  }
+  
+  .priorityDisplay {
+    font-size: 0.9rem;
+    padding: 0.625rem 1rem;
+  }
+  
+  .priorityDescription {
+    font-size: 0.85rem;
+  }
+  
+  .button {
+    padding: 0.875rem 1.25rem;
+    font-size: 0.95rem;
+  }
+  
+  .label {
+    font-size: 0.95rem;
+  }
+}
+
+/* Touch-specific enhancements */
+@media (hover: none) and (pointer: coarse) {
+  /* Remove hover effects on touch devices */
+  .button:hover {
+    transform: none;
+    background: inherit;
+  }
+  
+  .buttonPrimary:hover {
+    background: #007bff;
+  }
+  
+  .buttonSecondary:hover {
+    background: #6c757d;
+  }
+  
+  /* Enhanced touch feedback */
+  .rangeInput:active,
+  .select:active {
+    opacity: 0.9;
+  }
+  
+  /* Ensure all interactive elements have adequate touch targets */
+  .rangeInput,
+  .select,
+  .button {
+    min-height: 44px;
+  }
+  
+  /* Improved focus states for touch devices */
+  .select:focus,
+  .rangeInput:focus {
+    outline: 3px solid rgba(0, 123, 255, 0.3);
+    outline-offset: 2px;
+  }
+}

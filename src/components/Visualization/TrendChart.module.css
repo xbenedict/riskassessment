@@ -1,0 +1,131 @@
+/* Trend Chart Component Styles */
+
+.trendChart {
+    background: #ffffff;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+}
+
+.trendStats {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: 1rem;
+    padding: 1rem 1.5rem;
+    background: #f8f9fa;
+    border-bottom: 1px solid #dee2e6;
+}
+
+.stat {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    gap: 0.25rem;
+}
+
+.stat .label {
+    font-size: 0.8rem;
+    color: #6c757d;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.stat .value {
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: #495057;
+}
+
+/* Trend direction styling */
+.trend-increasing {
+    color: #dc3545 !important;
+}
+
+.trend-decreasing {
+    color: #28a745 !important;
+}
+
+.trend-stable {
+    color: #007bff !important;
+}
+
+.trend-improving {
+    color: #28a745 !important;
+}
+
+.trend-deteriorating {
+    color: #dc3545 !important;
+}
+
+.trend-mixed {
+    color: #ffc107 !important;
+}
+
+/* Evolution styling */
+.evolution-escalating {
+    color: #dc3545 !important;
+}
+
+.evolution-stable {
+    color: #ffc107 !important;
+}
+
+.evolution-improving {
+    color: #28a745 !important;
+}
+
+/* Change rate styling */
+.positive {
+    color: #dc3545 !important;
+}
+
+.negative {
+    color: #28a745 !important;
+}
+
+.chartContainer {
+    padding: 1rem 1.5rem;
+    position: relative;
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+    .trendStats {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 0.75rem;
+        padding: 0.75rem 1rem;
+    }
+
+    .stat .label {
+        font-size: 0.75rem;
+    }
+
+    .stat .value {
+        font-size: 1rem;
+    }
+
+    .chartContainer {
+        padding: 0.75rem 1rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .trendStats {
+        grid-template-columns: 1fr;
+        gap: 0.5rem;
+    }
+
+    .stat {
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+        text-align: left;
+    }
+
+    .stat .label {
+        text-transform: none;
+        letter-spacing: normal;
+    }
+}

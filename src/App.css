@@ -1,0 +1,165 @@
+/* Heritage Guardian Main Application Styles */
+
+.App {
+  min-height: 100vh;
+  background: #f8f9fa;
+}
+
+/* Main Navigation Styles */
+.main-navigation {
+  background: #ffffff;
+  border-bottom: 1px solid #dee2e6;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+}
+
+.nav-brand {
+  padding: 1rem 2rem;
+  border-bottom: 1px solid #e9ecef;
+  background: #2c3e50;
+  color: white;
+  text-align: center;
+}
+
+.nav-brand h1 {
+  margin: 0;
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: #ffffff;
+}
+
+.nav-brand span {
+  display: block;
+  font-size: 0.85rem;
+  color: #bdc3c7;
+  margin-top: 0.25rem;
+}
+
+.nav-tabs {
+  display: flex;
+  background: #ffffff;
+  overflow-x: auto;
+}
+
+.nav-tab {
+  flex: 1;
+  min-width: 150px;
+  padding: 1rem 1.5rem;
+  background: none;
+  border: none;
+  font-size: 0.95rem;
+  font-weight: 500;
+  color: #6c757d;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  border-bottom: 3px solid transparent;
+  white-space: nowrap;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+}
+
+.nav-tab:hover {
+  background: #f8f9fa;
+  color: #495057;
+}
+
+.nav-tab.active {
+  color: #007bff;
+  border-bottom-color: #007bff;
+  background: #f8f9fa;
+}
+
+/* Main Content Area */
+.main-content {
+  min-height: calc(100vh - 140px); /* Adjust based on nav height */
+  padding: 0;
+}
+
+/* Mobile-First Responsive Design */
+@media (max-width: 768px) {
+  .nav-brand {
+    padding: 0.75rem 1rem;
+  }
+  
+  .nav-brand h1 {
+    font-size: 1.25rem;
+  }
+  
+  .nav-brand span {
+    font-size: 0.8rem;
+  }
+  
+  .nav-tabs {
+    flex-wrap: wrap;
+    -webkit-overflow-scrolling: touch; /* Smooth scrolling on iOS */
+  }
+  
+  .nav-tab {
+    flex: none;
+    min-width: 120px;
+    padding: 0.75rem 1rem;
+    font-size: 0.85rem;
+    /* Enhanced touch targets */
+    min-height: 44px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    /* Touch-friendly hover states */
+    -webkit-tap-highlight-color: rgba(0, 123, 255, 0.1);
+  }
+  
+  /* Touch feedback */
+  .nav-tab:active {
+    background: #e9ecef;
+    transform: scale(0.98);
+    transition: all 0.1s ease;
+  }
+}
+
+@media (max-width: 480px) {
+  .nav-tabs {
+    flex-direction: column;
+    overflow-x: visible;
+  }
+  
+  .nav-tab {
+    min-width: auto;
+    width: 100%;
+    border-bottom: 1px solid #e9ecef;
+    border-radius: 0;
+    /* Larger touch targets for mobile */
+    min-height: 48px;
+    padding: 1rem;
+  }
+  
+  .nav-tab.active {
+    border-bottom-color: #007bff;
+    border-left: 4px solid #007bff;
+  }
+  
+  /* Improved touch feedback for small screens */
+  .nav-tab:active {
+    background: #f8f9fa;
+    transform: none;
+  }
+}
+
+/* Global Overrides for Dashboard Components */
+.main-content > * {
+  background: transparent;
+}
+
+/* Ensure proper spacing for dashboard components */
+.main-content .dashboard,
+.main-content .trendDashboard,
+.main-content .reportGenerator,
+.main-content .dataManager {
+  margin: 0;
+  border-radius: 0;
+  box-shadow: none;
+  background: #f8f9fa;
+}

@@ -1,0 +1,345 @@
+.listContainer {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 2rem;
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 2rem;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
+.title {
+  font-size: 1.8rem;
+  font-weight: 600;
+  color: #2c3e50;
+  margin: 0;
+}
+
+.controls {
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.filterGroup {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.filterLabel {
+  font-size: 0.8rem;
+  font-weight: 500;
+  color: #6c757d;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.select {
+  padding: 0.5rem;
+  border: 2px solid #dee2e6;
+  border-radius: 4px;
+  font-size: 0.9rem;
+  background: #ffffff;
+  color: #495057;
+  min-width: 120px;
+}
+
+.select:focus {
+  outline: none;
+  border-color: #007bff;
+  box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.1);
+}
+
+.searchInput {
+  padding: 0.5rem;
+  border: 2px solid #dee2e6;
+  border-radius: 4px;
+  font-size: 0.9rem;
+  min-width: 200px;
+}
+
+.searchInput:focus {
+  outline: none;
+  border-color: #007bff;
+  box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.1);
+}
+
+.assessmentGrid {
+  display: grid;
+  gap: 1rem;
+  grid-template-columns: repeat(auto-fill, minmax(400px, 1fr));
+}
+
+.assessmentCard {
+  background: #ffffff;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  padding: 1.5rem;
+  border-left: 4px solid #dee2e6;
+  transition: all 0.2s ease;
+}
+
+.assessmentCard:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.15);
+}
+
+.cardExtremelyHigh {
+  border-left-color: #6c757d;
+  background: linear-gradient(135deg, rgba(108, 117, 125, 0.05) 0%, rgba(255, 255, 255, 1) 100%);
+}
+
+.cardVeryHigh {
+  border-left-color: #dc3545;
+  background: linear-gradient(135deg, rgba(220, 53, 69, 0.05) 0%, rgba(255, 255, 255, 1) 100%);
+}
+
+.cardHigh {
+  border-left-color: #fd7e14;
+  background: linear-gradient(135deg, rgba(253, 126, 20, 0.05) 0%, rgba(255, 255, 255, 1) 100%);
+}
+
+.cardMediumHigh {
+  border-left-color: #ffc107;
+  background: linear-gradient(135deg, rgba(255, 193, 7, 0.05) 0%, rgba(255, 255, 255, 1) 100%);
+}
+
+.cardLow {
+  border-left-color: #28a745;
+  background: linear-gradient(135deg, rgba(40, 167, 69, 0.05) 0%, rgba(255, 255, 255, 1) 100%);
+}
+
+.cardHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 1rem;
+}
+
+.threatType {
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: #2c3e50;
+  text-transform: capitalize;
+}
+
+.priorityBadge {
+  padding: 0.25rem 0.75rem;
+  border-radius: 12px;
+  font-size: 0.75rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.priorityExtremelyHigh {
+  background: #6c757d;
+  color: white;
+}
+
+.priorityVeryHigh {
+  background: #dc3545;
+  color: white;
+}
+
+.priorityHigh {
+  background: #fd7e14;
+  color: white;
+}
+
+.priorityMediumHigh {
+  background: #ffc107;
+  color: #212529;
+}
+
+.priorityLow {
+  background: #28a745;
+  color: white;
+}
+
+.magnitudeSection {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 1rem;
+}
+
+.magnitudeDisplay {
+  font-size: 2rem;
+  font-weight: 700;
+  color: #495057;
+}
+
+.componentsBreakdown {
+  display: flex;
+  gap: 0.5rem;
+  font-size: 0.9rem;
+  color: #6c757d;
+}
+
+.component {
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+}
+
+.componentLabel {
+  font-weight: 600;
+}
+
+.assessmentDetails {
+  margin-bottom: 1rem;
+}
+
+.detailRow {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 0.5rem;
+  font-size: 0.9rem;
+}
+
+.detailLabel {
+  color: #6c757d;
+  font-weight: 500;
+}
+
+.detailValue {
+  color: #495057;
+  font-weight: 600;
+}
+
+.uncertaintyIndicator {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.25rem;
+  padding: 0.125rem 0.5rem;
+  border-radius: 8px;
+  font-size: 0.75rem;
+  font-weight: 600;
+}
+
+.uncertaintyLow {
+  background: rgba(40, 167, 69, 0.1);
+  color: #28a745;
+}
+
+.uncertaintyMedium {
+  background: rgba(255, 193, 7, 0.1);
+  color: #ffc107;
+}
+
+.uncertaintyHigh {
+  background: rgba(220, 53, 69, 0.1);
+  color: #dc3545;
+}
+
+.notes {
+  font-size: 0.85rem;
+  color: #6c757d;
+  line-height: 1.4;
+  margin-bottom: 1rem;
+  padding: 0.75rem;
+  background: #f8f9fa;
+  border-radius: 4px;
+  border-left: 3px solid #dee2e6;
+}
+
+.cardFooter {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 0.8rem;
+  color: #6c757d;
+  border-top: 1px solid #e9ecef;
+  padding-top: 1rem;
+}
+
+.assessor {
+  font-weight: 500;
+}
+
+.assessmentDate {
+  font-style: italic;
+}
+
+.emptyState {
+  text-align: center;
+  padding: 4rem 2rem;
+  color: #6c757d;
+}
+
+.emptyStateIcon {
+  font-size: 3rem;
+  margin-bottom: 1rem;
+  opacity: 0.5;
+}
+
+.emptyStateTitle {
+  font-size: 1.2rem;
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+}
+
+.emptyStateMessage {
+  font-size: 0.9rem;
+  line-height: 1.4;
+}
+
+.resultsCount {
+  font-size: 0.9rem;
+  color: #6c757d;
+  margin-bottom: 1rem;
+}
+
+/* Mobile responsiveness */
+@media (max-width: 768px) {
+  .listContainer {
+    padding: 1rem;
+  }
+  
+  .header {
+    flex-direction: column;
+    align-items: stretch;
+  }
+  
+  .controls {
+    flex-direction: column;
+    align-items: stretch;
+  }
+  
+  .filterGroup {
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+  }
+  
+  .assessmentGrid {
+    grid-template-columns: 1fr;
+  }
+  
+  .cardHeader {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.5rem;
+  }
+  
+  .magnitudeSection {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.5rem;
+  }
+  
+  .cardFooter {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.25rem;
+  }
+}

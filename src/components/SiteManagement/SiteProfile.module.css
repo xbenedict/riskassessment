@@ -1,0 +1,542 @@
+/* SiteProfile component styles */
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 2rem;
+  background: #f8f9fa;
+  min-height: 100vh;
+  position: relative;
+}
+
+.loading, .error {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 200px;
+  font-size: 1.1rem;
+  color: #6c757d;
+}
+
+.error {
+  color: #dc3545;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.closeButton {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  background: #6c757d;
+  color: white;
+  border: none;
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  cursor: pointer;
+  font-size: 1.2rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 10;
+}
+
+.closeButton:hover {
+  background: #545b62;
+}
+
+/* Header Section */
+.header {
+  background: white;
+  border-radius: 12px;
+  padding: 2rem;
+  margin-bottom: 2rem;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.headerContent {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 1rem;
+}
+
+.siteName {
+  font-size: 2.5rem;
+  font-weight: 700;
+  color: #212529;
+  margin: 0;
+  line-height: 1.2;
+}
+
+.statusBadge {
+  padding: 0.5rem 1rem;
+  border-radius: 20px;
+  color: white;
+  font-weight: 600;
+  font-size: 0.875rem;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.location {
+  font-size: 1.1rem;
+  color: #495057;
+  margin-bottom: 0.5rem;
+}
+
+.coordinates {
+  font-size: 0.9rem;
+  color: #6c757d;
+  font-family: monospace;
+}
+
+/* Photo Gallery */
+.photoGallery {
+  background: white;
+  border-radius: 12px;
+  padding: 2rem;
+  margin-bottom: 2rem;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.photoGallery h2 {
+  margin-top: 0;
+  margin-bottom: 1.5rem;
+  color: #212529;
+}
+
+.mainImage {
+  width: 100%;
+  height: 400px;
+  border-radius: 8px;
+  overflow: hidden;
+  margin-bottom: 1rem;
+}
+
+.galleryImage {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.3s ease;
+}
+
+.galleryImage:hover {
+  transform: scale(1.02);
+}
+
+.thumbnails {
+  display: flex;
+  gap: 0.5rem;
+  overflow-x: auto;
+  padding: 0.5rem 0;
+}
+
+.thumbnail {
+  flex-shrink: 0;
+  width: 80px;
+  height: 60px;
+  border: 2px solid transparent;
+  border-radius: 4px;
+  overflow: hidden;
+  cursor: pointer;
+  background: none;
+  padding: 0;
+  transition: border-color 0.2s ease;
+}
+
+.thumbnail img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.thumbnail:hover {
+  border-color: #007bff;
+}
+
+.thumbnailActive {
+  border-color: #007bff;
+}
+
+/* Content Layout */
+.content {
+  display: grid;
+  gap: 2rem;
+}
+
+/* Site Information */
+.siteInfo {
+  background: white;
+  border-radius: 12px;
+  padding: 2rem;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.siteInfo h2 {
+  margin-top: 0;
+  margin-bottom: 1.5rem;
+  color: #212529;
+}
+
+.infoGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 1.5rem;
+}
+
+.infoItem h3 {
+  margin: 0 0 0.5rem 0;
+  color: #495057;
+  font-size: 1rem;
+  font-weight: 600;
+}
+
+.infoItem p {
+  margin: 0;
+  color: #212529;
+  line-height: 1.6;
+}
+
+/* Threat Status */
+.threatStatus {
+  background: white;
+  border-radius: 12px;
+  padding: 2rem;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.threatStatus h2 {
+  margin-top: 0;
+  margin-bottom: 1.5rem;
+  color: #212529;
+}
+
+.overallRisk {
+  margin-bottom: 2rem;
+}
+
+.riskIndicator {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.riskLevel {
+  padding: 0.75rem 1.5rem;
+  border-radius: 25px;
+  color: white;
+  font-weight: 700;
+  font-size: 1rem;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.riskDescription {
+  color: #495057;
+  font-style: italic;
+}
+
+.activeThreats h3 {
+  margin: 0 0 1rem 0;
+  color: #495057;
+  font-size: 1.1rem;
+}
+
+.threatList {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.threatTag {
+  background: #e9ecef;
+  color: #495057;
+  padding: 0.5rem 1rem;
+  border-radius: 20px;
+  font-size: 0.875rem;
+  text-transform: capitalize;
+}
+
+/* Recommended Actions */
+.recommendedActions {
+  background: white;
+  border-radius: 12px;
+  padding: 2rem;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.recommendedActions h2 {
+  margin-top: 0;
+  margin-bottom: 1.5rem;
+  color: #212529;
+}
+
+.actionsList {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.actionItem {
+  padding: 1rem;
+  margin-bottom: 0.5rem;
+  background: #f8f9fa;
+  border-left: 4px solid #007bff;
+  border-radius: 0 4px 4px 0;
+  color: #212529;
+}
+
+.actionItem:last-child {
+  margin-bottom: 0;
+}
+
+/* Risk History Timeline */
+.riskHistory {
+  background: white;
+  border-radius: 12px;
+  padding: 2rem;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.riskHistory h2 {
+  margin-top: 0;
+  margin-bottom: 1.5rem;
+  color: #212529;
+}
+
+.noData {
+  color: #6c757d;
+  font-style: italic;
+  text-align: center;
+  padding: 2rem;
+}
+
+.timeline {
+  position: relative;
+}
+
+.timelineItem {
+  display: flex;
+  margin-bottom: 2rem;
+  position: relative;
+}
+
+.timelineItem:last-child {
+  margin-bottom: 0;
+}
+
+.timelineMarker {
+  flex-shrink: 0;
+  width: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-right: 1.5rem;
+}
+
+.timelineDot {
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  border: 3px solid white;
+  box-shadow: 0 0 0 2px #dee2e6;
+}
+
+.timelineLine {
+  width: 2px;
+  flex-grow: 1;
+  background: #dee2e6;
+  margin-top: 0.5rem;
+}
+
+.timelineContent {
+  flex-grow: 1;
+  background: #f8f9fa;
+  border-radius: 8px;
+  padding: 1.5rem;
+}
+
+.assessmentHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 1rem;
+}
+
+.threatType {
+  margin: 0;
+  color: #212529;
+  font-size: 1.2rem;
+  text-transform: capitalize;
+}
+
+.assessmentMeta {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 0.25rem;
+}
+
+.assessmentDate {
+  font-weight: 600;
+  color: #495057;
+}
+
+.assessor {
+  font-size: 0.875rem;
+  color: #6c757d;
+}
+
+.riskDetails {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1rem;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
+.abcComponents {
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+}
+
+.component {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+.componentLabel {
+  font-size: 0.75rem;
+  color: #6c757d;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  margin-bottom: 0.25rem;
+}
+
+.componentValue {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: #212529;
+}
+
+.magnitude {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  padding-left: 1rem;
+  border-left: 2px solid #dee2e6;
+}
+
+.magnitudeValue {
+  font-size: 2rem;
+  font-weight: 700;
+  color: #007bff;
+}
+
+.priorityBadge {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 0.5rem;
+}
+
+.priority {
+  padding: 0.5rem 1rem;
+  border-radius: 20px;
+  color: white;
+  font-weight: 600;
+  font-size: 0.875rem;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.uncertainty {
+  font-size: 0.75rem;
+  color: #6c757d;
+  text-transform: uppercase;
+}
+
+.assessmentNotes {
+  border-top: 1px solid #dee2e6;
+  padding-top: 1rem;
+}
+
+.assessmentNotes h4 {
+  margin: 0 0 0.5rem 0;
+  color: #495057;
+  font-size: 0.9rem;
+  font-weight: 600;
+}
+
+.assessmentNotes p {
+  margin: 0;
+  color: #212529;
+  line-height: 1.6;
+  font-style: italic;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .container {
+    padding: 1rem;
+  }
+  
+  .siteName {
+    font-size: 2rem;
+  }
+  
+  .headerContent {
+    flex-direction: column;
+    gap: 1rem;
+  }
+  
+  .infoGrid {
+    grid-template-columns: 1fr;
+  }
+  
+  .riskIndicator {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.5rem;
+  }
+  
+  .riskDetails {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  
+  .abcComponents {
+    flex-wrap: wrap;
+  }
+  
+  .assessmentHeader {
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+  
+  .assessmentMeta {
+    align-items: flex-start;
+  }
+}
+
+@media (max-width: 480px) {
+  .mainImage {
+    height: 250px;
+  }
+  
+  .thumbnails {
+    justify-content: center;
+  }
+  
+  .abcComponents {
+    justify-content: space-around;
+    width: 100%;
+  }
+}
