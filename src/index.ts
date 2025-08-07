@@ -4,7 +4,9 @@
 export * from './types';
 
 // Export services
+export { DataManager } from './services/DataManager';
 export { MockDataService } from './services/MockDataService';
+export { RiskAssessmentService } from './services/RiskAssessmentService';
 export { StorageService } from './services/StorageService';
 
 // Export utilities

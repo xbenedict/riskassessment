@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { MockDataService } from '../../services/MockDataService';
+import { DataManager } from '../../services/DataManager';
 import { RiskCalculator } from '../../utils/RiskCalculator';
 import type { HeritageSite, RiskAssessment } from '../../types';
 import styles from './SiteProfile.module.css';
@@ -23,8 +23,8 @@ export const SiteProfile: React.FC<SiteProfileProps> = ({ siteId, onClose }) => 
         setError(null);
         
         const [siteData, assessments] = await Promise.all([
-          MockDataService.getHeritageSite(siteId),
-          MockDataService.getRiskAssessments(siteId)
+          DataManager.getHeritageSite(siteId),
+          DataManager.getAssessmentsForSite(siteId)
         ]);
 
         if (!siteData) {

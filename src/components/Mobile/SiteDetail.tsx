@@ -1,11 +1,12 @@
 import React, { useState } from 'react';
-import type { HeritageSite } from '../../types';
+import type { HeritageSite, RiskAssessment } from '../../types';
 import { mockSites } from '../../utils/mockData';
-import { DetailedReportForm } from '../Reports/DetailedReportForm';
+import { RiskAssessmentForm } from '../Assessment/RiskAssessmentForm';
+import { AssessmentsList } from '../Assessment/AssessmentsList';
 import { FullAssessmentView } from '../Assessment/FullAssessmentView';
 import { SiteMapView } from '../Map/SiteMapView';
 import { ReportGenerator } from '../Reports/ReportGenerator';
-import { DetailedReportService, type DetailedReport } from '../../services/DetailedReportService';
+import { RiskAssessmentService } from '../../services/RiskAssessmentService';
 import styles from './SiteDetail.module.css';
 
 interface SiteDetailProps {
@@ -15,7 +16,8 @@ interface SiteDetailProps {
 
 export const SiteDetail: React.FC<SiteDetailProps> = ({ siteId, onBack }) => {
   const [activeImageIndex, setActiveImageIndex] = useState(0);
-  const [activeView, setActiveView] = useState<'detail' | 'assessment' | 'map' | 'report' | 'add-report'>('detail');
+  const [activeView, setActiveView] = useState<'detail' | 'assessment' | 'map' | 'report' | 'add-assessment' | 'assessments-list'>('detail');
+  const [selectedAssessment, setSelectedAssessment] = useState<RiskAssessment | null>(null);
   const site = mockSites.find(s => s.id === siteId);
 
   if (!site) {
@@ -69,23 +71,44 @@ export const SiteDetail: React.FC<SiteDetailProps> = ({ siteId, onBack }) => {
     setActiveView('report');
   };
 
-  const handleAddDetailedReport = () => {
-    setActiveView('add-report');
+  const handleAddRiskAssessment = () => {
+    setActiveView('add-assessment');
   };
 
-  const handleReportSubmit = async (report: DetailedReport) => {
+  const handleAssessmentSubmit = async (assessment: Omit<RiskAssessment, 'id'>) => {
     try {
-      await DetailedReportService.saveReport(report);
-      setActiveView('detail');
+      await RiskAssessmentService.saveAssessment(assessment);
+      setActiveView('assessments-list');
       // Could show a success message here
     } catch (error) {
-      console.error('Error saving report:', error);
+      console.error('Error saving assessment:', error);
       // Could show an error message here
     }
   };
 
+  const handleViewAssessmentsList = () => {
+    setActiveView('assessments-list');
+  };
+
+  const handleViewAssessment = (assessment: RiskAssessment) => {
+    setSelectedAssessment(assessment);
+    // For now, just go back to list - we could add a detailed view later
+    setActiveView('assessments-list');
+  };
+
+  const handleEditAssessment = (assessment: RiskAssessment) => {
+    setSelectedAssessment(assessment);
+    setActiveView('add-assessment');
+  };
+
   const handleBackToDetail = () => {
     setActiveView('detail');
+    setSelectedAssessment(null);
+  };
+
+  const handleBackToAssessmentsList = () => {
+    setActiveView('assessments-list');
+    setSelectedAssessment(null);
   };
 
   // Render different views based on activeView state
@@ -111,13 +134,32 @@ export const SiteDetail: React.FC<SiteDetailProps> = ({ siteId, onBack }) => {
     );
   }
 
-  if (activeView === 'add-report') {
+  if (activeView === 'add-assessment') {
     return (
-      <DetailedReportForm
+      <RiskAssessmentForm
         site={site}
-        onSubmit={handleReportSubmit}
-        onCancel={handleBackToDetail}
+        onSubmit={handleAssessmentSubmit}
+        onCancel={selectedAssessment ? handleBackToAssessmentsList : handleBackToDetail}
+        existingAssessment={selectedAssessment || undefined}
       />
+    );
+  }
+
+  if (activeView === 'assessments-list') {
+    return (
+      <div className={styles.reportsListView}>
+        <div className={styles.reportHeader}>
+          <button onClick={handleBackToDetail} className={styles.backButton}>
+            ← Back to Site
+          </button>
+          <h2>Risk Assessments for {site.name}</h2>
+        </div>
+        <AssessmentsList
+          site={site}
+          onViewAssessment={handleViewAssessment}
+          onEditAssessment={handleEditAssessment}
+        />
+      </div>
     );
   }
 
@@ -240,14 +282,22 @@ export const SiteDetail: React.FC<SiteDetailProps> = ({ siteId, onBack }) => {
         </div>
 
         <div className={styles.researcherSection}>
-          <h3>Research Contributions</h3>
-          <p>Add detailed research reports and assessments to contribute to the site's knowledge base.</p>
-          <button 
-            className={`${styles.actionBtn} ${styles.researcher}`}
-            onClick={handleAddDetailedReport}
-          >
-            📝 Add Detailed Report
-          </button>
+          <h3>Risk Assessment Contributions</h3>
+          <p>Add new risk assessments and view existing assessments to contribute to the site's risk management.</p>
+          <div className={styles.researcherActions}>
+            <button 
+              className={`${styles.actionBtn} ${styles.secondary}`}
+              onClick={handleViewAssessmentsList}
+            >
+              📋 View Assessments
+            </button>
+            <button 
+              className={`${styles.actionBtn} ${styles.researcher}`}
+              onClick={handleAddRiskAssessment}
+            >
+              📝 Add Risk Assessment
+            </button>
+          </div>
         </div>
       </div>
     </div>

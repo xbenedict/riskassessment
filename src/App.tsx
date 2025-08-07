@@ -6,6 +6,7 @@ import { Dashboard } from './components/Visualization';
 import { ReportGenerator } from './components/Reports/ReportGenerator';
 import { TrendDashboard } from './components/Analytics/TrendDashboard';
 import { DataManager } from './components/DataManagement/DataManager';
+
 import './App.css';
 
 type ActiveView = 'sites' | 'dashboard' | 'reports' | 'analytics' | 'data-management';

@@ -4,7 +4,7 @@
 import React, { useState, useEffect } from 'react';
 import { RiskChart } from './RiskChart';
 import { SiteMap } from './SiteMap';
-import { MockDataService } from '../../services/MockDataService';
+import { DataManager } from '../../services/DataManager';
 import { RiskCalculator } from '../../utils/RiskCalculator';
 import type { HeritageSite, RiskAssessment, RiskPriority } from '../../types';
 import styles from './Dashboard.module.css';
@@ -65,21 +65,15 @@ export const Dashboard: React.FC<DashboardProps> = ({ className }) => {
       setError(null);
 
       // Load all heritage sites
-      const sitesData = await MockDataService.getHeritageSites();
+      const sitesData = await DataManager.getHeritageSites();
       setSites(sitesData);
 
       // Load all risk assessments
-      const assessmentPromises = sitesData.map(site => 
-        MockDataService.getRiskAssessments(site.id)
-      );
-      const assessmentArrays = await Promise.all(assessmentPromises);
-      const allAssessmentsData = assessmentArrays.flat();
+      const allAssessmentsData = await DataManager.getAllAssessments();
       setAllAssessments(allAssessmentsData);
 
       // Get recent assessments (last 30 days)
-      const thirtyDaysAgo = new Date();
-      thirtyDaysAgo.setDate(thirtyDaysAgo.getDate() - 30);
-      const recentAssessmentsData = await MockDataService.getRecentAssessments(10);
+      const recentAssessmentsData = await DataManager.getRecentAssessments(10);
       setRecentAssessments(recentAssessmentsData);
 
       // Calculate dashboard statistics

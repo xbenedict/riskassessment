@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useMemo } from 'react';
-import { MockDataService } from '../../services/MockDataService';
+import { DataManager } from '../../services/DataManager';
 import type { HeritageSite, SiteStatus, RiskPriority } from '../../types';
 import styles from './SiteList.module.css';
 
@@ -44,7 +44,7 @@ export const SiteList: React.FC<SiteListProps> = ({
       try {
         setLoading(true);
         setError(null);
-        const sitesData = await MockDataService.getHeritageSites();
+        const sitesData = await DataManager.getHeritageSites();
         setSites(sitesData);
       } catch (err) {
         setError('Failed to load heritage sites');

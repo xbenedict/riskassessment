@@ -322,6 +322,17 @@
   line-height: 1.4;
 }
 
+.researcherActions {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.reportsListView {
+  min-height: 100vh;
+  background: var(--color-bg-tertiary);
+}
+
 .reportView {
   min-height: 100vh;
   background: var(--color-bg-tertiary);

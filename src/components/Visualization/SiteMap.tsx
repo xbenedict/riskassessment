@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { MapContainer, TileLayer, Marker, Popup, Circle } from 'react-leaflet';
 import { Icon, LatLngBounds } from 'leaflet';
 import type { HeritageSite, RiskPriority, ThreatType } from '../../types';
-import { MockDataService } from '../../services/MockDataService';
+import { DataManager } from '../../services/DataManager';
 import styles from './SiteMap.module.css';
 
 // Import Leaflet CSS
@@ -76,7 +76,7 @@ export const SiteMap: React.FC<SiteMapProps> = ({
   const loadSites = async () => {
     try {
       setLoading(true);
-      const heritageSites = await MockDataService.getHeritageSites();
+      const heritageSites = await DataManager.getHeritageSites();
       setSites(heritageSites);
     } catch (err) {
       setError('Failed to load heritage sites');
@@ -91,7 +91,7 @@ export const SiteMap: React.FC<SiteMapProps> = ({
       const zones: ThreatZone[] = [];
       
       for (const site of sites) {
-        const assessments = await MockDataService.getRiskAssessments(site.id);
+        const assessments = await DataManager.getAssessmentsForSite(site.id);
         
         // Create threat zones for high-priority threats
         const highRiskThreats = assessments.filter(
