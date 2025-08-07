@@ -2,14 +2,14 @@
 
 .App {
   min-height: 100vh;
-  background: #f8f9fa;
+  background: var(--color-bg-tertiary);
 }
 
 /* Main Navigation Styles */
 .main-navigation {
-  background: #ffffff;
-  border-bottom: 1px solid #dee2e6;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  background: var(--color-bg-primary);
+  border-bottom: 1px solid var(--color-border-light);
+  box-shadow: 0 2px 4px rgba(17, 31, 48, 0.1);
   position: sticky;
   top: 0;
   z-index: 1000;
@@ -17,9 +17,9 @@
 
 .nav-brand {
   padding: 1rem 2rem;
-  border-bottom: 1px solid #e9ecef;
-  background: #2c3e50;
-  color: white;
+  border-bottom: 1px solid var(--color-border-light);
+  background: var(--color-primary);
+  color: var(--color-bg-primary);
   text-align: center;
 }
 
@@ -27,19 +27,19 @@
   margin: 0;
   font-size: 1.5rem;
   font-weight: 600;
-  color: #ffffff;
+  color: var(--color-bg-primary);
 }
 
 .nav-brand span {
   display: block;
   font-size: 0.85rem;
-  color: #bdc3c7;
+  color: var(--color-secondary);
   margin-top: 0.25rem;
 }
 
 .nav-tabs {
   display: flex;
-  background: #ffffff;
+  background: var(--color-bg-primary);
   overflow-x: auto;
 }
 
@@ -51,7 +51,7 @@
   border: none;
   font-size: 0.95rem;
   font-weight: 500;
-  color: #6c757d;
+  color: var(--color-text-muted);
   cursor: pointer;
   transition: all 0.2s ease;
   border-bottom: 3px solid transparent;
@@ -63,14 +63,14 @@
 }
 
 .nav-tab:hover {
-  background: #f8f9fa;
-  color: #495057;
+  background: var(--color-bg-secondary);
+  color: var(--color-text-secondary);
 }
 
 .nav-tab.active {
-  color: #007bff;
-  border-bottom-color: #007bff;
-  background: #f8f9fa;
+  color: var(--color-tertiary);
+  border-bottom-color: var(--color-tertiary);
+  background: var(--color-bg-secondary);
 }
 
 /* Main Content Area */
@@ -114,7 +114,7 @@
   
   /* Touch feedback */
   .nav-tab:active {
-    background: #e9ecef;
+    background: var(--color-secondary-light);
     transform: scale(0.98);
     transition: all 0.1s ease;
   }
@@ -129,7 +129,7 @@
   .nav-tab {
     min-width: auto;
     width: 100%;
-    border-bottom: 1px solid #e9ecef;
+    border-bottom: 1px solid var(--color-border-light);
     border-radius: 0;
     /* Larger touch targets for mobile */
     min-height: 48px;
@@ -137,13 +137,13 @@
   }
   
   .nav-tab.active {
-    border-bottom-color: #007bff;
-    border-left: 4px solid #007bff;
+    border-bottom-color: var(--color-tertiary);
+    border-left: 4px solid var(--color-tertiary);
   }
   
   /* Improved touch feedback for small screens */
   .nav-tab:active {
-    background: #f8f9fa;
+    background: var(--color-bg-tertiary);
     transform: none;
   }
 }
@@ -161,5 +161,5 @@
   margin: 0;
   border-radius: 0;
   box-shadow: none;
-  background: #f8f9fa;
+  background: var(--color-bg-tertiary);
 }

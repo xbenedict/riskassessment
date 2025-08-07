@@ -7,33 +7,35 @@
 }
 
 .card {
-  background: white;
+  background: var(--color-bg-primary);
   border-radius: 8px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 2px 4px rgba(17, 31, 48, 0.1);
   padding: 1.5rem;
   margin-bottom: 1rem;
 }
 
 .button {
-  background: #007bff;
-  color: white;
+  background: var(--color-tertiary);
+  color: var(--color-bg-primary);
   border: none;
   padding: 0.5rem 1rem;
   border-radius: 4px;
   cursor: pointer;
   font-size: 1rem;
+  transition: background-color 0.2s ease;
 }
 
 .button:hover {
-  background: #0056b3;
+  background: var(--color-tertiary-dark);
 }
 
 .buttonSecondary {
-  background: #6c757d;
+  background: var(--color-secondary-dark);
+  color: var(--color-text-primary);
 }
 
 .buttonSecondary:hover {
-  background: #545b62;
+  background: var(--color-secondary);
 }
 
 .formGroup {
@@ -44,27 +46,45 @@
   display: block;
   margin-bottom: 0.5rem;
   font-weight: 500;
+  color: var(--color-text-primary);
 }
 
 .input {
   width: 100%;
   padding: 0.5rem;
-  border: 1px solid #ddd;
+  border: 1px solid var(--color-border-medium);
   border-radius: 4px;
   font-size: 1rem;
+  background: var(--color-bg-primary);
+  color: var(--color-text-primary);
+  transition: border-color 0.2s ease;
+}
+
+.input:focus {
+  outline: none;
+  border-color: var(--color-tertiary);
+  box-shadow: 0 0 0 2px rgba(54, 99, 124, 0.25);
 }
 
 .select {
   width: 100%;
   padding: 0.5rem;
-  border: 1px solid #ddd;
+  border: 1px solid var(--color-border-medium);
   border-radius: 4px;
   font-size: 1rem;
-  background: white;
+  background: var(--color-bg-primary);
+  color: var(--color-text-primary);
+  transition: border-color 0.2s ease;
+}
+
+.select:focus {
+  outline: none;
+  border-color: var(--color-tertiary);
+  box-shadow: 0 0 0 2px rgba(54, 99, 124, 0.25);
 }
 
 .errorMessage {
-  color: #dc3545;
+  color: var(--color-risk-high);
   font-size: 0.875rem;
   margin-top: 0.25rem;
 }
