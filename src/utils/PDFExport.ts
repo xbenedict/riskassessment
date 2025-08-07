@@ -1,319 +1,37 @@
-// PDF Export utility for heritage risk assessment reports
-// Basic implementation using browser's print functionality
-// TODO: Implement full PDF generation using libraries like jsPDF or Puppeteer
+// PDF Export utility for generating heritage risk assessment reports
+// Uses browser's print functionality for PDF generation
 
 import type { RiskAssessmentReport, ComparativeAnalysis } from '../services/ReportService';
 
 /**
- * PDF Export utility for generating PDF reports
- * Currently uses browser print functionality as a basic implementation
- * 
- * TODO: For production deployment:
- * - Implement jsPDF for client-side PDF generation
- * - Add custom PDF templates with proper formatting
- * - Include charts and visualizations in PDF exports
- * - Add digital signatures for official reports
- * - Support for multiple languages and localization
+ * PDF Export utility for heritage risk assessment reports
+ * In production, consider using libraries like jsPDF or Puppeteer for more control
  */
 export class PDFExport {
   
   /**
-   * Generate HTML content for PDF export
-   * @param report Risk assessment report or comparative analysis
-   * @returns HTML string formatted for PDF printing
+   * Export report to PDF using browser print functionality
+   * @param report Report data to export
+   * @param filename Desired filename for the PDF
    */
-  static generatePrintableHTML(report: RiskAssessmentReport | ComparativeAnalysis): string {
-    const isComparative = 'riskComparison' in report;
-    
-    if (isComparative) {
-      return this.generateComparativePrintHTML(report);
-    } else {
-      return this.generateStandardPrintHTML(report);
-    }
-  }
-  
-  /**
-   * Generate HTML for standard risk assessment report
-   * @param report Standard risk assessment report
-   * @returns Formatted HTML string
-   */
-  private static generateStandardPrintHTML(report: RiskAssessmentReport): string {
-    const styles = `
-      <style>
-        @media print {
-          body { margin: 0; font-family: Arial, sans-serif; font-size: 12px; }
-          .page-break { page-break-before: always; }
-          .no-print { display: none; }
-          table { width: 100%; border-collapse: collapse; margin: 1rem 0; }
-          th, td { border: 1px solid #ddd; padding: 8px; text-align: left; }
-          th { background-color: #f5f5f5; font-weight: bold; }
-          .header { text-align: center; margin-bottom: 2rem; }
-          .summary { margin: 1rem 0; }
-          .recommendations { margin: 1rem 0; }
-          .risk-extremely-high { color: #721c24; font-weight: bold; }
-          .risk-very-high { color: #856404; font-weight: bold; }
-          .risk-high { color: #0c5460; font-weight: bold; }
-          .risk-medium-high { color: #383d41; font-weight: bold; }
-          .risk-low { color: #155724; font-weight: bold; }
-        }
-        @page { margin: 2cm; }
-      </style>
-    `;
-    
-    const header = `
-      <div class="header">
-        <h1>Heritage Risk Assessment Report</h1>
-        <h2>${report.site.name}</h2>
-        <p><strong>Location:</strong> ${report.site.location.address}, ${report.site.location.country}</p>
-        <p><strong>Generated:</strong> ${report.generatedAt.toLocaleDateString()} by ${report.generatedBy}</p>
-        <p><strong>Report ID:</strong> ${report.id}</p>
-      </div>
-    `;
-    
-    const siteInfo = `
-      <div class="site-info">
-        <h3>Site Information</h3>
-        <p><strong>Description:</strong> ${report.site.description}</p>
-        <p><strong>Significance:</strong> ${report.site.significance}</p>
-        <p><strong>Current Status:</strong> ${report.site.currentStatus}</p>
-        <p><strong>Last Assessment:</strong> ${report.site.lastAssessment.toLocaleDateString()}</p>
-      </div>
-    `;
-    
-    const summary = `
-      <div class="summary">
-        <h3>Risk Assessment Summary</h3>
-        <table>
-          <tr><td><strong>Total Threats Assessed:</strong></td><td>${report.summary.totalThreats}</td></tr>
-          <tr><td><strong>Highest Risk Level:</strong></td><td class="risk-${report.summary.highestRisk}">${report.summary.highestRisk}</td></tr>
-          <tr><td><strong>Average Risk Magnitude:</strong></td><td>${report.summary.averageMagnitude}</td></tr>
-          <tr><td><strong>Urgent Actions Required:</strong></td><td>${report.summary.urgentActions}</td></tr>
-          <tr><td><strong>Last Assessment Date:</strong></td><td>${report.summary.lastAssessmentDate.toLocaleDateString()}</td></tr>
-        </table>
-      </div>
-    `;
-    
-    const recommendations = `
-      <div class="recommendations">
-        <h3>Key Recommendations</h3>
-        <ol>
-          ${report.recommendations.map(rec => `<li>${rec}</li>`).join('')}
-        </ol>
-      </div>
-    `;
-    
-    const assessmentsTable = `
-      <div class="assessments page-break">
-        <h3>Detailed Risk Assessments</h3>
-        <table>
-          <thead>
-            <tr>
-              <th>Threat Type</th>
-              <th>Probability (A)</th>
-              <th>Loss of Value (B)</th>
-              <th>Fraction Affected (C)</th>
-              <th>Magnitude</th>
-              <th>Priority</th>
-              <th>Uncertainty</th>
-              <th>Assessment Date</th>
-              <th>Assessor</th>
-            </tr>
-          </thead>
-          <tbody>
-            ${report.assessments.map(assessment => `
-              <tr>
-                <td>${assessment.threatType}</td>
-                <td>${assessment.probability}</td>
-                <td>${assessment.lossOfValue}</td>
-                <td>${assessment.fractionAffected}</td>
-                <td>${assessment.magnitude}</td>
-                <td class="risk-${assessment.priority}">${assessment.priority}</td>
-                <td>${assessment.uncertaintyLevel}</td>
-                <td>${assessment.assessmentDate.toLocaleDateString()}</td>
-                <td>${assessment.assessor}</td>
-              </tr>
-            `).join('')}
-          </tbody>
-        </table>
-      </div>
-    `;
-    
-    const notes = `
-      <div class="notes page-break">
-        <h3>Assessment Notes</h3>
-        ${report.assessments.map(assessment => `
-          <div style="margin-bottom: 1rem; border-left: 3px solid #007bff; padding-left: 1rem;">
-            <h4>${assessment.threatType} (${assessment.priority})</h4>
-            <p><strong>Assessor:</strong> ${assessment.assessor}</p>
-            <p><strong>Date:</strong> ${assessment.assessmentDate.toLocaleDateString()}</p>
-            <p><strong>Notes:</strong> ${assessment.notes}</p>
-          </div>
-        `).join('')}
-      </div>
-    `;
-    
-    const footer = `
-      <div class="footer" style="margin-top: 2rem; text-align: center; font-size: 10px; color: #666;">
-        <p>This report follows ICCROM Heritage Risk Assessment Guidelines</p>
-        <p>Generated by Heritage Guardian System - ${new Date().toISOString()}</p>
-      </div>
-    `;
-    
-    return `
-      <!DOCTYPE html>
-      <html>
-        <head>
-          <meta charset="UTF-8">
-          <title>Heritage Risk Assessment Report - ${report.site.name}</title>
-          ${styles}
-        </head>
-        <body>
-          ${header}
-          ${siteInfo}
-          ${summary}
-          ${recommendations}
-          ${assessmentsTable}
-          ${notes}
-          ${footer}
-        </body>
-      </html>
-    `;
-  }
-  
-  /**
-   * Generate HTML for comparative analysis report
-   * @param report Comparative analysis report
-   * @returns Formatted HTML string
-   */
-  private static generateComparativePrintHTML(report: ComparativeAnalysis): string {
-    const styles = `
-      <style>
-        @media print {
-          body { margin: 0; font-family: Arial, sans-serif; font-size: 12px; }
-          .page-break { page-break-before: always; }
-          .no-print { display: none; }
-          table { width: 100%; border-collapse: collapse; margin: 1rem 0; }
-          th, td { border: 1px solid #ddd; padding: 8px; text-align: left; }
-          th { background-color: #f5f5f5; font-weight: bold; }
-          .header { text-align: center; margin-bottom: 2rem; }
-          .risk-extremely-high { color: #721c24; font-weight: bold; }
-          .risk-very-high { color: #856404; font-weight: bold; }
-          .risk-high { color: #0c5460; font-weight: bold; }
-          .risk-medium-high { color: #383d41; font-weight: bold; }
-          .risk-low { color: #155724; font-weight: bold; }
-        }
-        @page { margin: 2cm; }
-      </style>
-    `;
-    
-    const header = `
-      <div class="header">
-        <h1>Heritage Sites Comparative Risk Analysis</h1>
-        <p><strong>Sites Analyzed:</strong> ${report.sites.length}</p>
-        <p><strong>Generated:</strong> ${new Date().toLocaleDateString()}</p>
-      </div>
-    `;
-    
-    const comparisonTable = `
-      <div class="comparison">
-        <h3>Site Risk Comparison</h3>
-        <table>
-          <thead>
-            <tr>
-              <th>Site Name</th>
-              <th>Location</th>
-              <th>Overall Risk</th>
-              <th>Total Assessments</th>
-              <th>Average Magnitude</th>
-              <th>Urgent Threats</th>
-            </tr>
-          </thead>
-          <tbody>
-            ${report.riskComparison.map(site => {
-              const siteInfo = report.sites.find(s => s.id === site.siteId);
-              return `
-                <tr>
-                  <td>${site.siteName}</td>
-                  <td>${siteInfo?.location.address || 'N/A'}</td>
-                  <td class="risk-${site.overallRisk}">${site.overallRisk}</td>
-                  <td>${site.totalAssessments}</td>
-                  <td>${site.averageMagnitude}</td>
-                  <td>${site.urgentThreats}</td>
-                </tr>
-              `;
-            }).join('')}
-          </tbody>
-        </table>
-      </div>
-    `;
-    
-    const regionalTrends = `
-      <div class="regional-trends page-break">
-        <h3>Regional Trends Analysis</h3>
-        <table>
-          <thead>
-            <tr>
-              <th>Country/Region</th>
-              <th>Average Risk Level</th>
-              <th>Common Threats</th>
-            </tr>
-          </thead>
-          <tbody>
-            ${report.regionalTrends.map(trend => `
-              <tr>
-                <td>${trend.country}</td>
-                <td>${trend.averageRisk}</td>
-                <td>${trend.commonThreats.join(', ')}</td>
-              </tr>
-            `).join('')}
-          </tbody>
-        </table>
-      </div>
-    `;
-    
-    const footer = `
-      <div class="footer" style="margin-top: 2rem; text-align: center; font-size: 10px; color: #666;">
-        <p>This report follows ICCROM Heritage Risk Assessment Guidelines</p>
-        <p>Generated by Heritage Guardian System - ${new Date().toISOString()}</p>
-      </div>
-    `;
-    
-    return `
-      <!DOCTYPE html>
-      <html>
-        <head>
-          <meta charset="UTF-8">
-          <title>Heritage Sites Comparative Risk Analysis</title>
-          ${styles}
-        </head>
-        <body>
-          ${header}
-          ${comparisonTable}
-          ${regionalTrends}
-          ${footer}
-        </body>
-      </html>
-    `;
-  }
-  
-  /**
-   * Export report as PDF using browser print functionality
-   * @param report Risk assessment report or comparative analysis
-   * @param filename Optional filename for the PDF
-   */
-  static exportToPDF(report: RiskAssessmentReport | ComparativeAnalysis, filename?: string): void {
-    const htmlContent = this.generatePrintableHTML(report);
-    
+  static exportToPDF(
+    report: RiskAssessmentReport | ComparativeAnalysis, 
+    filename: string = 'heritage-risk-report.pdf'
+  ): void {
     // Create a new window for printing
     const printWindow = window.open('', '_blank');
     if (!printWindow) {
-      alert('Please allow popups to export PDF reports');
+      alert('Please allow popups to generate PDF reports');
       return;
     }
+
+    // Generate HTML content for the report
+    const htmlContent = this.generateReportHTML(report);
     
+    // Write content to the new window
     printWindow.document.write(htmlContent);
     printWindow.document.close();
-    
+
     // Wait for content to load, then trigger print
     printWindow.onload = () => {
       setTimeout(() => {
@@ -322,26 +40,401 @@ export class PDFExport {
         printWindow.onafterprint = () => {
           printWindow.close();
         };
-      }, 500);
+      }, 250);
     };
   }
-  
+
   /**
-   * Generate downloadable HTML file for the report
-   * @param report Risk assessment report or comparative analysis
-   * @param filename Optional filename for the HTML file
+   * Generate HTML content for the report
+   * @param report Report data
+   * @returns HTML string for printing
    */
-  static exportToHTML(report: RiskAssessmentReport | ComparativeAnalysis, filename?: string): void {
-    const htmlContent = this.generatePrintableHTML(report);
-    const blob = new Blob([htmlContent], { type: 'text/html' });
-    const url = URL.createObjectURL(blob);
+  private static generateReportHTML(report: RiskAssessmentReport | ComparativeAnalysis): string {
+    const isComparative = 'riskComparison' in report;
     
-    const link = document.createElement('a');
-    link.href = url;
-    link.download = filename || `heritage-risk-report-${Date.now()}.html`;
-    document.body.appendChild(link);
-    link.click();
-    document.body.removeChild(link);
-    URL.revokeObjectURL(url);
+    return `
+      <!DOCTYPE html>
+      <html>
+        <head>
+          <meta charset="utf-8">
+          <title>${isComparative ? 'Heritage Sites Comparative Analysis' : `Heritage Risk Report - ${(report as RiskAssessmentReport).site?.name}`}</title>
+          <style>
+            ${this.getPrintStyles()}
+          </style>
+        </head>
+        <body>
+          ${isComparative ? this.generateComparativeHTML(report as ComparativeAnalysis) : this.generateStandardHTML(report as RiskAssessmentReport)}
+        </body>
+      </html>
+    `;
+  }
+
+  /**
+   * Generate HTML for standard site report
+   */
+  private static generateStandardHTML(report: RiskAssessmentReport): string {
+    return `
+      <div class="report-container">
+        <header class="report-header">
+          <h1>Heritage Risk Assessment Report</h1>
+          <h2>${report.site.name}</h2>
+          <div class="report-meta">
+            <p><strong>Location:</strong> ${report.site.location.address}</p>
+            <p><strong>Generated:</strong> ${report.generatedAt.toLocaleDateString()}</p>
+            <p><strong>Generated by:</strong> ${report.generatedBy}</p>
+            <p><strong>Report Type:</strong> ${report.reportType.replace('-', ' ').toUpperCase()}</p>
+          </div>
+        </header>
+
+        <section class="executive-summary">
+          <h3>Executive Summary</h3>
+          <div class="summary-stats">
+            <div class="stat-item">
+              <span class="stat-label">Total Threats:</span>
+              <span class="stat-value">${report.summary.totalThreats}</span>
+            </div>
+            <div class="stat-item">
+              <span class="stat-label">Highest Risk:</span>
+              <span class="stat-value risk-${report.summary.highestRisk}">${report.summary.highestRisk.replace('-', ' ').toUpperCase()}</span>
+            </div>
+            <div class="stat-item">
+              <span class="stat-label">Average Magnitude:</span>
+              <span class="stat-value">${report.summary.averageMagnitude}</span>
+            </div>
+            <div class="stat-item">
+              <span class="stat-label">Urgent Actions:</span>
+              <span class="stat-value">${report.summary.urgentActions}</span>
+            </div>
+          </div>
+        </section>
+
+        <section class="site-description">
+          <h3>Site Description</h3>
+          <p>${report.site.description}</p>
+          
+          <h4>Historical Significance</h4>
+          <p>${report.site.significance}</p>
+          
+          <div class="site-status">
+            <p><strong>Current Status:</strong> <span class="status-${report.site.currentStatus}">${report.site.currentStatus.replace('-', ' ').toUpperCase()}</span></p>
+            <p><strong>Last Assessment:</strong> ${new Date(report.site.lastAssessment).toLocaleDateString()}</p>
+          </div>
+        </section>
+
+        <section class="recommendations">
+          <h3>Key Recommendations</h3>
+          <ol>
+            ${report.recommendations.map(rec => `<li>${rec}</li>`).join('')}
+          </ol>
+        </section>
+
+        <section class="risk-assessments">
+          <h3>Detailed Risk Assessments</h3>
+          <p class="methodology-note">Following ABC Scale methodology: A=Probability, B=Loss of Value, C=Fraction Affected</p>
+          
+          <table class="assessments-table">
+            <thead>
+              <tr>
+                <th>Threat Type</th>
+                <th>Priority</th>
+                <th>A</th>
+                <th>B</th>
+                <th>C</th>
+                <th>Magnitude</th>
+                <th>Uncertainty</th>
+                <th>Assessment Date</th>
+                <th>Assessor</th>
+              </tr>
+            </thead>
+            <tbody>
+              ${report.assessments.map(assessment => `
+                <tr>
+                  <td>${assessment.threatType.replace('-', ' ').replace(/\b\w/g, l => l.toUpperCase())}</td>
+                  <td class="priority-${assessment.priority}">${assessment.priority.replace('-', ' ').toUpperCase()}</td>
+                  <td>${assessment.probability}</td>
+                  <td>${assessment.lossOfValue}</td>
+                  <td>${assessment.fractionAffected}</td>
+                  <td><strong>${assessment.magnitude}</strong></td>
+                  <td>${assessment.uncertaintyLevel.toUpperCase()}</td>
+                  <td>${new Date(assessment.assessmentDate).toLocaleDateString()}</td>
+                  <td>${assessment.assessor}</td>
+                </tr>
+              `).join('')}
+            </tbody>
+          </table>
+        </section>
+
+        <footer class="report-footer">
+          <p>This report follows ICCROM Heritage Risk Assessment Guidelines</p>
+          <p>Generated by Heritage Guardian System on ${new Date().toLocaleDateString()}</p>
+        </footer>
+      </div>
+    `;
+  }
+
+  /**
+   * Generate HTML for comparative analysis report
+   */
+  private static generateComparativeHTML(report: ComparativeAnalysis): string {
+    return `
+      <div class="report-container">
+        <header class="report-header">
+          <h1>Heritage Sites Comparative Analysis</h1>
+          <div class="report-meta">
+            <p><strong>Sites Analyzed:</strong> ${report.sites.length}</p>
+            <p><strong>Generated:</strong> ${new Date().toLocaleDateString()}</p>
+          </div>
+        </header>
+
+        <section class="comparative-overview">
+          <h3>Risk Comparison Summary</h3>
+          <table class="comparison-table">
+            <thead>
+              <tr>
+                <th>Site Name</th>
+                <th>Location</th>
+                <th>Overall Risk</th>
+                <th>Total Assessments</th>
+                <th>Average Magnitude</th>
+                <th>Urgent Threats</th>
+              </tr>
+            </thead>
+            <tbody>
+              ${report.riskComparison.map(site => `
+                <tr>
+                  <td><strong>${site.siteName}</strong></td>
+                  <td>${report.sites.find(s => s.id === site.siteId)?.location.address || 'N/A'}</td>
+                  <td class="risk-${site.overallRisk}">${site.overallRisk.replace('-', ' ').toUpperCase()}</td>
+                  <td>${site.totalAssessments}</td>
+                  <td>${site.averageMagnitude}</td>
+                  <td>${site.urgentThreats}</td>
+                </tr>
+              `).join('')}
+            </tbody>
+          </table>
+        </section>
+
+        <section class="regional-trends">
+          <h3>Regional Trends</h3>
+          ${report.regionalTrends.map(trend => `
+            <div class="trend-item">
+              <h4>${trend.country}</h4>
+              <p><strong>Average Risk Level:</strong> ${trend.averageRisk}</p>
+              <p><strong>Common Threats:</strong> ${trend.commonThreats.map(t => t.replace('-', ' ').replace(/\b\w/g, l => l.toUpperCase())).join(', ')}</p>
+            </div>
+          `).join('')}
+        </section>
+
+        <footer class="report-footer">
+          <p>This comparative analysis follows international heritage risk assessment standards</p>
+          <p>Generated by Heritage Guardian System on ${new Date().toLocaleDateString()}</p>
+        </footer>
+      </div>
+    `;
+  }
+
+  /**
+   * Get CSS styles for print layout
+   */
+  private static getPrintStyles(): string {
+    return `
+      @page {
+        margin: 1in;
+        size: A4;
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      body {
+        font-family: 'Times New Roman', serif;
+        font-size: 12pt;
+        line-height: 1.4;
+        color: #000;
+        margin: 0;
+        padding: 0;
+      }
+
+      .report-container {
+        max-width: 100%;
+        margin: 0 auto;
+      }
+
+      .report-header {
+        text-align: center;
+        margin-bottom: 30px;
+        padding-bottom: 20px;
+        border-bottom: 2px solid #333;
+      }
+
+      .report-header h1 {
+        font-size: 18pt;
+        font-weight: bold;
+        margin: 0 0 10px 0;
+        color: #2c3e50;
+      }
+
+      .report-header h2 {
+        font-size: 16pt;
+        font-weight: bold;
+        margin: 0 0 15px 0;
+        color: #34495e;
+      }
+
+      .report-meta {
+        text-align: left;
+        margin-top: 15px;
+      }
+
+      .report-meta p {
+        margin: 5px 0;
+        font-size: 11pt;
+      }
+
+      h3 {
+        font-size: 14pt;
+        font-weight: bold;
+        color: #2c3e50;
+        margin: 25px 0 15px 0;
+        border-bottom: 1px solid #bdc3c7;
+        padding-bottom: 5px;
+      }
+
+      h4 {
+        font-size: 12pt;
+        font-weight: bold;
+        color: #34495e;
+        margin: 20px 0 10px 0;
+      }
+
+      p {
+        margin: 10px 0;
+        text-align: justify;
+      }
+
+      .summary-stats {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 15px;
+        margin: 20px 0;
+      }
+
+      .stat-item {
+        display: flex;
+        justify-content: space-between;
+        padding: 10px;
+        border: 1px solid #bdc3c7;
+        border-radius: 4px;
+      }
+
+      .stat-label {
+        font-weight: bold;
+      }
+
+      .stat-value {
+        font-weight: bold;
+      }
+
+      .risk-extremely-high { color: #dc3545; }
+      .risk-very-high { color: #ff6b35; }
+      .risk-high { color: #ffc107; }
+      .risk-medium-high { color: #fd7e14; }
+      .risk-low { color: #28a745; }
+
+      .status-active { color: #28a745; }
+      .status-at-risk { color: #ffc107; }
+      .status-critical { color: #dc3545; }
+      .status-stable { color: #17a2b8; }
+
+      .recommendations ol {
+        padding-left: 20px;
+      }
+
+      .recommendations li {
+        margin: 8px 0;
+        line-height: 1.5;
+      }
+
+      .methodology-note {
+        font-style: italic;
+        color: #666;
+        margin-bottom: 15px;
+      }
+
+      table {
+        width: 100%;
+        border-collapse: collapse;
+        margin: 20px 0;
+        font-size: 10pt;
+      }
+
+      th, td {
+        border: 1px solid #bdc3c7;
+        padding: 8px;
+        text-align: left;
+        vertical-align: top;
+      }
+
+      th {
+        background-color: #ecf0f1;
+        font-weight: bold;
+        text-align: center;
+      }
+
+      .priority-extremely-high { background-color: #ffebee; color: #dc3545; font-weight: bold; }
+      .priority-very-high { background-color: #fff3e0; color: #ff6b35; font-weight: bold; }
+      .priority-high { background-color: #fffbf0; color: #ffc107; font-weight: bold; }
+      .priority-medium-high { background-color: #fff8f0; color: #fd7e14; font-weight: bold; }
+      .priority-low { background-color: #f1f8e9; color: #28a745; font-weight: bold; }
+
+      .trend-item {
+        margin: 15px 0;
+        padding: 15px;
+        border: 1px solid #bdc3c7;
+        border-radius: 4px;
+      }
+
+      .trend-item h4 {
+        margin-top: 0;
+      }
+
+      .report-footer {
+        margin-top: 40px;
+        padding-top: 20px;
+        border-top: 1px solid #bdc3c7;
+        text-align: center;
+        font-size: 10pt;
+        color: #666;
+      }
+
+      .report-footer p {
+        margin: 5px 0;
+      }
+
+      /* Page break controls */
+      .executive-summary,
+      .site-description,
+      .recommendations,
+      .risk-assessments {
+        page-break-inside: avoid;
+      }
+
+      h3 {
+        page-break-after: avoid;
+      }
+
+      /* Print-specific adjustments */
+      @media print {
+        body {
+          -webkit-print-color-adjust: exact;
+          print-color-adjust: exact;
+        }
+        
+        .report-container {
+          box-shadow: none;
+        }
+      }
+    `;
   }
 }

@@ -1,6 +1,11 @@
 import React, { useState } from 'react';
 import type { HeritageSite } from '../../types';
 import { mockSites } from '../../utils/mockData';
+import { DetailedReportForm } from '../Reports/DetailedReportForm';
+import { FullAssessmentView } from '../Assessment/FullAssessmentView';
+import { SiteMapView } from '../Map/SiteMapView';
+import { ReportGenerator } from '../Reports/ReportGenerator';
+import { DetailedReportService, type DetailedReport } from '../../services/DetailedReportService';
 import styles from './SiteDetail.module.css';
 
 interface SiteDetailProps {
@@ -10,6 +15,7 @@ interface SiteDetailProps {
 
 export const SiteDetail: React.FC<SiteDetailProps> = ({ siteId, onBack }) => {
   const [activeImageIndex, setActiveImageIndex] = useState(0);
+  const [activeView, setActiveView] = useState<'detail' | 'assessment' | 'map' | 'report' | 'add-report'>('detail');
   const site = mockSites.find(s => s.id === siteId);
 
   if (!site) {
@@ -50,6 +56,70 @@ export const SiteDetail: React.FC<SiteDetailProps> = ({ siteId, onBack }) => {
       default: return '❓';
     }
   };
+
+  const handleViewFullAssessment = () => {
+    setActiveView('assessment');
+  };
+
+  const handleViewOnMap = () => {
+    setActiveView('map');
+  };
+
+  const handleGenerateReport = () => {
+    setActiveView('report');
+  };
+
+  const handleAddDetailedReport = () => {
+    setActiveView('add-report');
+  };
+
+  const handleReportSubmit = async (report: DetailedReport) => {
+    try {
+      await DetailedReportService.saveReport(report);
+      setActiveView('detail');
+      // Could show a success message here
+    } catch (error) {
+      console.error('Error saving report:', error);
+      // Could show an error message here
+    }
+  };
+
+  const handleBackToDetail = () => {
+    setActiveView('detail');
+  };
+
+  // Render different views based on activeView state
+  if (activeView === 'assessment') {
+    return <FullAssessmentView site={site} onClose={handleBackToDetail} />;
+  }
+
+  if (activeView === 'map') {
+    return <SiteMapView site={site} onClose={handleBackToDetail} />;
+  }
+
+  if (activeView === 'report') {
+    return (
+      <div className={styles.reportView}>
+        <div className={styles.reportHeader}>
+          <button onClick={handleBackToDetail} className={styles.backButton}>
+            ← Back to Site
+          </button>
+          <h2>Generate Report for {site.name}</h2>
+        </div>
+        <ReportGenerator selectedSites={[site]} />
+      </div>
+    );
+  }
+
+  if (activeView === 'add-report') {
+    return (
+      <DetailedReportForm
+        site={site}
+        onSubmit={handleReportSubmit}
+        onCancel={handleBackToDetail}
+      />
+    );
+  }
 
   return (
     <div className={styles.siteDetail}>
@@ -149,14 +219,34 @@ export const SiteDetail: React.FC<SiteDetailProps> = ({ siteId, onBack }) => {
         </div>
 
         <div className={styles.actionButtons}>
-          <button className={`${styles.actionBtn} ${styles.primary}`}>
+          <button 
+            className={`${styles.actionBtn} ${styles.primary}`}
+            onClick={handleViewFullAssessment}
+          >
             📊 View Full Assessment
           </button>
-          <button className={`${styles.actionBtn} ${styles.secondary}`}>
+          <button 
+            className={`${styles.actionBtn} ${styles.secondary}`}
+            onClick={handleViewOnMap}
+          >
             📍 View on Map
           </button>
-          <button className={`${styles.actionBtn} ${styles.secondary}`}>
+          <button 
+            className={`${styles.actionBtn} ${styles.secondary}`}
+            onClick={handleGenerateReport}
+          >
             📋 Generate Report
+          </button>
+        </div>
+
+        <div className={styles.researcherSection}>
+          <h3>Research Contributions</h3>
+          <p>Add detailed research reports and assessments to contribute to the site's knowledge base.</p>
+          <button 
+            className={`${styles.actionBtn} ${styles.researcher}`}
+            onClick={handleAddDetailedReport}
+          >
+            📝 Add Detailed Report
           </button>
         </div>
       </div>

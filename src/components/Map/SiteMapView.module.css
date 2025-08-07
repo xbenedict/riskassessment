@@ -1,0 +1,428 @@
+.mapView {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: white;
+  z-index: 1000;
+  display: flex;
+  flex-direction: column;
+}
+
+.header {
+  background: linear-gradient(135deg, #2c3e50 0%, #34495e 100%);
+  color: white;
+  padding: 20px 24px;
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+.backButton {
+  background: rgba(255, 255, 255, 0.2);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  color: white;
+  padding: 8px 16px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 14px;
+  transition: background-color 0.2s;
+}
+
+.backButton:hover {
+  background: rgba(255, 255, 255, 0.3);
+}
+
+.headerInfo h1 {
+  margin: 0 0 4px 0;
+  font-size: 1.2rem;
+  font-weight: 600;
+  opacity: 0.9;
+}
+
+.headerInfo h2 {
+  margin: 0;
+  font-size: 1.6rem;
+  font-weight: 700;
+}
+
+.mapContainer {
+  flex: 1;
+  display: flex;
+  overflow: hidden;
+}
+
+.mapArea {
+  flex: 1;
+  position: relative;
+  background: #f0f8ff;
+}
+
+.mapLoading {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  color: #666;
+}
+
+.loadingSpinner {
+  width: 40px;
+  height: 40px;
+  border: 4px solid #e0e0e0;
+  border-top: 4px solid #3498db;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+  margin-bottom: 16px;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+.mapPlaceholder {
+  width: 100%;
+  height: 100%;
+  position: relative;
+  background: linear-gradient(45deg, #e8f4f8 25%, transparent 25%), 
+              linear-gradient(-45deg, #e8f4f8 25%, transparent 25%), 
+              linear-gradient(45deg, transparent 75%, #e8f4f8 75%), 
+              linear-gradient(-45deg, transparent 75%, #e8f4f8 75%);
+  background-size: 20px 20px;
+  background-position: 0 0, 0 10px, 10px -10px, -10px 0px;
+}
+
+.mapOverlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+}
+
+.centerMarker {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  text-align: center;
+}
+
+.nearbyMarker {
+  position: absolute;
+  text-align: center;
+  cursor: pointer;
+  transition: transform 0.2s;
+}
+
+.nearbyMarker:hover {
+  transform: scale(1.1);
+}
+
+.siteMarker {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 20px;
+  color: white;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+  margin: 0 auto 8px auto;
+}
+
+.markerLabel {
+  background: rgba(0, 0, 0, 0.8);
+  color: white;
+  padding: 4px 8px;
+  border-radius: 4px;
+  font-size: 12px;
+  white-space: nowrap;
+  max-width: 120px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.mapInfo {
+  position: absolute;
+  bottom: 20px;
+  left: 20px;
+  background: rgba(255, 255, 255, 0.95);
+  padding: 16px;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+}
+
+.mapInfo p {
+  margin: 0 0 8px 0;
+  color: #333;
+  font-size: 14px;
+}
+
+.coordinates {
+  font-family: monospace;
+  font-size: 12px;
+  color: #666;
+}
+
+.sidebar {
+  width: 350px;
+  background: white;
+  border-left: 1px solid #e0e0e0;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+}
+
+.siteDetails {
+  padding: 20px;
+  border-bottom: 1px solid #e0e0e0;
+}
+
+.siteImage {
+  position: relative;
+  margin-bottom: 16px;
+}
+
+.siteImage img {
+  width: 100%;
+  height: 200px;
+  object-fit: cover;
+  border-radius: 8px;
+}
+
+.riskBadge {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  padding: 6px 12px;
+  border-radius: 4px;
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: white;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.siteInfo h3 {
+  margin: 0 0 8px 0;
+  color: #2c3e50;
+  font-size: 1.3rem;
+}
+
+.address {
+  color: #666;
+  font-size: 0.9rem;
+  margin: 0 0 12px 0;
+}
+
+.description {
+  color: #555;
+  line-height: 1.5;
+  font-size: 0.9rem;
+  margin: 0 0 20px 0;
+}
+
+.locationDetails {
+  margin-bottom: 20px;
+}
+
+.locationItem {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 8px;
+  font-size: 0.9rem;
+}
+
+.label {
+  color: #666;
+  font-weight: 500;
+}
+
+.value {
+  color: #333;
+}
+
+.value.status {
+  font-weight: 600;
+  text-transform: uppercase;
+}
+
+.threats h4 {
+  margin: 0 0 12px 0;
+  color: #2c3e50;
+  font-size: 1rem;
+}
+
+.threatsList {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.threatItem {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px;
+  background: #f8f9fa;
+  border-radius: 4px;
+}
+
+.threatIcon {
+  font-size: 1.2rem;
+}
+
+.threatName {
+  font-size: 0.9rem;
+  color: #333;
+}
+
+.nearbySites {
+  padding: 20px;
+  border-bottom: 1px solid #e0e0e0;
+}
+
+.nearbySites h4 {
+  margin: 0 0 16px 0;
+  color: #2c3e50;
+  font-size: 1rem;
+}
+
+.nearbyList {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.nearbyItem {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 12px;
+  background: #f8f9fa;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.nearbyItem:hover {
+  background: #e9ecef;
+}
+
+.nearbyInfo {
+  flex: 1;
+}
+
+.nearbyName {
+  font-weight: 500;
+  color: #333;
+  font-size: 0.9rem;
+  margin-bottom: 2px;
+}
+
+.nearbyDistance {
+  font-size: 0.8rem;
+  color: #666;
+}
+
+.nearbyRisk {
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  font-weight: 600;
+  font-size: 0.8rem;
+}
+
+.mapControls {
+  padding: 20px;
+  border-bottom: 1px solid #e0e0e0;
+}
+
+.mapControls h4 {
+  margin: 0 0 16px 0;
+  color: #2c3e50;
+  font-size: 1rem;
+}
+
+.controlButtons {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px;
+}
+
+.controlBtn {
+  padding: 8px 12px;
+  border: 1px solid #ddd;
+  background: white;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 0.8rem;
+  transition: background-color 0.2s;
+}
+
+.controlBtn:hover {
+  background: #f8f9fa;
+}
+
+.legend {
+  padding: 20px;
+}
+
+.legend h4 {
+  margin: 0 0 16px 0;
+  color: #2c3e50;
+  font-size: 1rem;
+}
+
+.legendItems {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.legendItem {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.9rem;
+}
+
+.legendColor {
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+}
+
+/* Mobile responsiveness */
+@media (max-width: 768px) {
+  .mapContainer {
+    flex-direction: column;
+  }
+
+  .sidebar {
+    width: 100%;
+    max-height: 40vh;
+    order: -1;
+  }
+
+  .mapArea {
+    min-height: 60vh;
+  }
+
+  .controlButtons {
+    grid-template-columns: 1fr;
+  }
+
+  .siteImage img {
+    height: 150px;
+  }
+}

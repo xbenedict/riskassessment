@@ -287,8 +287,60 @@
   color: white;
 }
 
+.actionBtn.researcher {
+  background: #3498db;
+  color: white;
+}
+
+.actionBtn.researcher:hover {
+  background: #2980b9;
+}
+
 .actionBtn:active {
   transform: scale(0.98);
+}
+
+.researcherSection {
+  margin-top: 2rem;
+  padding: 1.5rem;
+  background: #f8f9fa;
+  border-radius: 12px;
+  border-left: 4px solid #3498db;
+}
+
+.researcherSection h3 {
+  margin: 0 0 0.5rem 0;
+  color: var(--color-primary);
+  font-size: 1.1rem;
+  font-weight: 600;
+}
+
+.researcherSection p {
+  margin: 0 0 1rem 0;
+  color: var(--color-text-muted);
+  font-size: 0.9rem;
+  line-height: 1.4;
+}
+
+.reportView {
+  min-height: 100vh;
+  background: var(--color-bg-tertiary);
+}
+
+.reportHeader {
+  background: var(--color-bg-primary);
+  padding: 1.5rem;
+  border-bottom: 1px solid var(--color-border-light);
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.reportHeader h2 {
+  margin: 0;
+  color: var(--color-primary);
+  font-size: 1.3rem;
+  font-weight: 600;
 }
 
 .errorMessage {
