@@ -4,6 +4,9 @@
 /* Import Design System Components */
 @import './styles/components.css';
 
+/* Import Animation System */
+@import './styles/animations.css';
+
 :root {
   /* ===== DESIGN SYSTEM FOUNDATION ===== */
   

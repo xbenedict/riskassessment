@@ -24,10 +24,31 @@
   /* Ensure minimum touch target */
   min-height: 44px;
   
-  /* Focus styles */
+  /* Enhanced micro-interactions */
+  transform-origin: center;
+  
+  /* Ripple effect setup */
+  &::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 0;
+    height: 0;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.3);
+    transform: translate(-50%, -50%);
+    transition: width var(--duration-slow) var(--timing-decelerate),
+                height var(--duration-slow) var(--timing-decelerate);
+    pointer-events: none;
+    opacity: 0;
+  }
+  
+  /* Focus styles with enhanced animation */
   &:focus-visible {
     outline: 2px solid var(--color-tertiary);
     outline-offset: 2px;
+    animation: focusRing var(--duration-normal) var(--timing-decelerate);
   }
   
   /* Disabled state */
@@ -36,6 +57,16 @@
     cursor: not-allowed;
     transform: none !important;
     box-shadow: none !important;
+  }
+  
+  /* Active ripple effect */
+  &:active:not(:disabled)::before {
+    width: 300px;
+    height: 300px;
+    opacity: 1;
+    transition: width var(--duration-fast) var(--timing-accelerate),
+                height var(--duration-fast) var(--timing-accelerate),
+                opacity var(--duration-fast) var(--timing-accelerate);
   }
 }
 

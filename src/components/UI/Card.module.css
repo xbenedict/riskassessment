@@ -62,20 +62,51 @@
 /* Interactive State */
 .card--interactive {
   cursor: pointer;
+  position: relative;
+  overflow: hidden;
   
+  /* Enhanced hover animation */
   &:hover {
-    transform: translateY(-2px);
+    transform: translateY(-4px);
     box-shadow: var(--shadow-lg);
   }
   
+  /* Smooth active state */
   &:active {
-    transform: translateY(-1px) scale(0.99);
+    transform: translateY(-2px) scale(0.99);
     transition: transform var(--duration-fast) var(--timing-accelerate);
   }
   
+  /* Enhanced focus state */
   &:focus-visible {
     outline: 2px solid var(--color-tertiary);
     outline-offset: 2px;
+    animation: focusRing var(--duration-normal) var(--timing-decelerate);
+  }
+  
+  /* Subtle glow effect on hover */
+  &:hover::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(
+      135deg,
+      rgba(54, 99, 124, 0.05) 0%,
+      rgba(54, 99, 124, 0.02) 50%,
+      rgba(54, 99, 124, 0.05) 100%
+    );
+    pointer-events: none;
+    opacity: 0;
+    animation: cardGlow var(--duration-normal) var(--timing-decelerate) forwards;
+  }
+}
+
+@keyframes cardGlow {
+  to {
+    opacity: 1;
   }
 }
 

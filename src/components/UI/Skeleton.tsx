@@ -2,10 +2,11 @@ import React from 'react';
 import styles from './Skeleton.module.css';
 
 export interface SkeletonProps {
-  variant?: 'text' | 'rectangular' | 'circular';
+  variant?: 'text' | 'rectangular' | 'circular' | 'avatar' | 'button' | 'card';
   width?: string | number;
   height?: string | number;
   lines?: number;
+  animation?: 'pulse' | 'wave' | 'none';
   className?: string;
 }
 
@@ -14,11 +15,13 @@ export const Skeleton: React.FC<SkeletonProps> = ({
   width,
   height,
   lines = 1,
+  animation = 'wave',
   className = ''
 }) => {
   const skeletonClasses = [
     styles.skeleton,
     styles[`skeleton--${variant}`],
+    styles[`skeleton--${animation}`],
     className
   ].filter(Boolean).join(' ');
 
@@ -29,14 +32,15 @@ export const Skeleton: React.FC<SkeletonProps> = ({
 
   if (variant === 'text' && lines > 1) {
     return (
-      <div className={styles.skeletonGroup}>
+      <div className={styles.skeletonGroup} role="status" aria-label="Loading content">
         {Array.from({ length: lines }, (_, index) => (
           <div
             key={index}
             className={skeletonClasses}
             style={{
               ...style,
-              width: index === lines - 1 ? '75%' : style.width || '100%'
+              width: index === lines - 1 ? '60%' : style.width || '100%',
+              animationDelay: `${index * 100}ms` // Stagger animation
             }}
           />
         ))}
@@ -48,6 +52,8 @@ export const Skeleton: React.FC<SkeletonProps> = ({
     <div
       className={skeletonClasses}
       style={style}
+      role="status"
+      aria-label="Loading content"
     />
   );
 };

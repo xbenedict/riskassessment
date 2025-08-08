@@ -1,0 +1,174 @@
+/* Animation Demo Component Styles */
+.demo {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: var(--space-8);
+  background: var(--color-bg-tertiary);
+  min-height: 100vh;
+}
+
+.section {
+  margin-bottom: var(--space-12);
+  padding: var(--space-6);
+  background: var(--color-bg-primary);
+  border-radius: var(--radius-xl);
+  box-shadow: var(--shadow-sm);
+}
+
+.section h2 {
+  color: var(--color-primary);
+  margin-bottom: var(--space-4);
+  font-size: var(--font-size-display-medium);
+}
+
+.section h3 {
+  color: var(--color-tertiary);
+  margin-bottom: var(--space-6);
+  font-size: var(--font-size-heading-large);
+}
+
+.section h4 {
+  color: var(--color-text-primary);
+  margin-bottom: var(--space-3);
+  font-size: var(--font-size-heading-medium);
+}
+
+.section p {
+  color: var(--color-text-secondary);
+  margin-bottom: var(--space-4);
+  line-height: var(--line-height-relaxed);
+}
+
+/* Button Group */
+.buttonGroup {
+  display: flex;
+  gap: var(--space-4);
+  flex-wrap: wrap;
+  align-items: center;
+}
+
+/* Card Grid */
+.cardGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: var(--space-6);
+  margin-bottom: var(--space-6);
+}
+
+/* Form Demo */
+.formDemo {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+  max-width: 400px;
+}
+
+/* Progress Demo */
+.progressDemo {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+  max-width: 500px;
+}
+
+/* Loading Demo */
+.loadingDemo {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-6);
+}
+
+.skeletonGroup {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+  padding: var(--space-6);
+  background: var(--color-bg-secondary);
+  border-radius: var(--radius-lg);
+}
+
+.skeletonRow {
+  display: flex;
+  gap: var(--space-4);
+  align-items: center;
+}
+
+/* Toast Demo */
+.toastDemo {
+  position: relative;
+}
+
+.toastContainer {
+  position: fixed;
+  top: var(--space-6);
+  right: var(--space-6);
+  z-index: var(--z-toast);
+}
+
+/* Utility Demo */
+.utilityDemo {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: var(--space-4);
+}
+
+.utilityDemo > div {
+  cursor: pointer;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .demo {
+    padding: var(--space-4);
+  }
+  
+  .section {
+    padding: var(--space-4);
+    margin-bottom: var(--space-8);
+  }
+  
+  .cardGrid {
+    grid-template-columns: 1fr;
+    gap: var(--space-4);
+  }
+  
+  .buttonGroup {
+    flex-direction: column;
+    align-items: stretch;
+  }
+  
+  .utilityDemo {
+    grid-template-columns: 1fr;
+  }
+  
+  .toastContainer {
+    top: var(--space-4);
+    right: var(--space-4);
+    left: var(--space-4);
+  }
+}
+
+/* Animation Enhancements */
+.section:nth-child(odd) {
+  animation: slideInLeft var(--duration-normal) var(--timing-decelerate);
+}
+
+.section:nth-child(even) {
+  animation: slideInRight var(--duration-normal) var(--timing-decelerate);
+}
+
+.section:nth-child(1) { animation-delay: 0ms; }
+.section:nth-child(2) { animation-delay: 100ms; }
+.section:nth-child(3) { animation-delay: 200ms; }
+.section:nth-child(4) { animation-delay: 300ms; }
+.section:nth-child(5) { animation-delay: 400ms; }
+.section:nth-child(6) { animation-delay: 500ms; }
+.section:nth-child(7) { animation-delay: 600ms; }
+.section:nth-child(8) { animation-delay: 700ms; }
+
+/* Reduced motion support */
+@media (prefers-reduced-motion: reduce) {
+  .section {
+    animation: none;
+  }
+}

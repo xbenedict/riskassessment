@@ -32,24 +32,41 @@
   font-family: var(--font-family-primary);
   color: var(--color-text-primary);
   transition: all var(--duration-normal) var(--timing-standard);
+  position: relative;
   
   /* Prevent zoom on iOS */
   font-size: 16px;
   
   &::placeholder {
     color: var(--color-text-muted);
+    transition: color var(--duration-normal) var(--timing-standard);
   }
   
+  /* Enhanced focus state with smooth animation */
   &:focus {
     outline: none;
     border-color: var(--color-tertiary);
     box-shadow: 0 0 0 3px rgba(54, 99, 124, 0.1);
+    transform: translateY(-1px);
+  }
+  
+  /* Hover state for better interactivity */
+  &:hover:not(:disabled):not(:focus) {
+    border-color: var(--color-tertiary-light);
+    box-shadow: 0 2px 4px rgba(17, 31, 48, 0.04);
+  }
+  
+  /* Smooth placeholder animation on focus */
+  &:focus::placeholder {
+    color: transparent;
+    transform: translateY(-2px);
   }
   
   &:disabled {
     background-color: var(--color-bg-secondary);
     color: var(--color-text-muted);
     cursor: not-allowed;
+    transform: none;
   }
 }
 
