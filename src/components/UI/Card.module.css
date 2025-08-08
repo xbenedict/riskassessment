@@ -1,0 +1,105 @@
+/* Card Component Styles */
+.card {
+  background-color: var(--color-bg-primary);
+  border-radius: var(--radius-xl);
+  border: 1px solid var(--color-border-light);
+  transition: all var(--duration-normal) var(--timing-standard);
+  position: relative;
+  overflow: hidden;
+}
+
+/* Card Variants */
+.card--default {
+  background-color: var(--color-bg-primary);
+  border: 1px solid var(--color-border-light);
+}
+
+.card--elevated {
+  background-color: var(--color-bg-primary);
+  border: none;
+  box-shadow: var(--shadow-md);
+}
+
+.card--outlined {
+  background-color: var(--color-bg-primary);
+  border: 2px solid var(--color-border-medium);
+}
+
+/* Padding Variants */
+.card--padding-none {
+  padding: 0;
+}
+
+.card--padding-small {
+  padding: var(--space-4);
+}
+
+.card--padding-medium {
+  padding: var(--space-6);
+}
+
+.card--padding-large {
+  padding: var(--space-8);
+}
+
+/* Shadow Variants */
+.card--shadow-none {
+  box-shadow: none;
+}
+
+.card--shadow-small {
+  box-shadow: var(--shadow-sm);
+}
+
+.card--shadow-medium {
+  box-shadow: var(--shadow-md);
+}
+
+.card--shadow-large {
+  box-shadow: var(--shadow-lg);
+}
+
+/* Interactive State */
+.card--interactive {
+  cursor: pointer;
+  
+  &:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-lg);
+  }
+  
+  &:active {
+    transform: translateY(-1px) scale(0.99);
+    transition: transform var(--duration-fast) var(--timing-accelerate);
+  }
+  
+  &:focus-visible {
+    outline: 2px solid var(--color-tertiary);
+    outline-offset: 2px;
+  }
+}
+
+/* Ensure interactive cards maintain shadow hierarchy */
+.card--interactive.card--shadow-small:hover {
+  box-shadow: var(--shadow-md);
+}
+
+.card--interactive.card--shadow-medium:hover {
+  box-shadow: var(--shadow-lg);
+}
+
+.card--interactive.card--shadow-large:hover {
+  box-shadow: var(--shadow-xl);
+}
+
+/* Reduced motion support */
+@media (prefers-reduced-motion: reduce) {
+  .card {
+    transition: none;
+  }
+  
+  .card--interactive:hover,
+  .card--interactive:active {
+    transform: none;
+  }
+}

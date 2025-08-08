@@ -186,7 +186,6 @@ export const Icon: React.FC<IconProps> = ({
       color={color}
       strokeWidth={strokeWidth}
       aria-label={ariaLabel}
-      title={title}
     />
   );
 };

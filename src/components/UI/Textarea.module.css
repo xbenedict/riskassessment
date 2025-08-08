@@ -1,0 +1,126 @@
+/* Textarea Component Styles */
+.textareaContainer {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+}
+
+.textareaContainer--fullWidth {
+  width: 100%;
+}
+
+.label {
+  font-size: var(--font-size-body-small);
+  font-weight: var(--font-weight-medium);
+  color: var(--color-text-primary);
+  margin-bottom: var(--space-1);
+}
+
+.textarea {
+  width: 100%;
+  min-height: 120px;
+  padding: var(--space-3) var(--space-4);
+  border: 1px solid var(--color-border-medium);
+  border-radius: var(--radius-md);
+  background-color: var(--color-bg-primary);
+  font-size: var(--font-size-body-medium);
+  font-family: var(--font-family-primary);
+  color: var(--color-text-primary);
+  line-height: var(--line-height-normal);
+  transition: all var(--duration-normal) var(--timing-standard);
+  
+  &::placeholder {
+    color: var(--color-text-muted);
+  }
+  
+  &:focus {
+    outline: none;
+    border-color: var(--color-tertiary);
+    box-shadow: 0 0 0 3px rgba(54, 99, 124, 0.1);
+  }
+  
+  &:disabled {
+    background-color: var(--color-bg-secondary);
+    color: var(--color-text-muted);
+    cursor: not-allowed;
+  }
+}
+
+/* Textarea Variants */
+.textarea--default {
+  background-color: var(--color-bg-primary);
+  border: 1px solid var(--color-border-medium);
+}
+
+.textarea--filled {
+  background-color: var(--color-bg-secondary);
+  border: 1px solid transparent;
+  
+  &:focus {
+    background-color: var(--color-bg-primary);
+    border-color: var(--color-tertiary);
+  }
+}
+
+.textarea--outlined {
+  background-color: transparent;
+  border: 2px solid var(--color-border-medium);
+  
+  &:focus {
+    border-color: var(--color-tertiary);
+  }
+}
+
+/* Error State */
+.textarea--error {
+  border-color: var(--color-risk-high);
+  
+  &:focus {
+    border-color: var(--color-risk-high);
+    box-shadow: 0 0 0 3px rgba(220, 53, 69, 0.1);
+  }
+}
+
+/* Resize Options */
+.textarea--resize-none {
+  resize: none;
+}
+
+.textarea--resize-vertical {
+  resize: vertical;
+}
+
+.textarea--resize-horizontal {
+  resize: horizontal;
+}
+
+.textarea--resize-both {
+  resize: both;
+}
+
+/* Help Text */
+.textareaHelp {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1);
+}
+
+.textareaError {
+  display: flex;
+  align-items: center;
+  gap: var(--space-1);
+  font-size: var(--font-size-body-small);
+  color: var(--color-risk-high);
+}
+
+.textareaHelperText {
+  font-size: var(--font-size-body-small);
+  color: var(--color-text-muted);
+}
+
+/* Reduced motion support */
+@media (prefers-reduced-motion: reduce) {
+  .textarea {
+    transition: none;
+  }
+}

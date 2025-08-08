@@ -1,0 +1,71 @@
+/* Spinner Component Styles */
+.spinner {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.spinnerCircle {
+  border-radius: 50%;
+  border-style: solid;
+  border-top-color: transparent;
+  animation: spin 1s linear infinite;
+}
+
+/* Spinner Sizes */
+.spinner--small .spinnerCircle {
+  width: 16px;
+  height: 16px;
+  border-width: 2px;
+}
+
+.spinner--medium .spinnerCircle {
+  width: 24px;
+  height: 24px;
+  border-width: 2px;
+}
+
+.spinner--large .spinnerCircle {
+  width: 32px;
+  height: 32px;
+  border-width: 3px;
+}
+
+/* Spinner Colors */
+.spinner--primary .spinnerCircle {
+  border-color: var(--color-primary);
+  border-top-color: transparent;
+}
+
+.spinner--secondary .spinnerCircle {
+  border-color: var(--color-secondary-dark);
+  border-top-color: transparent;
+}
+
+.spinner--tertiary .spinnerCircle {
+  border-color: var(--color-tertiary);
+  border-top-color: transparent;
+}
+
+.spinner--white .spinnerCircle {
+  border-color: rgba(255, 255, 255, 0.3);
+  border-top-color: white;
+}
+
+/* Spin Animation */
+@keyframes spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* Reduced motion support */
+@media (prefers-reduced-motion: reduce) {
+  .spinnerCircle {
+    animation: none;
+    border-top-color: var(--color-tertiary);
+  }
+}
