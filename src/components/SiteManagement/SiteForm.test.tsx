@@ -204,7 +204,7 @@ describe('SiteForm', () => {
     const user = userEvent.setup();
     render(<SiteForm onSave={mockOnSave} onCancel={mockOnCancel} />);
     
-    const uploadButton = screen.getByText('📷 Add Photos');
+    const uploadButton = screen.getByText('Add Photos');
     expect(uploadButton).toBeInTheDocument();
     
     // Note: File upload testing is complex with jsdom, so we just verify the button exists

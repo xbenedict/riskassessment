@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import { MapContainer, TileLayer, Marker, Popup, Circle } from 'react-leaflet';
-import { Icon, LatLngBounds } from 'leaflet';
+import { Icon as LeafletIcon, LatLngBounds } from 'leaflet';
 import type { HeritageSite, RiskPriority, ThreatType } from '../../types';
 import { DataManager } from '../../services/DataManager';
+import { Icon } from '../UI';
 import styles from './SiteMap.module.css';
 
 // Import Leaflet CSS
@@ -147,7 +148,7 @@ export const SiteMap: React.FC<SiteMapProps> = ({
       </svg>
     `;
 
-    return new Icon({
+    return new LeafletIcon({
       iconUrl: `data:image/svg+xml;base64,${btoa(svgIcon)}`,
       iconSize: [size, size],
       iconAnchor: [size / 2, size / 2],
@@ -288,7 +289,7 @@ export const SiteMap: React.FC<SiteMapProps> = ({
                 <div className={styles.popupContent}>
                   <h4>{site.name}</h4>
                   <p className={styles.location}>
-                    📍 {site.location.address}, {site.location.country}
+                    <Icon name="map-pin" size="sm" /> {site.location.address}, {site.location.country}
                   </p>
                   
                   <div className={styles.riskInfo}>

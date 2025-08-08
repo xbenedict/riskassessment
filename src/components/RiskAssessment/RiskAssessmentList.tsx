@@ -2,6 +2,7 @@ import React, { useState, useMemo } from 'react';
 import { RiskCalculator } from '../../utils/RiskCalculator';
 import type { RiskAssessment, ThreatType, RiskPriority } from '../../types';
 import { ThreatType as ThreatTypeEnum } from '../../types';
+import { Icon } from '../UI';
 import styles from './RiskAssessmentList.module.css';
 
 interface RiskAssessmentListProps {
@@ -173,7 +174,9 @@ export const RiskAssessmentList: React.FC<RiskAssessmentListProps> = ({
     return (
       <div className={styles.listContainer}>
         <div className={styles.emptyState}>
-          <div className={styles.emptyStateIcon}>📊</div>
+          <div className={styles.emptyStateIcon}>
+            <Icon name="bar-chart" size="xl" />
+          </div>
           <div className={styles.emptyStateTitle}>No Risk Assessments</div>
           <div className={styles.emptyStateMessage}>
             No risk assessments have been created yet. Start by creating your first assessment to track and prioritize threats to heritage sites.
@@ -262,7 +265,9 @@ export const RiskAssessmentList: React.FC<RiskAssessmentListProps> = ({
 
       {filteredAndSortedAssessments.length === 0 ? (
         <div className={styles.emptyState}>
-          <div className={styles.emptyStateIcon}>🔍</div>
+          <div className={styles.emptyStateIcon}>
+            <Icon name="search" size="xl" />
+          </div>
           <div className={styles.emptyStateTitle}>No Matching Assessments</div>
           <div className={styles.emptyStateMessage}>
             No assessments match your current filters. Try adjusting your search criteria or clearing filters.

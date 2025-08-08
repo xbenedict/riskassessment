@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import type { HeritageSite } from '../../types';
 import { mockSites } from '../../utils/mockData';
+import { Icon, type IconName } from '../UI';
 import styles from './SiteMapView.module.css';
 
 interface SiteMapViewProps {
@@ -33,18 +34,18 @@ export const SiteMapView: React.FC<SiteMapViewProps> = ({ site, onClose }) => {
     }
   };
 
-  const getThreatIcon = (threat: string) => {
+  const getThreatIcon = (threat: string): IconName => {
     switch (threat) {
-      case 'earthquake': return '🌍';
-      case 'flooding': return '🌊';
-      case 'weathering': return '🌧️';
-      case 'vegetation': return '🌿';
-      case 'urban-development': return '🏗️';
-      case 'tourism-pressure': return '👥';
-      case 'looting': return '⚠️';
-      case 'conflict': return '⚔️';
-      case 'climate-change': return '🌡️';
-      default: return '❓';
+      case 'earthquake': return 'globe';
+      case 'flooding': return 'waves';
+      case 'weathering': return 'cloud-rain';
+      case 'vegetation': return 'leaf';
+      case 'urban-development': return 'building';
+      case 'tourism-pressure': return 'users';
+      case 'looting': return 'alert-triangle';
+      case 'conflict': return 'swords';
+      case 'climate-change': return 'thermometer';
+      default: return 'help-circle';
     }
   };
 
@@ -101,7 +102,7 @@ export const SiteMapView: React.FC<SiteMapViewProps> = ({ site, onClose }) => {
                     className={styles.siteMarker}
                     style={{ backgroundColor: getRiskColor(selectedSite.riskProfile.overallRisk) }}
                   >
-                    📍
+                    <Icon name="map-pin" size="sm" />
                   </div>
                   <div className={styles.markerLabel}>
                     {selectedSite.name}
@@ -123,7 +124,7 @@ export const SiteMapView: React.FC<SiteMapViewProps> = ({ site, onClose }) => {
                       className={styles.siteMarker}
                       style={{ backgroundColor: getRiskColor(site.riskProfile.overallRisk) }}
                     >
-                      📍
+                      <Icon name="map-pin" size="sm" />
                     </div>
                     <div className={styles.markerLabel}>
                       {site.name}
@@ -135,7 +136,7 @@ export const SiteMapView: React.FC<SiteMapViewProps> = ({ site, onClose }) => {
               <div className={styles.mapInfo}>
                 <p>Interactive map showing {selectedSite.name} and nearby heritage sites</p>
                 <div className={styles.coordinates}>
-                  <span>📍 {selectedSite.location.latitude.toFixed(4)}, {selectedSite.location.longitude.toFixed(4)}</span>
+                  <span><Icon name="map-pin" size="sm" /> {selectedSite.location.latitude.toFixed(4)}, {selectedSite.location.longitude.toFixed(4)}</span>
                 </div>
               </div>
             </div>
@@ -186,7 +187,9 @@ export const SiteMapView: React.FC<SiteMapViewProps> = ({ site, onClose }) => {
                 <div className={styles.threatsList}>
                   {selectedSite.riskProfile.activeThreats.map((threat, index) => (
                     <div key={index} className={styles.threatItem}>
-                      <span className={styles.threatIcon}>{getThreatIcon(threat)}</span>
+                      <span className={styles.threatIcon}>
+                        <Icon name={getThreatIcon(threat)} size="sm" />
+                      </span>
                       <span className={styles.threatName}>
                         {threat.replace('-', ' ').replace(/\b\w/g, l => l.toUpperCase())}
                       </span>
@@ -226,10 +229,10 @@ export const SiteMapView: React.FC<SiteMapViewProps> = ({ site, onClose }) => {
           <div className={styles.mapControls}>
             <h4>Map Controls</h4>
             <div className={styles.controlButtons}>
-              <button className={styles.controlBtn}>🔍 Zoom In</button>
-              <button className={styles.controlBtn}>🔍 Zoom Out</button>
-              <button className={styles.controlBtn}>🌍 Satellite View</button>
-              <button className={styles.controlBtn}>📍 Center on Site</button>
+              <button className={styles.controlBtn}><Icon name="search" size="sm" /> Zoom In</button>
+              <button className={styles.controlBtn}><Icon name="search" size="sm" /> Zoom Out</button>
+              <button className={styles.controlBtn}><Icon name="globe" size="sm" /> Satellite View</button>
+              <button className={styles.controlBtn}><Icon name="map-pin" size="sm" /> Center on Site</button>
             </div>
           </div>
 

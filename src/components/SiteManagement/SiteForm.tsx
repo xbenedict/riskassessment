@@ -3,6 +3,7 @@ import { MapContainer, TileLayer, Marker, useMapEvents } from 'react-leaflet';
 import { LatLng } from 'leaflet';
 import { MockDataService } from '../../services/MockDataService';
 import type { HeritageSite, SiteStatus, ThreatType } from '../../types';
+import { Icon } from '../UI';
 import styles from './SiteForm.module.css';
 
 interface SiteFormProps {
@@ -301,7 +302,7 @@ export const SiteForm: React.FC<SiteFormProps> = ({ siteId, onSave, onCancel }) 
       <div className={styles.header}>
         <h1>{isEditMode ? 'Edit Heritage Site' : 'Add New Heritage Site'}</h1>
         <button onClick={onCancel} className={styles.closeButton}>
-          ✕
+          <Icon name="x" size="md" />
         </button>
       </div>
 
@@ -460,7 +461,7 @@ export const SiteForm: React.FC<SiteFormProps> = ({ siteId, onSave, onCancel }) 
                 onClick={() => fileInputRef.current?.click()}
                 className={styles.uploadButton}
               >
-                📷 Add Photos
+                <Icon name="camera" size="sm" /> Add Photos
               </button>
             </div>
             
@@ -474,7 +475,7 @@ export const SiteForm: React.FC<SiteFormProps> = ({ siteId, onSave, onCancel }) 
                       onClick={() => removeImage(index)}
                       className={styles.removeImageButton}
                     >
-                      ✕
+                      <Icon name="x" size="sm" />
                     </button>
                   </div>
                 ))}

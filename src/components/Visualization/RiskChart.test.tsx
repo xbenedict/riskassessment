@@ -64,8 +64,8 @@ describe('RiskChart', () => {
     );
 
     expect(screen.getByTestId('bar-chart')).toBeInTheDocument();
-    expect(screen.getByText('📊 PNG')).toBeInTheDocument();
-    expect(screen.getByText('📊 JPEG')).toBeInTheDocument();
+    expect(screen.getByText('PNG')).toBeInTheDocument();
+    expect(screen.getByText('JPEG')).toBeInTheDocument();
   });
 
   it('renders category chart correctly', () => {
@@ -113,8 +113,8 @@ describe('RiskChart', () => {
       />
     );
 
-    expect(screen.queryByText('📊 PNG')).not.toBeInTheDocument();
-    expect(screen.queryByText('📊 JPEG')).not.toBeInTheDocument();
+    expect(screen.queryByText('PNG')).not.toBeInTheDocument();
+    expect(screen.queryByText('JPEG')).not.toBeInTheDocument();
   });
 
   it('shows risk priority legend for magnitude chart', () => {

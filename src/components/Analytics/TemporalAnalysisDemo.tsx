@@ -3,6 +3,7 @@
 
 import React from 'react';
 import { TemporalAnalysis } from './TemporalAnalysis';
+import { Icon } from '../UI';
 import styles from './TemporalAnalysisDemo.module.css';
 
 /**
@@ -26,15 +27,15 @@ export const TemporalAnalysisDemo: React.FC = () => {
 
       <div className={styles.features}>
         <div className={styles.feature}>
-          <h3>📈 Time-Series Analysis</h3>
+          <h3><Icon name="trending-up" size="md" /> Time-Series Analysis</h3>
           <p>Track risk evolution over time with interactive charts showing magnitude trends and forecasting.</p>
         </div>
         <div className={styles.feature}>
-          <h3>🔄 Comparative Analysis</h3>
+          <h3><Icon name="bar-chart-3" size="md" /> Comparative Analysis</h3>
           <p>Compare risk trends across multiple heritage sites with correlation analysis.</p>
         </div>
         <div className={styles.feature}>
-          <h3>⚠️ Threat Evolution</h3>
+          <h3><Icon name="alert-triangle" size="md" /> Threat Evolution</h3>
           <p>Analyze specific threat types over time with critical period identification.</p>
         </div>
       </div>

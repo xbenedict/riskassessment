@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { DataManager } from '../../services/DataManager';
 import { RiskCalculator } from '../../utils/RiskCalculator';
 import type { HeritageSite, RiskAssessment } from '../../types';
+import { Icon } from '../UI';
 import styles from './SiteProfile.module.css';
 
 interface SiteProfileProps {
@@ -115,7 +116,7 @@ export const SiteProfile: React.FC<SiteProfileProps> = ({ siteId, onClose }) => 
     <div className={styles.container}>
       {onClose && (
         <button onClick={onClose} className={styles.closeButton}>
-          ✕
+          <Icon name="x" size="md" />
         </button>
       )}
       
@@ -130,7 +131,7 @@ export const SiteProfile: React.FC<SiteProfileProps> = ({ siteId, onClose }) => 
           </div>
         </div>
         <div className={styles.location}>
-          📍 {site.location.address}, {site.location.country}
+          <Icon name="map-pin" size="sm" /> {site.location.address}, {site.location.country}
         </div>
         <div className={styles.coordinates}>
           {site.location.latitude.toFixed(4)}°N, {site.location.longitude.toFixed(4)}°E

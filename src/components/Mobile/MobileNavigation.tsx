@@ -1,5 +1,6 @@
 import React from 'react';
 import styles from './MobileNavigation.module.css';
+import { Icon, type IconName } from '../UI';
 
 type ActiveView = 'sites' | 'dashboard' | 'reports' | 'analytics' | 'data-management';
 
@@ -19,11 +20,11 @@ export const MobileNavigation: React.FC<MobileNavigationProps> = ({
   }
 
   const navItems = [
-    { id: 'sites' as const, icon: '🏛️', label: 'Sites' },
-    { id: 'dashboard' as const, icon: '📊', label: 'Dashboard' },
-    { id: 'analytics' as const, icon: '📈', label: 'Analytics' },
-    { id: 'reports' as const, icon: '📋', label: 'Reports' },
-    { id: 'data-management' as const, icon: '💾', label: 'Data' },
+    { id: 'sites' as const, icon: 'map-pin' as IconName, label: 'Sites' },
+    { id: 'dashboard' as const, icon: 'bar-chart-3' as IconName, label: 'Dashboard' },
+    { id: 'analytics' as const, icon: 'trending-up' as IconName, label: 'Analytics' },
+    { id: 'reports' as const, icon: 'file-text' as IconName, label: 'Reports' },
+    { id: 'data-management' as const, icon: 'database' as IconName, label: 'Data' },
   ];
 
   return (
@@ -35,7 +36,9 @@ export const MobileNavigation: React.FC<MobileNavigationProps> = ({
             className={`${styles.navItem} ${activeView === item.id ? styles.active : ''}`}
             onClick={() => onViewChange(item.id)}
           >
-            <span className={styles.navIcon}>{item.icon}</span>
+            <span className={styles.navIcon}>
+              <Icon name={item.icon} size="md" />
+            </span>
             <span className={styles.navLabel}>{item.label}</span>
           </button>
         ))}

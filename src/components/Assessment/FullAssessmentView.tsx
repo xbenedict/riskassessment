@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import type { HeritageSite, RiskAssessment } from '../../types';
 import { MockDataService } from '../../services/MockDataService';
 import { RiskCalculator } from '../../utils/RiskCalculator';
+import { Icon, type IconName } from '../UI';
 import styles from './FullAssessmentView.module.css';
 
 interface FullAssessmentViewProps {
@@ -46,18 +47,18 @@ export const FullAssessmentView: React.FC<FullAssessmentViewProps> = ({
     }
   };
 
-  const getThreatIcon = (threat: string) => {
+  const getThreatIcon = (threat: string): IconName => {
     switch (threat) {
-      case 'earthquake': return '🌍';
-      case 'flooding': return '🌊';
-      case 'weathering': return '🌧️';
-      case 'vegetation': return '🌿';
-      case 'urban-development': return '🏗️';
-      case 'tourism-pressure': return '👥';
-      case 'looting': return '⚠️';
-      case 'conflict': return '⚔️';
-      case 'climate-change': return '🌡️';
-      default: return '❓';
+      case 'earthquake': return 'globe';
+      case 'flooding': return 'waves';
+      case 'weathering': return 'cloud-rain';
+      case 'vegetation': return 'leaf';
+      case 'urban-development': return 'building';
+      case 'tourism-pressure': return 'users';
+      case 'looting': return 'alert-triangle';
+      case 'conflict': return 'swords';
+      case 'climate-change': return 'thermometer';
+      default: return 'help-circle';
     }
   };
 
@@ -210,7 +211,9 @@ export const FullAssessmentView: React.FC<FullAssessmentViewProps> = ({
               <div className={styles.threatsGrid}>
                 {site.riskProfile.activeThreats.map((threat, index) => (
                   <div key={index} className={styles.threatCard}>
-                    <span className={styles.threatIcon}>{getThreatIcon(threat)}</span>
+                    <span className={styles.threatIcon}>
+                      <Icon name={getThreatIcon(threat)} size="md" />
+                    </span>
                     <span className={styles.threatName}>
                       {threat.replace('-', ' ').replace(/\b\w/g, l => l.toUpperCase())}
                     </span>

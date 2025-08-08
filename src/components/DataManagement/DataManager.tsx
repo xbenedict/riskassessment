@@ -9,6 +9,7 @@ import {
 } from '../../services/DataExportImportService';
 import { MockDataService } from '../../services/MockDataService';
 import type { HeritageSite, RiskAssessment } from '../../types';
+import { Icon } from '../UI';
 import styles from './DataManager.module.css';
 
 type ActiveTab = 'export' | 'import' | 'validation';
@@ -414,7 +415,7 @@ export const DataManager: React.FC<DataManagerProps> = ({
             
             {validationResult.success && (
               <div className={styles.validationSuccess}>
-                <p>✅ File is valid and ready for import!</p>
+                <p><Icon name="check-circle" size="sm" color="#28a745" /> File is valid and ready for import!</p>
               </div>
             )}
           </div>

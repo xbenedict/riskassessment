@@ -7,6 +7,7 @@ import { FullAssessmentView } from '../Assessment/FullAssessmentView';
 import { SiteMapView } from '../Map/SiteMapView';
 import { ReportGenerator } from '../Reports/ReportGenerator';
 import { RiskAssessmentService } from '../../services/RiskAssessmentService';
+import { Icon, type IconName } from '../UI';
 import styles from './SiteDetail.module.css';
 
 interface SiteDetailProps {
@@ -44,18 +45,18 @@ export const SiteDetail: React.FC<SiteDetailProps> = ({ siteId, onBack }) => {
     }
   };
 
-  const getThreatIcon = (threat: string) => {
+  const getThreatIcon = (threat: string): IconName => {
     switch (threat) {
-      case 'earthquake': return '🌍';
-      case 'flooding': return '🌊';
-      case 'weathering': return '🌧️';
-      case 'vegetation': return '🌿';
-      case 'urban-development': return '🏗️';
-      case 'tourism-pressure': return '👥';
-      case 'looting': return '⚠️';
-      case 'conflict': return '⚔️';
-      case 'climate-change': return '🌡️';
-      default: return '❓';
+      case 'earthquake': return 'globe';
+      case 'flooding': return 'waves';
+      case 'weathering': return 'cloud-rain';
+      case 'vegetation': return 'leaf';
+      case 'urban-development': return 'building';
+      case 'tourism-pressure': return 'users';
+      case 'looting': return 'alert-triangle';
+      case 'conflict': return 'swords';
+      case 'climate-change': return 'thermometer';
+      default: return 'help-circle';
     }
   };
 
@@ -203,7 +204,9 @@ export const SiteDetail: React.FC<SiteDetailProps> = ({ siteId, onBack }) => {
       <div className={styles.siteContent}>
         <div className={styles.siteHeader}>
           <h1>{site.name}</h1>
-          <p className={styles.location}>📍 {site.location.address}</p>
+          <p className={styles.location}>
+            <Icon name="map-pin" size="sm" /> {site.location.address}
+          </p>
         </div>
 
         <div className={styles.infoSection}>
@@ -238,7 +241,9 @@ export const SiteDetail: React.FC<SiteDetailProps> = ({ siteId, onBack }) => {
             <div className={styles.threatsGrid}>
               {site.riskProfile.activeThreats.map((threat, index) => (
                 <div key={index} className={styles.threatItem}>
-                  <span className={styles.threatIcon}>{getThreatIcon(threat)}</span>
+                  <span className={styles.threatIcon}>
+                    <Icon name={getThreatIcon(threat)} size="md" />
+                  </span>
                   <span className={styles.threatName}>
                     {threat.replace('-', ' ').replace(/\b\w/g, l => l.toUpperCase())}
                   </span>
@@ -265,19 +270,19 @@ export const SiteDetail: React.FC<SiteDetailProps> = ({ siteId, onBack }) => {
             className={`${styles.actionBtn} ${styles.primary}`}
             onClick={handleViewFullAssessment}
           >
-            📊 View Full Assessment
+            <Icon name="bar-chart" size="sm" /> View Full Assessment
           </button>
           <button 
             className={`${styles.actionBtn} ${styles.secondary}`}
             onClick={handleViewOnMap}
           >
-            📍 View on Map
+            <Icon name="map-pin" size="sm" /> View on Map
           </button>
           <button 
             className={`${styles.actionBtn} ${styles.secondary}`}
             onClick={handleGenerateReport}
           >
-            📋 Generate Report
+            <Icon name="file-text" size="sm" /> Generate Report
           </button>
         </div>
 
@@ -289,13 +294,13 @@ export const SiteDetail: React.FC<SiteDetailProps> = ({ siteId, onBack }) => {
               className={`${styles.actionBtn} ${styles.secondary}`}
               onClick={handleViewAssessmentsList}
             >
-              📋 View Assessments
+              <Icon name="file-text" size="sm" /> View Assessments
             </button>
             <button 
               className={`${styles.actionBtn} ${styles.researcher}`}
               onClick={handleAddRiskAssessment}
             >
-              📝 Add Risk Assessment
+              <Icon name="edit-3" size="sm" /> Add Risk Assessment
             </button>
           </div>
         </div>

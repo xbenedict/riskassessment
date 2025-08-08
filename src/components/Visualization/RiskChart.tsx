@@ -16,6 +16,7 @@ import type { ChartOptions, ChartData } from 'chart.js';
 import { Bar, Pie, getElementAtEvent } from 'react-chartjs-2';
 import type { RiskAssessment, ThreatType, RiskPriority } from '../../types';
 import { RiskCalculator } from '../../utils/RiskCalculator';
+import { Icon } from '../UI';
 import styles from './RiskChart.module.css';
 
 // Register Chart.js components
@@ -344,14 +345,14 @@ export const RiskChart: React.FC<RiskChartProps> = ({
             className={styles.exportButton}
             title="Export as PNG"
           >
-            📊 PNG
+            <Icon name="download" size="sm" /> PNG
           </button>
           <button 
             onClick={() => exportChart('jpeg')}
             className={styles.exportButton}
             title="Export as JPEG"
           >
-            📊 JPEG
+            <Icon name="download" size="sm" /> JPEG
           </button>
         </div>
       )}

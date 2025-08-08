@@ -183,7 +183,7 @@ describe('SiteProfile', () => {
       expect(screen.getByText('Test Heritage Site')).toBeInTheDocument();
     });
 
-    const closeButton = screen.getByText('✕');
+    const closeButton = screen.getByRole('button', { name: /close/i });
     closeButton.click();
     
     expect(mockOnClose).toHaveBeenCalledTimes(1);

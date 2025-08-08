@@ -1,6 +1,7 @@
 import React from 'react';
 import type { HeritageSite } from '../../types';
 import { mockSites } from '../../utils/mockData';
+import { Icon } from '../UI';
 import styles from './SiteGallery.module.css';
 
 interface SiteGalleryProps {
@@ -72,7 +73,10 @@ export const SiteGallery: React.FC<SiteGalleryProps> = ({ onSiteSelect }) => {
             
             <div className={styles.siteInfo}>
               <h3>{site.name}</h3>
-              <p className={styles.siteLocation}>{site.location.address}</p>
+              <p className={styles.siteLocation}>
+                <Icon name="map-pin" size="sm" />
+                {site.location.address}
+              </p>
               <p className={styles.siteDescription}>{site.description}</p>
               
               <div className={styles.siteMeta}>

@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useMemo } from 'react';
 import { DataManager } from '../../services/DataManager';
 import type { HeritageSite, SiteStatus, RiskPriority } from '../../types';
+import { Icon } from '../UI';
 import styles from './SiteList.module.css';
 
 interface SiteListProps {
@@ -183,9 +184,9 @@ export const SiteList: React.FC<SiteListProps> = ({
     }).format(date);
   };
 
-  const getSortIcon = (field: SortField): string => {
-    if (sortField !== field) return '↕️';
-    return sortDirection === 'asc' ? '↑' : '↓';
+  const getSortIcon = (field: SortField) => {
+    if (sortField !== field) return <Icon name="arrow-up-down" size="sm" />;
+    return sortDirection === 'asc' ? <Icon name="arrow-up" size="sm" /> : <Icon name="arrow-down" size="sm" />;
   };
 
   if (loading) {
@@ -377,7 +378,7 @@ export const SiteList: React.FC<SiteListProps> = ({
                           className={styles.actionButton}
                           title="View Details"
                         >
-                          👁️
+                          <Icon name="eye" size="sm" />
                         </button>
                       )}
                       {onSiteEdit && (
@@ -386,7 +387,7 @@ export const SiteList: React.FC<SiteListProps> = ({
                           className={styles.actionButton}
                           title="Edit Site"
                         >
-                          ✏️
+                          <Icon name="edit-3" size="sm" />
                         </button>
                       )}
                     </div>

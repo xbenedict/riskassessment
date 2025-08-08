@@ -100,9 +100,10 @@
   gap: 0.25rem;
 }
 
-.siteLocation::before {
-  content: "📍";
-  font-size: 0.8rem;
+.siteLocation {
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
 }
 
 .siteDescription {
