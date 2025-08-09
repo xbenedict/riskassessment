@@ -25,6 +25,7 @@ import {
   Eye,
   Camera,
   X,
+  ArrowRight,
   
   // Threat icons
   Globe,
@@ -45,6 +46,10 @@ import {
   
   // Chart icons
   BarChart,
+  
+  // Additional icons
+  Calendar,
+  User,
   
   type LucideIcon
 } from 'lucide-react';
@@ -75,6 +80,7 @@ export type IconName =
   | 'eye'
   | 'camera'
   | 'x'
+  | 'arrow-right'
   
   // Threats
   | 'globe'
@@ -94,7 +100,11 @@ export type IconName =
   | 'arrow-down'
   
   // Chart
-  | 'bar-chart';
+  | 'bar-chart'
+  
+  // Additional
+  | 'calendar'
+  | 'user';
 
 const iconMap: Record<IconName, LucideIcon> = {
   // Navigation
@@ -122,6 +132,7 @@ const iconMap: Record<IconName, LucideIcon> = {
   'eye': Eye,
   'camera': Camera,
   'x': X,
+  'arrow-right': ArrowRight,
   
   // Threats
   'globe': Globe,
@@ -142,6 +153,10 @@ const iconMap: Record<IconName, LucideIcon> = {
   
   // Chart
   'bar-chart': BarChart,
+  
+  // Additional
+  'calendar': Calendar,
+  'user': User,
 };
 
 export interface IconProps {

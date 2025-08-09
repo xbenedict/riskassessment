@@ -2,6 +2,7 @@ export { Icon, type IconProps, type IconName } from './Icon';
 export { Button, type ButtonProps } from './Button';
 export { Card, type CardProps } from './Card';
 export { Input, type InputProps } from './Input';
+export { Select, type SelectProps, type SelectOption } from './Select';
 export { Textarea, type TextareaProps } from './Textarea';
 export { Spinner, type SpinnerProps } from './Spinner';
 export { Loading, type LoadingProps } from './Loading';
