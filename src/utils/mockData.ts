@@ -3,14 +3,32 @@ import type { HeritageSite } from '../types';
 
 // Import images
 import petraImage from '../assets/images/PETRA_06+3-2.webp';
+import petraImage2 from '../assets/images/petra2.jpg';
+import petraImage3 from '../assets/images/petra3.jpg';
 import jerashImage from '../assets/images/jerash.jpg';
+import jerashImage2 from '../assets/images/jerash2.webp';
+import jerashImage3 from '../assets/images/jerash3.jpg';
 import ummQaisImage from '../assets/images/umm qais.jpg';
+import ummQaisImage2 from '../assets/images/umqais2.jpg';
+import ummQaisImage3 from '../assets/images/umqais3.jpg';
 import ammanCitadelImage from '../assets/images/amman-citadel.webp';
+import ammanCitadelImage2 from '../assets/images/ammancitadel2.webp';
+import ammanCitadelImage3 from '../assets/images/ammancitadel3.jpg';
 import wadiRumImage from '../assets/images/wadi rum.jpg';
+import wadiRumImage2 from '../assets/images/wadirum2.jpg';
+import wadiRumImage3 from '../assets/images/wadirum3.jpg';
 import kerakCastleImage from '../assets/images/kerak castle.jpg';
+import kerakCastleImage2 from '../assets/images/kerakcastle2.webp';
+import kerakCastleImage3 from '../assets/images/kerakcastle3.webp';
 import ajlounCastleImage from '../assets/images/ajloun castle.jpg';
+import ajlounCastleImage2 from '../assets/images/ajlouncastle2.jpg';
+import ajlounCastleImage3 from '../assets/images/ajlouncastle3.jpg';
 import madabaImage from '../assets/images/Madaba Archaeological Park 1.jpg';
+import madabaImage2 from '../assets/images/madabaarchaeologicalpark2.jpg';
+import madabaImage3 from '../assets/images/madabaarchaeologicalpark3.jpg';
 import qasrAmraImage from '../assets/images/Qusayr_Amra.jpg';
+import qasrAmraImage2 from '../assets/images/qusayramra2.jpg';
+import qasrAmraImage3 from '../assets/images/qusayramra3.jpg';
 
 // Mock archaeological heritage sites in Jordan with realistic data
 export const mockSites: HeritageSite[] = [
@@ -34,8 +52,8 @@ export const mockSites: HeritageSite[] = [
     },
     images: [
       petraImage,
-      petraImage,
-      petraImage
+      petraImage2,
+      petraImage3
     ],
     createdAt: new Date('2023-01-01'),
     updatedAt: new Date('2024-01-15')
@@ -60,8 +78,8 @@ export const mockSites: HeritageSite[] = [
     },
     images: [
       jerashImage,
-      jerashImage,
-      jerashImage
+      jerashImage2,
+      jerashImage3
     ],
     createdAt: new Date('2023-01-01'),
     updatedAt: new Date('2024-02-01')
@@ -86,8 +104,8 @@ export const mockSites: HeritageSite[] = [
     },
     images: [
       ummQaisImage,
-      ummQaisImage,
-      ummQaisImage
+      ummQaisImage2,
+      ummQaisImage3
     ],
     createdAt: new Date('2023-01-01'),
     updatedAt: new Date('2024-01-20')
@@ -112,8 +130,8 @@ export const mockSites: HeritageSite[] = [
     },
     images: [
       ammanCitadelImage,
-      ammanCitadelImage,
-      ammanCitadelImage
+      ammanCitadelImage2,
+      ammanCitadelImage3
     ],
     createdAt: new Date('2023-01-01'),
     updatedAt: new Date('2024-01-10')
@@ -138,8 +156,8 @@ export const mockSites: HeritageSite[] = [
     },
     images: [
       wadiRumImage,
-      wadiRumImage,
-      wadiRumImage
+      wadiRumImage2,
+      wadiRumImage3
     ],
     createdAt: new Date('2023-01-01'),
     updatedAt: new Date('2024-01-25')
@@ -164,7 +182,8 @@ export const mockSites: HeritageSite[] = [
     },
     images: [
       kerakCastleImage,
-      kerakCastleImage
+      kerakCastleImage2,
+      kerakCastleImage3
     ],
     createdAt: new Date('2023-01-01'),
     updatedAt: new Date('2024-02-05')
@@ -189,7 +208,8 @@ export const mockSites: HeritageSite[] = [
     },
     images: [
       ajlounCastleImage,
-      ajlounCastleImage
+      ajlounCastleImage2,
+      ajlounCastleImage3
     ],
     createdAt: new Date('2023-01-01'),
     updatedAt: new Date('2024-01-30')
@@ -214,7 +234,8 @@ export const mockSites: HeritageSite[] = [
     },
     images: [
       madabaImage,
-      madabaImage
+      madabaImage2,
+      madabaImage3
     ],
     createdAt: new Date('2023-01-01'),
     updatedAt: new Date('2024-02-10')
@@ -240,7 +261,8 @@ export const mockSites: HeritageSite[] = [
     },
     images: [
       qasrAmraImage,
-      qasrAmraImage
+      qasrAmraImage2,
+      qasrAmraImage3
     ],
     createdAt: new Date('2023-01-01'),
     updatedAt: new Date('2024-02-20')

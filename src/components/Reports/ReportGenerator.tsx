@@ -284,6 +284,7 @@ export const ReportGenerator: React.FC<ReportGeneratorProps> = ({
               icon="file-text"
               size="large"
               fullWidth
+              style={{ color: 'var(--color-secondary)' }}
             >
               {isGenerating ? 'Generating Report...' : 'Generate Report'}
             </Button>
@@ -319,6 +320,7 @@ export const ReportGenerator: React.FC<ReportGeneratorProps> = ({
                 variant="secondary"
                 icon="download"
                 size="small"
+                style={{ color: 'var(--color-secondary)' }}
               >
                 JSON
               </Button>
@@ -327,6 +329,7 @@ export const ReportGenerator: React.FC<ReportGeneratorProps> = ({
                 variant="secondary"
                 icon="download"
                 size="small"
+                style={{ color: 'var(--color-secondary)' }}
               >
                 CSV
               </Button>
@@ -335,6 +338,7 @@ export const ReportGenerator: React.FC<ReportGeneratorProps> = ({
                 variant="primary"
                 icon="download"
                 size="small"
+                style={{ color: 'var(--color-secondary)' }}
               >
                 PDF
               </Button>

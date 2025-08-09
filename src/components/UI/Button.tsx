@@ -45,7 +45,7 @@ export const Button: React.FC<ButtonProps> = ({
       {loading && (
         <Spinner 
           size={size === 'small' ? 'small' : size === 'large' ? 'large' : 'medium'}
-          color={variant === 'primary' ? 'white' : 'tertiary'}
+          color="secondary"
           className={styles.button__spinner}
         />
       )}

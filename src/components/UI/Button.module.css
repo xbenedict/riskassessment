@@ -73,12 +73,13 @@
 /* Button Variants */
 .button--primary {
   background-color: var(--color-tertiary);
-  color: var(--color-text-inverse);
+  color: var(--color-secondary);
   border: 1px solid var(--color-tertiary);
   
   &:hover:not(:disabled) {
     background-color: var(--color-tertiary-dark);
     border-color: var(--color-tertiary-dark);
+    color: var(--color-secondary);
     transform: translateY(-1px);
     box-shadow: var(--shadow-md);
   }
@@ -91,12 +92,12 @@
 
 .button--secondary {
   background-color: transparent;
-  color: var(--color-tertiary);
+  color: var(--color-secondary);
   border: 1px solid var(--color-tertiary);
   
   &:hover:not(:disabled) {
     background-color: var(--color-tertiary);
-    color: var(--color-text-inverse);
+    color: var(--color-secondary);
     transform: translateY(-1px);
     box-shadow: var(--shadow-md);
   }

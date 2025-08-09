@@ -113,7 +113,7 @@
 .siteHeader h1 {
   font-size: var(--font-size-display-small);
   font-weight: var(--font-weight-bold);
-  color: var(--color-primary);
+  color: var(--color-accent);
   margin: 0 0 var(--space-2) 0;
   line-height: var(--line-height-tight);
 }
@@ -134,7 +134,7 @@
 .infoSection h3 {
   font-size: var(--font-size-heading-medium);
   font-weight: var(--font-weight-semibold);
-  color: var(--color-primary);
+  color: var(--color-accent);
   margin: 0 0 var(--space-4) 0;
 }
 
@@ -152,7 +152,7 @@
 .riskSection h3 {
   font-size: var(--font-size-heading-medium);
   font-weight: var(--font-weight-semibold);
-  color: var(--color-primary);
+  color: var(--color-accent);
   margin: 0 0 var(--space-4) 0;
 }
 
@@ -281,7 +281,7 @@
 
 .researcherSection h3 {
   margin: 0 0 var(--space-2) 0;
-  color: var(--color-primary);
+  color: var(--color-accent);
   font-size: var(--font-size-heading-small);
   font-weight: var(--font-weight-semibold);
 }
