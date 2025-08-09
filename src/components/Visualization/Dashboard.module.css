@@ -32,7 +32,7 @@
 
 .lastUpdated {
   font-size: var(--font-size-body-small);
-  opacity: 0.8;
+  color: var(--color-text-muted);
   font-style: italic;
 }
 

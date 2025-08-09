@@ -36,10 +36,9 @@
 }
 
 .headerContent p {
-  color: var(--color-text-inverse);
+  color: var(--color-text-muted);
   font-size: var(--font-size-body-medium);
   margin: 0;
-  opacity: 0.9;
 }
 
 /* Controls Card Styles */

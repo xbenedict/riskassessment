@@ -16,7 +16,7 @@
 }
 
 .header h2 {
-  color: var(--color-text-primary);
+  color: var(--color-accent);
   margin-bottom: var(--space-2);
   font-size: var(--font-size-display-medium);
   font-weight: var(--font-weight-semibold);
