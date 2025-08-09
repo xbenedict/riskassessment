@@ -6,12 +6,14 @@ import { DataManager } from './DataManager';
 import { MockDataService } from '../../services/MockDataService';
 import { DataExportImportService } from '../../services/DataExportImportService';
 
-// Mock the services
-jest.mock('../../services/MockDataService');
-jest.mock('../../services/DataExportImportService');
+import { vi } from 'vitest';
 
-const mockMockDataService = MockDataService as jest.Mocked<typeof MockDataService>;
-const mockDataExportImportService = DataExportImportService as jest.Mocked<typeof DataExportImportService>;
+// Mock the services
+vi.mock('../../services/MockDataService');
+vi.mock('../../services/DataExportImportService');
+
+const mockMockDataService = MockDataService as any;
+const mockDataExportImportService = DataExportImportService as any;
 
 // Mock data
 const mockSites = [
@@ -102,7 +104,7 @@ const mockImportResult = {
 
 describe('DataManager', () => {
   beforeEach(() => {
-    jest.clearAllMocks();
+    vi.clearAllMocks();
     mockMockDataService.getHeritageSites.mockResolvedValue(mockSites);
     mockMockDataService.getRiskAssessments.mockResolvedValue(mockAssessments);
     mockDataExportImportService.exportData.mockReturnValue(mockExportData);
@@ -336,7 +338,7 @@ describe('DataManager', () => {
   });
 
   it('calls onDataImported callback', async () => {
-    const mockCallback = jest.fn();
+    const mockCallback = vi.fn();
     render(<DataManager onDataImported={mockCallback} />);
     
     // Switch to import tab

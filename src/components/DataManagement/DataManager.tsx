@@ -9,7 +9,7 @@ import {
 } from '../../services/DataExportImportService';
 import { MockDataService } from '../../services/MockDataService';
 import type { HeritageSite, RiskAssessment } from '../../types';
-import { Icon } from '../UI';
+import { Icon, Button, Card, Loading } from '../UI';
 import styles from './DataManager.module.css';
 
 type ActiveTab = 'export' | 'import' | 'validation';
@@ -38,6 +38,7 @@ export const DataManager: React.FC<DataManagerProps> = ({
   const [error, setError] = useState<string>('');
   
   const fileInputRef = useRef<HTMLInputElement>(null);
+  const validationFileInputRef = useRef<HTMLInputElement>(null);
   
   // Load data on component mount
   React.useEffect(() => {
@@ -193,47 +194,71 @@ export const DataManager: React.FC<DataManagerProps> = ({
    */
   const renderExportTab = () => (
     <div className={styles.tabContent}>
-      <div className={styles.section}>
-        <h3>Full Data Export</h3>
-        <p>Export all heritage sites and risk assessments in JSON format.</p>
-        <div className={styles.exportStats}>
-          <div className={styles.stat}>
-            <span className={styles.statValue}>{sites.length}</span>
-            <span className={styles.statLabel}>Heritage Sites</span>
-          </div>
-          <div className={styles.stat}>
-            <span className={styles.statValue}>{assessments.length}</span>
-            <span className={styles.statLabel}>Risk Assessments</span>
+      <Card padding="large" className={styles.section}>
+        <div className={styles.sectionHeader}>
+          <Icon name="download" size="lg" className={styles.sectionIcon} />
+          <div>
+            <h3>Full Data Export</h3>
+            <p>Export all heritage sites and risk assessments in JSON format.</p>
           </div>
         </div>
-        <button onClick={handleFullExport} className={styles.primaryButton}>
+        
+        <div className={styles.exportStats}>
+          <Card variant="outlined" padding="medium" className={styles.stat}>
+            <Icon name="map-pin" size="md" className={styles.statIcon} />
+            <span className={styles.statValue}>{sites.length}</span>
+            <span className={styles.statLabel}>Heritage Sites</span>
+          </Card>
+          <Card variant="outlined" padding="medium" className={styles.stat}>
+            <Icon name="shield-alert" size="md" className={styles.statIcon} />
+            <span className={styles.statValue}>{assessments.length}</span>
+            <span className={styles.statLabel}>Risk Assessments</span>
+          </Card>
+        </div>
+        
+        <Button 
+          onClick={handleFullExport} 
+          icon="download"
+          size="large"
+          fullWidth
+        >
           Export All Data
-        </button>
-      </div>
+        </Button>
+      </Card>
       
-      <div className={styles.section}>
-        <h3>Selective Export</h3>
-        <p>Choose specific heritage sites to export with their assessments.</p>
+      <Card padding="large" className={styles.section}>
+        <div className={styles.sectionHeader}>
+          <Icon name="check-square" size="lg" className={styles.sectionIcon} />
+          <div>
+            <h3>Selective Export</h3>
+            <p>Choose specific heritage sites to export with their assessments.</p>
+          </div>
+        </div>
         
         <div className={styles.selectionControls}>
-          <button 
+          <Button 
             onClick={() => handleSelectAll(true)} 
-            className={styles.secondaryButton}
+            variant="secondary"
+            icon="check-square"
+            size="small"
           >
             Select All
-          </button>
-          <button 
+          </Button>
+          <Button 
             onClick={() => handleSelectAll(false)} 
-            className={styles.secondaryButton}
+            variant="ghost"
+            icon="square"
+            size="small"
           >
             Select None
-          </button>
+          </Button>
           <span className={styles.selectionCount}>
+            <Icon name="info" size="sm" />
             {selectedSiteIds.length} of {sites.length} selected
           </span>
         </div>
         
-        <div className={styles.siteList}>
+        <Card variant="outlined" padding="none" className={styles.siteList}>
           {sites.map(site => (
             <div key={site.id} className={styles.siteItem}>
               <label className={styles.checkbox}>
@@ -242,28 +267,36 @@ export const DataManager: React.FC<DataManagerProps> = ({
                   checked={selectedSiteIds.includes(site.id)}
                   onChange={(e) => handleSiteSelectionChange(site.id, e.target.checked)}
                 />
-                <span className={styles.siteName}>{site.name}</span>
-                <span className={styles.siteLocation}>{site.location.country}</span>
+                <div className={styles.siteInfo}>
+                  <Icon name="map-pin" size="sm" className={styles.siteIcon} />
+                  <div>
+                    <span className={styles.siteName}>{site.name}</span>
+                    <span className={styles.siteLocation}>{site.location.country}</span>
+                  </div>
+                </div>
               </label>
-              <button
+              <Button
                 onClick={() => handleSiteExport(site.id)}
-                className={styles.exportSiteButton}
-                title="Export this site only"
+                variant="ghost"
+                size="small"
+                icon="download"
               >
                 Export
-              </button>
+              </Button>
             </div>
           ))}
-        </div>
+        </Card>
         
-        <button 
+        <Button 
           onClick={handleSelectiveExport}
           disabled={selectedSiteIds.length === 0}
-          className={styles.primaryButton}
+          icon="download"
+          size="large"
+          fullWidth
         >
-          Export Selected Sites
-        </button>
-      </div>
+          Export Selected Sites ({selectedSiteIds.length})
+        </Button>
+      </Card>
     </div>
   );
   
@@ -272,9 +305,14 @@ export const DataManager: React.FC<DataManagerProps> = ({
    */
   const renderImportTab = () => (
     <div className={styles.tabContent}>
-      <div className={styles.section}>
-        <h3>Import Heritage Data</h3>
-        <p>Import heritage sites and risk assessments from JSON file.</p>
+      <Card padding="large" className={styles.section}>
+        <div className={styles.sectionHeader}>
+          <Icon name="upload" size="lg" className={styles.sectionIcon} />
+          <div>
+            <h3>Import Heritage Data</h3>
+            <p>Import heritage sites and risk assessments from JSON file.</p>
+          </div>
+        </div>
         
         <div className={styles.importControls}>
           <input
@@ -285,69 +323,118 @@ export const DataManager: React.FC<DataManagerProps> = ({
             className={styles.fileInput}
             id="import-file"
           />
-          <label htmlFor="import-file" className={styles.fileLabel}>
+          <Button 
+            onClick={() => fileInputRef.current?.click()}
+            variant="secondary"
+            icon="file-plus"
+            size="large"
+            fullWidth
+          >
             Choose JSON File
-          </label>
+          </Button>
           
-          <button onClick={handleDownloadSample} className={styles.secondaryButton}>
+          <Button 
+            onClick={handleDownloadSample} 
+            variant="ghost"
+            icon="download"
+            size="medium"
+            fullWidth
+          >
             Download Sample File
-          </button>
+          </Button>
         </div>
         
         {isLoading && (
-          <div className={styles.loading}>
-            <p>Processing import...</p>
-          </div>
+          <Loading 
+            variant="container" 
+            message="Processing import..." 
+            size="large"
+          />
         )}
         
         {importResult && (
-          <div className={styles.importResult}>
-            <h4>Import Results</h4>
+          <Card variant="outlined" padding="large" className={styles.importResult}>
+            <div className={styles.resultHeader}>
+              <Icon 
+                name={importResult.success ? "check-circle" : "x-circle"} 
+                size="lg" 
+                className={importResult.success ? styles.successIcon : styles.errorIcon}
+              />
+              <h4>Import Results</h4>
+            </div>
+            
             <div className={styles.resultStats}>
-              <div className={`${styles.resultStat} ${importResult.success ? styles.success : styles.error}`}>
-                <span className={styles.resultLabel}>Status:</span>
-                <span className={styles.resultValue}>
-                  {importResult.success ? 'Success' : 'Failed'}
-                </span>
-              </div>
-              <div className={styles.resultStat}>
-                <span className={styles.resultLabel}>Sites Imported:</span>
-                <span className={styles.resultValue}>{importResult.sitesImported}</span>
-              </div>
-              <div className={styles.resultStat}>
-                <span className={styles.resultLabel}>Assessments Imported:</span>
-                <span className={styles.resultValue}>{importResult.assessmentsImported}</span>
-              </div>
-              <div className={styles.resultStat}>
-                <span className={styles.resultLabel}>Skipped Records:</span>
-                <span className={styles.resultValue}>{importResult.skippedRecords}</span>
-              </div>
+              <Card variant="outlined" padding="medium" className={`${styles.resultStat} ${importResult.success ? styles.success : styles.error}`}>
+                <Icon name={importResult.success ? "check-circle" : "x-circle"} size="sm" />
+                <div>
+                  <span className={styles.resultLabel}>Status</span>
+                  <span className={styles.resultValue}>
+                    {importResult.success ? 'Success' : 'Failed'}
+                  </span>
+                </div>
+              </Card>
+              
+              <Card variant="outlined" padding="medium" className={styles.resultStat}>
+                <Icon name="map-pin" size="sm" />
+                <div>
+                  <span className={styles.resultLabel}>Sites Imported</span>
+                  <span className={styles.resultValue}>{importResult.sitesImported}</span>
+                </div>
+              </Card>
+              
+              <Card variant="outlined" padding="medium" className={styles.resultStat}>
+                <Icon name="shield-alert" size="sm" />
+                <div>
+                  <span className={styles.resultLabel}>Assessments Imported</span>
+                  <span className={styles.resultValue}>{importResult.assessmentsImported}</span>
+                </div>
+              </Card>
+              
+              <Card variant="outlined" padding="medium" className={styles.resultStat}>
+                <Icon name="skip-forward" size="sm" />
+                <div>
+                  <span className={styles.resultLabel}>Skipped Records</span>
+                  <span className={styles.resultValue}>{importResult.skippedRecords}</span>
+                </div>
+              </Card>
             </div>
             
             {importResult.errors.length > 0 && (
-              <div className={styles.errors}>
-                <h5>Errors:</h5>
+              <Card variant="outlined" padding="medium" className={styles.errors}>
+                <div className={styles.messageHeader}>
+                  <Icon name="alert-triangle" size="md" />
+                  <h5>Errors</h5>
+                </div>
                 <ul>
                   {importResult.errors.map((error, index) => (
-                    <li key={index}>{error}</li>
+                    <li key={index}>
+                      <Icon name="x-circle" size="sm" />
+                      {error}
+                    </li>
                   ))}
                 </ul>
-              </div>
+              </Card>
             )}
             
             {importResult.warnings.length > 0 && (
-              <div className={styles.warnings}>
-                <h5>Warnings:</h5>
+              <Card variant="outlined" padding="medium" className={styles.warnings}>
+                <div className={styles.messageHeader}>
+                  <Icon name="alert-circle" size="md" />
+                  <h5>Warnings</h5>
+                </div>
                 <ul>
                   {importResult.warnings.map((warning, index) => (
-                    <li key={index}>{warning}</li>
+                    <li key={index}>
+                      <Icon name="alert-triangle" size="sm" />
+                      {warning}
+                    </li>
                   ))}
                 </ul>
-              </div>
+              </Card>
             )}
-          </div>
+          </Card>
         )}
-      </div>
+      </Card>
     </div>
   );
   
@@ -356,110 +443,165 @@ export const DataManager: React.FC<DataManagerProps> = ({
    */
   const renderValidationTab = () => (
     <div className={styles.tabContent}>
-      <div className={styles.section}>
-        <h3>Data Validation</h3>
-        <p>Validate import file format and content without importing data.</p>
+      <Card padding="large" className={styles.section}>
+        <div className={styles.sectionHeader}>
+          <Icon name="shield-check" size="lg" className={styles.sectionIcon} />
+          <div>
+            <h3>Data Validation</h3>
+            <p>Validate import file format and content without importing data.</p>
+          </div>
+        </div>
         
         <div className={styles.importControls}>
           <input
+            ref={validationFileInputRef}
             type="file"
             accept=".json"
             onChange={handleValidationFileSelect}
             className={styles.fileInput}
             id="validation-file"
           />
-          <label htmlFor="validation-file" className={styles.fileLabel}>
+          <Button 
+            onClick={() => validationFileInputRef.current?.click()}
+            variant="secondary"
+            icon="shield-check"
+            size="large"
+            fullWidth
+          >
             Choose JSON File to Validate
-          </label>
+          </Button>
         </div>
         
         {isLoading && (
-          <div className={styles.loading}>
-            <p>Validating file...</p>
-          </div>
+          <Loading 
+            variant="container" 
+            message="Validating file..." 
+            size="large"
+          />
         )}
         
         {validationResult && (
-          <div className={styles.validationResult}>
-            <h4>Validation Results</h4>
-            <div className={styles.resultStats}>
-              <div className={`${styles.resultStat} ${validationResult.success ? styles.success : styles.error}`}>
-                <span className={styles.resultLabel}>Validation:</span>
+          <Card variant="outlined" padding="large" className={styles.validationResult}>
+            <div className={styles.resultHeader}>
+              <Icon 
+                name={validationResult.success ? "shield-check" : "shield-x"} 
+                size="lg" 
+                className={validationResult.success ? styles.successIcon : styles.errorIcon}
+              />
+              <h4>Validation Results</h4>
+            </div>
+            
+            <Card variant="outlined" padding="medium" className={`${styles.resultStat} ${validationResult.success ? styles.success : styles.error}`}>
+              <Icon name={validationResult.success ? "check-circle" : "x-circle"} size="sm" />
+              <div>
+                <span className={styles.resultLabel}>Validation</span>
                 <span className={styles.resultValue}>
                   {validationResult.success ? 'Passed' : 'Failed'}
                 </span>
               </div>
-            </div>
+            </Card>
             
             {validationResult.errors.length > 0 && (
-              <div className={styles.errors}>
-                <h5>Validation Errors:</h5>
+              <Card variant="outlined" padding="medium" className={styles.errors}>
+                <div className={styles.messageHeader}>
+                  <Icon name="alert-triangle" size="md" />
+                  <h5>Validation Errors</h5>
+                </div>
                 <ul>
                   {validationResult.errors.map((error, index) => (
-                    <li key={index}>{error}</li>
+                    <li key={index}>
+                      <Icon name="x-circle" size="sm" />
+                      {error}
+                    </li>
                   ))}
                 </ul>
-              </div>
+              </Card>
             )}
             
             {validationResult.warnings.length > 0 && (
-              <div className={styles.warnings}>
-                <h5>Validation Warnings:</h5>
+              <Card variant="outlined" padding="medium" className={styles.warnings}>
+                <div className={styles.messageHeader}>
+                  <Icon name="alert-circle" size="md" />
+                  <h5>Validation Warnings</h5>
+                </div>
                 <ul>
                   {validationResult.warnings.map((warning, index) => (
-                    <li key={index}>{warning}</li>
+                    <li key={index}>
+                      <Icon name="alert-triangle" size="sm" />
+                      {warning}
+                    </li>
                   ))}
                 </ul>
-              </div>
+              </Card>
             )}
             
             {validationResult.success && (
-              <div className={styles.validationSuccess}>
-                <p><Icon name="check-circle" size="sm" color="#28a745" /> File is valid and ready for import!</p>
-              </div>
+              <Card variant="outlined" padding="medium" className={styles.validationSuccess}>
+                <div className={styles.successMessage}>
+                  <Icon name="check-circle" size="md" />
+                  <p>File is valid and ready for import!</p>
+                </div>
+              </Card>
             )}
-          </div>
+          </Card>
         )}
-      </div>
+      </Card>
     </div>
   );
   
   return (
     <div className={styles.dataManager}>
-      <div className={styles.header}>
-        <h2>Data Management</h2>
-        <p>Export and import heritage site data with comprehensive validation</p>
-      </div>
+      <Card padding="large" className={styles.header}>
+        <div className={styles.headerContent}>
+          <Icon name="database" size="xl" className={styles.headerIcon} />
+          <div>
+            <h2>Data Management</h2>
+            <p>Export and import heritage site data with comprehensive validation</p>
+          </div>
+        </div>
+      </Card>
       
       {error && (
-        <div className={styles.error}>
-          <p>Error: {error}</p>
-          <button onClick={() => setError('')} className={styles.closeError}>
-            ×
-          </button>
-        </div>
+        <Card variant="outlined" padding="medium" className={styles.error}>
+          <div className={styles.errorContent}>
+            <Icon name="alert-triangle" size="md" className={styles.errorIcon} />
+            <p>{error}</p>
+            <Button
+              onClick={() => setError('')}
+              variant="ghost"
+              size="small"
+              icon="x"
+              className={styles.closeError}
+            />
+          </div>
+        </Card>
       )}
       
-      <div className={styles.tabs}>
-        <button
-          className={`${styles.tab} ${activeTab === 'export' ? styles.active : ''}`}
-          onClick={() => setActiveTab('export')}
-        >
-          Export Data
-        </button>
-        <button
-          className={`${styles.tab} ${activeTab === 'import' ? styles.active : ''}`}
-          onClick={() => setActiveTab('import')}
-        >
-          Import Data
-        </button>
-        <button
-          className={`${styles.tab} ${activeTab === 'validation' ? styles.active : ''}`}
-          onClick={() => setActiveTab('validation')}
-        >
-          Validate Data
-        </button>
-      </div>
+      <Card padding="none" className={styles.tabsContainer}>
+        <div className={styles.tabs}>
+          <button
+            className={`${styles.tab} ${activeTab === 'export' ? styles.active : ''}`}
+            onClick={() => setActiveTab('export')}
+          >
+            <Icon name="download" size="sm" />
+            Export Data
+          </button>
+          <button
+            className={`${styles.tab} ${activeTab === 'import' ? styles.active : ''}`}
+            onClick={() => setActiveTab('import')}
+          >
+            <Icon name="upload" size="sm" />
+            Import Data
+          </button>
+          <button
+            className={`${styles.tab} ${activeTab === 'validation' ? styles.active : ''}`}
+            onClick={() => setActiveTab('validation')}
+          >
+            <Icon name="shield-check" size="sm" />
+            Validate Data
+          </button>
+        </div>
+      </Card>
       
       <div className={styles.content}>
         {activeTab === 'export' && renderExportTab()}
