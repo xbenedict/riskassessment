@@ -2,7 +2,7 @@ import React from 'react';
 import styles from './MobileNavigation.module.css';
 import { Icon, type IconName } from '../UI';
 
-type ActiveView = 'sites' | 'dashboard' | 'reports' | 'analytics' | 'data-management';
+type ActiveView = 'sites' | 'dashboard' | 'reports' | 'analytics' | 'data-management' | 'ar';
 
 interface MobileNavigationProps {
   activeView: ActiveView;
@@ -25,6 +25,7 @@ export const MobileNavigation: React.FC<MobileNavigationProps> = ({
     { id: 'analytics' as const, icon: 'trending-up' as IconName, label: 'Analytics' },
     { id: 'reports' as const, icon: 'file-text' as IconName, label: 'Reports' },
     { id: 'data-management' as const, icon: 'database' as IconName, label: 'Data' },
+    { id: 'ar' as const, icon: 'camera' as IconName, label: 'Augmented Reality' },
   ];
 
   return (
