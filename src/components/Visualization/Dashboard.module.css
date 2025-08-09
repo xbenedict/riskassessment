@@ -283,7 +283,7 @@
 }
 
 .chartContainer {
-  height: 280px;
+  height: 480px;
   position: relative;
 }
 
@@ -661,7 +661,7 @@
   }
   
   .chartContainer {
-    height: 250px;
+    height: 400px;
   }
   
   /* Mobile-friendly timeline */
@@ -765,7 +765,7 @@
   
   /* Chart optimizations for small screens */
   .chartContainer {
-    height: 200px;
+    height: 350px;
   }
   
   /* Map section adjustments */

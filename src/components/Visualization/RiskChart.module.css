@@ -43,7 +43,7 @@
 
 .chartWrapper {
   position: relative;
-  height: 400px;
+  height: 380px;
   width: 100%;
   margin-top: 20px;
 }
@@ -115,7 +115,7 @@
   }
   
   .chartWrapper {
-    height: 300px;
+    height: 320px;
   }
   
   .exportControls {
@@ -156,7 +156,7 @@
   }
   
   .chartWrapper {
-    height: 250px;
+    height: 300px;
   }
   
   .exportControls {
