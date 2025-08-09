@@ -29,7 +29,7 @@
 }
 
 .headerContent h2 {
-  color: var(--color-text-inverse);
+  color: var(--color-accent);
   margin: 0 0 var(--space-2) 0;
   font-size: var(--font-size-heading-large);
   font-weight: var(--font-weight-semibold);
@@ -130,7 +130,7 @@
 
 .reportHeaderContent h3 {
   margin: 0 0 var(--space-1) 0;
-  color: var(--color-text-primary);
+  color: var(--color-accent);
   font-size: var(--font-size-heading-medium);
   font-weight: var(--font-weight-semibold);
 }
@@ -155,7 +155,7 @@
 
 .standardPreview h4,
 .comparativePreview h4 {
-  color: var(--color-text-primary);
+  color: var(--color-accent);
   margin: 0 0 var(--space-6) 0;
   font-size: var(--font-size-heading-medium);
   font-weight: var(--font-weight-semibold);
@@ -169,7 +169,7 @@
 }
 
 .summary h5 {
-  color: var(--color-text-primary);
+  color: var(--color-accent);
   margin: 0 0 var(--space-4) 0;
   font-size: var(--font-size-heading-small);
   font-weight: var(--font-weight-semibold);
@@ -219,7 +219,7 @@
 }
 
 .recommendations h5 {
-  color: var(--color-text-primary);
+  color: var(--color-accent);
   margin: 0 0 var(--space-4) 0;
   font-size: var(--font-size-heading-small);
   font-weight: var(--font-weight-semibold);
@@ -259,7 +259,7 @@
 }
 
 .assessments h5 {
-  color: var(--color-text-primary);
+  color: var(--color-accent);
   margin: 0 0 var(--space-4) 0;
   font-size: var(--font-size-heading-small);
   font-weight: var(--font-weight-semibold);

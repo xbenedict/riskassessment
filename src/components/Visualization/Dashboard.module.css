@@ -68,7 +68,7 @@
 
 .alertsHeader h2 {
   margin: 0;
-  color: var(--color-text-primary);
+  color: var(--color-accent);
   font-size: var(--font-size-heading-medium);
 }
 
@@ -157,7 +157,7 @@
 
 .kpiSection h2 {
   margin: 0 0 var(--space-6) 0;
-  color: var(--color-text-primary);
+  color: var(--color-accent);
   font-size: var(--font-size-heading-medium);
 }
 
@@ -261,7 +261,7 @@
 .chartHeader h3,
 .sectionHeader h2 {
   margin: 0;
-  color: var(--color-text-primary);
+  color: var(--color-accent);
   font-size: var(--font-size-heading-small);
   font-weight: var(--font-weight-semibold);
 }
