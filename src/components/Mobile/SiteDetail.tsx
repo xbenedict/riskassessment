@@ -7,7 +7,7 @@ import { FullAssessmentView } from '../Assessment/FullAssessmentView';
 import { SiteMapView } from '../Map/SiteMapView';
 import { ReportGenerator } from '../Reports/ReportGenerator';
 import { RiskAssessmentService } from '../../services/RiskAssessmentService';
-import { Icon, type IconName } from '../UI';
+import { Icon, type IconName, Button, Card, Spinner } from '../UI';
 import styles from './SiteDetail.module.css';
 
 interface SiteDetailProps {
@@ -19,17 +19,37 @@ export const SiteDetail: React.FC<SiteDetailProps> = ({ siteId, onBack }) => {
   const [activeImageIndex, setActiveImageIndex] = useState(0);
   const [activeView, setActiveView] = useState<'detail' | 'assessment' | 'map' | 'report' | 'add-assessment' | 'assessments-list'>('detail');
   const [selectedAssessment, setSelectedAssessment] = useState<RiskAssessment | null>(null);
+  const [isLoading, setIsLoading] = useState(false);
+  const [loadingAction, setLoadingAction] = useState<string | null>(null);
   const site = mockSites.find(s => s.id === siteId);
 
   if (!site) {
     return (
       <div className={styles.siteDetail}>
         <div className={styles.detailHeader}>
-          <button className={styles.backButton} onClick={onBack}>
-            ← Back
-          </button>
+          <Button 
+            variant="ghost" 
+            size="medium"
+            icon="arrow-left"
+            onClick={onBack}
+            className={styles.backButton}
+          >
+            Back
+          </Button>
         </div>
-        <div className={styles.errorMessage}>Site not found</div>
+        <Card variant="default" padding="large" className={styles.errorMessage}>
+          <Icon name="alert-circle" size="lg" />
+          <h3>Site not found</h3>
+          <p>The requested site could not be found. Please check the URL or go back to the sites list.</p>
+          <Button 
+            variant="primary"
+            size="medium"
+            icon="arrow-left"
+            onClick={onBack}
+          >
+            Back to Sites
+          </Button>
+        </Card>
       </div>
     );
   }
@@ -60,20 +80,44 @@ export const SiteDetail: React.FC<SiteDetailProps> = ({ siteId, onBack }) => {
     }
   };
 
-  const handleViewFullAssessment = () => {
+  const handleViewFullAssessment = async () => {
+    setLoadingAction('assessment');
+    setIsLoading(true);
+    // Simulate loading delay for better UX
+    await new Promise(resolve => setTimeout(resolve, 300));
     setActiveView('assessment');
+    setIsLoading(false);
+    setLoadingAction(null);
   };
 
-  const handleViewOnMap = () => {
+  const handleViewOnMap = async () => {
+    setLoadingAction('map');
+    setIsLoading(true);
+    // Simulate loading delay for better UX
+    await new Promise(resolve => setTimeout(resolve, 300));
     setActiveView('map');
+    setIsLoading(false);
+    setLoadingAction(null);
   };
 
-  const handleGenerateReport = () => {
+  const handleGenerateReport = async () => {
+    setLoadingAction('report');
+    setIsLoading(true);
+    // Simulate loading delay for better UX
+    await new Promise(resolve => setTimeout(resolve, 300));
     setActiveView('report');
+    setIsLoading(false);
+    setLoadingAction(null);
   };
 
-  const handleAddRiskAssessment = () => {
+  const handleAddRiskAssessment = async () => {
+    setLoadingAction('add-assessment');
+    setIsLoading(true);
+    // Simulate loading delay for better UX
+    await new Promise(resolve => setTimeout(resolve, 300));
     setActiveView('add-assessment');
+    setIsLoading(false);
+    setLoadingAction(null);
   };
 
   const handleAssessmentSubmit = async (assessment: Omit<RiskAssessment, 'id'>) => {
@@ -125,9 +169,15 @@ export const SiteDetail: React.FC<SiteDetailProps> = ({ siteId, onBack }) => {
     return (
       <div className={styles.reportView}>
         <div className={styles.reportHeader}>
-          <button onClick={handleBackToDetail} className={styles.backButton}>
-            ← Back to Site
-          </button>
+          <Button 
+            variant="ghost" 
+            size="medium"
+            icon="arrow-left"
+            onClick={handleBackToDetail}
+            className={styles.backButton}
+          >
+            Back to Site
+          </Button>
           <h2>Generate Report for {site.name}</h2>
         </div>
         <ReportGenerator selectedSites={[site]} />
@@ -150,9 +200,15 @@ export const SiteDetail: React.FC<SiteDetailProps> = ({ siteId, onBack }) => {
     return (
       <div className={styles.reportsListView}>
         <div className={styles.reportHeader}>
-          <button onClick={handleBackToDetail} className={styles.backButton}>
-            ← Back to Site
-          </button>
+          <Button 
+            variant="ghost" 
+            size="medium"
+            icon="arrow-left"
+            onClick={handleBackToDetail}
+            className={styles.backButton}
+          >
+            Back to Site
+          </Button>
           <h2>Risk Assessments for {site.name}</h2>
         </div>
         <AssessmentsList
@@ -167,9 +223,15 @@ export const SiteDetail: React.FC<SiteDetailProps> = ({ siteId, onBack }) => {
   return (
     <div className={styles.siteDetail}>
       <div className={styles.detailHeader}>
-        <button className={styles.backButton} onClick={onBack}>
-          ← Back to Sites
-        </button>
+        <Button 
+          variant="ghost" 
+          size="medium"
+          icon="arrow-left"
+          onClick={onBack}
+          className={styles.backButton}
+        >
+          Back to Sites
+        </Button>
       </div>
 
       <div className={styles.imageGallery}>
@@ -209,17 +271,17 @@ export const SiteDetail: React.FC<SiteDetailProps> = ({ siteId, onBack }) => {
           </p>
         </div>
 
-        <div className={styles.infoSection}>
+        <Card variant="default" padding="large" className={styles.infoSection}>
           <h3>Description</h3>
           <p>{site.description}</p>
-        </div>
+        </Card>
 
-        <div className={styles.infoSection}>
+        <Card variant="default" padding="large" className={styles.infoSection}>
           <h3>Historical Significance</h3>
           <p>{site.significance}</p>
-        </div>
+        </Card>
 
-        <div className={styles.riskSection}>
+        <Card variant="elevated" padding="large" shadow="medium" className={styles.riskSection}>
           <h3>Risk Assessment</h3>
           <div className={styles.riskOverview}>
             <div className={styles.riskLevel}>
@@ -251,9 +313,9 @@ export const SiteDetail: React.FC<SiteDetailProps> = ({ siteId, onBack }) => {
               ))}
             </div>
           </div>
-        </div>
+        </Card>
 
-        <div className={styles.infoSection}>
+        <Card variant="default" padding="large" className={styles.infoSection}>
           <h3>Site Status</h3>
           <div className={styles.statusInfo}>
             <span className={`${styles.statusBadge} ${styles[`status${site.currentStatus.replace('-', '').replace(/\b\w/g, l => l.toUpperCase())}`]}`}>
@@ -263,47 +325,67 @@ export const SiteDetail: React.FC<SiteDetailProps> = ({ siteId, onBack }) => {
               Last assessment: {new Date(site.lastAssessment).toLocaleDateString()}
             </span>
           </div>
-        </div>
+        </Card>
 
         <div className={styles.actionButtons}>
-          <button 
-            className={`${styles.actionBtn} ${styles.primary}`}
+          <Button 
+            variant="primary"
+            size="large"
+            icon="bar-chart-3"
+            loading={loadingAction === 'assessment'}
             onClick={handleViewFullAssessment}
+            fullWidth
           >
-            <Icon name="bar-chart" size="sm" /> View Full Assessment
-          </button>
-          <button 
-            className={`${styles.actionBtn} ${styles.secondary}`}
+            View Full Assessment
+          </Button>
+          <Button 
+            variant="secondary"
+            size="large"
+            icon="map-pin"
+            loading={loadingAction === 'map'}
             onClick={handleViewOnMap}
+            fullWidth
           >
-            <Icon name="map-pin" size="sm" /> View on Map
-          </button>
-          <button 
-            className={`${styles.actionBtn} ${styles.secondary}`}
+            View on Map
+          </Button>
+          <Button 
+            variant="secondary"
+            size="large"
+            icon="file-text"
+            loading={loadingAction === 'report'}
             onClick={handleGenerateReport}
+            fullWidth
           >
-            <Icon name="file-text" size="sm" /> Generate Report
-          </button>
+            Generate Report
+          </Button>
         </div>
 
-        <div className={styles.researcherSection}>
+        <Card variant="outlined" padding="large" className={styles.researcherSection}>
           <h3>Risk Assessment Contributions</h3>
           <p>Add new risk assessments and view existing assessments to contribute to the site's risk management.</p>
           <div className={styles.researcherActions}>
-            <button 
-              className={`${styles.actionBtn} ${styles.secondary}`}
+            <Button 
+              variant="secondary"
+              size="large"
+              icon="file-text"
               onClick={handleViewAssessmentsList}
+              fullWidth
             >
-              <Icon name="file-text" size="sm" /> View Assessments
-            </button>
-            <button 
-              className={`${styles.actionBtn} ${styles.researcher}`}
+              View Assessments
+            </Button>
+            <Button 
+              variant="primary"
+              size="large"
+              icon="edit-3"
+              loading={loadingAction === 'add-assessment'}
               onClick={handleAddRiskAssessment}
+              fullWidth
+              className={styles.researcherButton}
             >
-              <Icon name="edit-3" size="sm" /> Add Risk Assessment
-            </button>
+              Add Risk Assessment
+            </Button>
           </div>
-        </div>
+        </Card>
       </div>
     </div>
   );
