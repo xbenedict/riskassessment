@@ -2,6 +2,7 @@ import React, { useState, useCallback, useMemo } from 'react';
 import { RiskCalculator } from '../../utils/RiskCalculator';
 import type { ThreatType, UncertaintyLevel, RiskAssessment } from '../../types';
 import { ThreatType as ThreatTypeEnum } from '../../types';
+import { RiskIndicator } from '../UI';
 import styles from './RiskAssessmentForm.module.css';
 
 interface RiskAssessmentFormProps {
@@ -259,8 +260,13 @@ export const RiskAssessmentForm: React.FC<RiskAssessmentFormProps> = ({
             <div className={styles.magnitudeDisplay}>
               {riskCalculation.magnitude}
             </div>
-            <div className={`${styles.priorityDisplay} ${getPriorityClassName(riskCalculation.adjustedPriority)}`}>
-              {riskCalculation.adjustedPriority.toUpperCase().replace('-', ' ')} PRIORITY
+            <div className={styles.priorityDisplayContainer}>
+              <RiskIndicator 
+                priority={riskCalculation.adjustedPriority}
+                size="lg"
+                variant="badge"
+                className={styles.priorityIndicator}
+              />
             </div>
             <div className={styles.priorityDescription}>
               {riskCalculation.description}

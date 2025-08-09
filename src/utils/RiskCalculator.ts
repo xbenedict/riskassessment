@@ -39,6 +39,53 @@ export class RiskCalculator {
   }
 
   /**
+   * Calculate complete risk assessment with magnitude, priority, and uncertainty adjustment
+   * @param probability A component (1-5)
+   * @param lossOfValue B component (1-5)
+   * @param fractionAffected C component (1-5)
+   * @param uncertaintyLevel Level of uncertainty in the assessment
+   * @returns Complete risk calculation result
+   */
+  static calculateRisk(
+    probability: number,
+    lossOfValue: number,
+    fractionAffected: number,
+    uncertaintyLevel: UncertaintyLevel
+  ) {
+    // Validate inputs
+    if (!this.isValidComponent(probability) || 
+        !this.isValidComponent(lossOfValue) || 
+        !this.isValidComponent(fractionAffected)) {
+      throw new Error('All ABC components must be integers between 1 and 5');
+    }
+
+    // Calculate magnitude
+    const magnitude = this.calculateMagnitude(probability, lossOfValue, fractionAffected);
+    
+    // Calculate base priority
+    const basePriority = this.calculatePriority(magnitude);
+    
+    // Apply uncertainty adjustment
+    const adjustedPriority = this.applyUncertaintyAdjustment(basePriority, uncertaintyLevel);
+    
+    // Get description
+    const description = this.getPriorityDescription(adjustedPriority);
+
+    return {
+      magnitude,
+      basePriority,
+      adjustedPriority,
+      description,
+      components: {
+        probability,
+        lossOfValue,
+        fractionAffected
+      },
+      uncertaintyLevel
+    };
+  }
+
+  /**
    * Apply uncertainty matrix adjustments to priority recommendations
    * @param basePriority Base priority from magnitude calculation
    * @param uncertaintyLevel Level of uncertainty in the assessment
@@ -100,11 +147,11 @@ export class RiskCalculator {
    */
   static getPriorityColor(priority: RiskPriority): string {
     switch (priority) {
-      case 'extremely-high': return '#dc3545';
-      case 'very-high': return '#ff6b35';
-      case 'high': return '#ffc107';
-      case 'medium-high': return '#fd7e14';
-      case 'low': return '#28a745';
+      case 'extremely-high': return '#ff6b35'; // Critical orange (var(--color-risk-critical))
+      case 'very-high': return '#dc3545';      // High risk red (var(--color-risk-high))
+      case 'high': return '#fd7e14';           // Orange for high
+      case 'medium-high': return '#ffc107';    // Medium risk yellow (var(--color-risk-medium))
+      case 'low': return '#28a745';            // Low risk green (var(--color-risk-low))
       default: return '#6c757d';
     }
   }
@@ -116,6 +163,63 @@ export class RiskCalculator {
    */
   static getPriorityLabel(priority: RiskPriority): string {
     return priority.replace('-', ' ').replace(/\b\w/g, l => l.toUpperCase());
+  }
+
+  /**
+   * Get priority description for UI display
+   * @param priority Risk priority level
+   * @returns Description of the priority level
+   */
+  static getPriorityDescription(priority: RiskPriority): string {
+    switch (priority) {
+      case 'extremely-high': return 'Immediate action required';
+      case 'very-high': return 'Urgent intervention needed';
+      case 'high': return 'Priority attention required';
+      case 'medium-high': return 'Moderate risk level';
+      case 'low': return 'Minimal risk level';
+      default: return 'Unknown risk level';
+    }
+  }
+
+  /**
+   * Get component description for ABC scale values
+   * @param component A, B, or C component
+   * @param value Component value (1-5)
+   * @returns Description of the component value
+   */
+  static getComponentDescription(component: 'A' | 'B' | 'C', value: number): string {
+    if (component === 'A') {
+      // Probability descriptions
+      switch (value) {
+        case 1: return 'Very unlikely to occur in the next 100 years';
+        case 2: return 'Unlikely to occur in the next 100 years';
+        case 3: return 'May occur in the next 100 years';
+        case 4: return 'Likely to occur in the next 100 years';
+        case 5: return 'Very likely to occur in the next 100 years';
+        default: return 'Invalid probability value';
+      }
+    } else if (component === 'B') {
+      // Loss of Value descriptions
+      switch (value) {
+        case 1: return 'Negligible loss of heritage value';
+        case 2: return 'Minor loss of heritage value';
+        case 3: return 'Moderate loss of heritage value';
+        case 4: return 'Major loss of heritage value';
+        case 5: return 'Complete loss of heritage value';
+        default: return 'Invalid loss value';
+      }
+    } else if (component === 'C') {
+      // Fraction Affected descriptions
+      switch (value) {
+        case 1: return 'Less than 1% of the site affected';
+        case 2: return '1-10% of the site affected';
+        case 3: return '10-50% of the site affected';
+        case 4: return '50-90% of the site affected';
+        case 5: return 'More than 90% of the site affected';
+        default: return 'Invalid fraction value';
+      }
+    }
+    return 'Invalid component';
   }
 
   /**

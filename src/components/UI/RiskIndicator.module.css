@@ -1,0 +1,242 @@
+/* Risk Indicator Component Styles */
+/* Semantic color system for risk assessment displays */
+
+.riskIndicator {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  font-weight: var(--font-weight-medium);
+  border-radius: var(--radius-full);
+  transition: all var(--duration-normal) var(--timing-standard);
+}
+
+/* ===== RISK PRIORITY COLORS ===== */
+/* Based on design system semantic colors with accessibility compliance */
+
+.risk-extremely-high {
+  --risk-color: var(--color-risk-critical);
+  --risk-bg: rgba(255, 107, 53, 0.1);
+  --risk-border: rgba(255, 107, 53, 0.3);
+  color: var(--risk-color);
+}
+
+.risk-very-high {
+  --risk-color: var(--color-risk-high);
+  --risk-bg: rgba(220, 53, 69, 0.1);
+  --risk-border: rgba(220, 53, 69, 0.3);
+  color: var(--risk-color);
+}
+
+.risk-high {
+  --risk-color: #fd7e14;
+  --risk-bg: rgba(253, 126, 20, 0.1);
+  --risk-border: rgba(253, 126, 20, 0.3);
+  color: var(--risk-color);
+}
+
+.risk-medium-high {
+  --risk-color: var(--color-risk-medium);
+  --risk-bg: rgba(255, 193, 7, 0.1);
+  --risk-border: rgba(255, 193, 7, 0.3);
+  color: var(--risk-color);
+}
+
+.risk-low {
+  --risk-color: var(--color-risk-low);
+  --risk-bg: rgba(40, 167, 69, 0.1);
+  --risk-border: rgba(40, 167, 69, 0.3);
+  color: var(--risk-color);
+}
+
+/* ===== SIZE VARIANTS ===== */
+
+.size-sm {
+  font-size: var(--font-size-body-small);
+  gap: var(--space-1);
+}
+
+.size-md {
+  font-size: var(--font-size-body-medium);
+  gap: var(--space-2);
+}
+
+.size-lg {
+  font-size: var(--font-size-body-large);
+  gap: var(--space-3);
+}
+
+/* ===== DISPLAY VARIANTS ===== */
+
+.variant-badge {
+  padding: var(--space-1) var(--space-3);
+  background-color: var(--risk-bg);
+  border: 1px solid var(--risk-border);
+}
+
+.variant-badge.size-sm {
+  padding: var(--space-1) var(--space-2);
+}
+
+.variant-badge.size-lg {
+  padding: var(--space-2) var(--space-4);
+}
+
+.variant-dot {
+  width: 12px;
+  height: 12px;
+  border-radius: var(--radius-full);
+  background-color: var(--risk-color);
+  border: 2px solid var(--risk-bg);
+  padding: 0;
+  gap: 0;
+}
+
+.variant-dot.size-sm {
+  width: 8px;
+  height: 8px;
+}
+
+.variant-dot.size-lg {
+  width: 16px;
+  height: 16px;
+}
+
+.variant-full {
+  /* Default styling - no additional styles needed */
+}
+
+/* ===== ICON STYLING ===== */
+
+.riskIcon {
+  flex-shrink: 0;
+}
+
+/* Ensure icons inherit the risk color */
+.riskIndicator .riskIcon {
+  color: var(--risk-color);
+}
+
+/* ===== LABEL STYLING ===== */
+
+.riskLabel {
+  white-space: nowrap;
+  font-weight: var(--font-weight-medium);
+}
+
+/* ===== ACCESSIBILITY ENHANCEMENTS ===== */
+
+/* High contrast mode support */
+@media (prefers-contrast: high) {
+  .riskIndicator {
+    border-width: 2px;
+    border-style: solid;
+    border-color: var(--risk-color);
+  }
+  
+  .variant-badge {
+    background-color: var(--risk-color);
+    color: var(--color-text-inverse);
+  }
+  
+  .variant-dot {
+    border-width: 3px;
+    border-color: var(--risk-color);
+  }
+}
+
+/* Reduced motion support */
+@media (prefers-reduced-motion: reduce) {
+  .riskIndicator {
+    transition: none;
+  }
+}
+
+/* Focus states for interactive elements */
+.riskIndicator:focus-visible {
+  outline: 2px solid var(--risk-color);
+  outline-offset: 2px;
+}
+
+/* ===== HOVER EFFECTS FOR INTERACTIVE VARIANTS ===== */
+
+.riskIndicator.interactive {
+  cursor: pointer;
+}
+
+.riskIndicator.interactive:hover {
+  background-color: var(--risk-bg);
+  transform: translateY(-1px);
+}
+
+.riskIndicator.interactive:active {
+  transform: translateY(0);
+}
+
+/* ===== ANIMATION VARIANTS ===== */
+
+.riskIndicator.pulse {
+  animation: riskPulse 2s ease-in-out infinite;
+}
+
+@keyframes riskPulse {
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.7;
+  }
+}
+
+/* Critical risk gets a more urgent pulse */
+.risk-extremely-high.pulse {
+  animation: criticalPulse 1.5s ease-in-out infinite;
+}
+
+@keyframes criticalPulse {
+  0%, 100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.8;
+    transform: scale(1.05);
+  }
+}
+
+/* ===== MOBILE OPTIMIZATIONS ===== */
+
+@media (max-width: 768px) {
+  .size-md {
+    font-size: var(--font-size-body-small);
+  }
+  
+  .size-lg {
+    font-size: var(--font-size-body-medium);
+  }
+  
+  .variant-badge {
+    padding: var(--space-2) var(--space-3);
+  }
+  
+  /* Ensure touch targets are adequate */
+  .riskIndicator.interactive {
+    min-height: 44px;
+    min-width: 44px;
+    justify-content: center;
+  }
+}
+
+/* ===== PRINT STYLES ===== */
+
+@media print {
+  .riskIndicator {
+    background-color: transparent !important;
+    border: 1px solid var(--risk-color) !important;
+    color: var(--risk-color) !important;
+  }
+  
+  .variant-dot {
+    background-color: var(--risk-color) !important;
+    border-color: var(--risk-color) !important;
+  }
+}

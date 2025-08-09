@@ -166,6 +166,18 @@
   margin-bottom: 0.5rem;
 }
 
+.priorityDisplayContainer {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 1rem;
+}
+
+.priorityIndicator {
+  font-size: 1.2rem;
+  font-weight: 600;
+  padding: 0.75rem 1.5rem;
+}
+
 .priorityDisplay {
   font-size: 1.2rem;
   font-weight: 600;
@@ -175,6 +187,7 @@
   display: inline-block;
 }
 
+/* Legacy priority classes - now using RiskIndicator component */
 .priorityLow {
   background: rgba(40, 167, 69, 0.8);
 }
@@ -193,7 +206,7 @@
 }
 
 .priorityExtremelyHigh {
-  background: rgba(108, 117, 125, 0.9);
+  background: rgba(255, 107, 53, 0.8);
   animation: pulse 2s infinite;
 }
 

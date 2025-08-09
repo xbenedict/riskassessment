@@ -9,3 +9,4 @@ export { Loading, type LoadingProps } from './Loading';
 export { Progress, type ProgressProps } from './Progress';
 export { Skeleton, type SkeletonProps } from './Skeleton';
 export { Toast, type ToastProps } from './Toast';
+export { RiskIndicator } from './RiskIndicator';

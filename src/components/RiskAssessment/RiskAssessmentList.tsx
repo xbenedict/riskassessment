@@ -2,7 +2,7 @@ import React, { useState, useMemo } from 'react';
 import { RiskCalculator } from '../../utils/RiskCalculator';
 import type { RiskAssessment, ThreatType, RiskPriority } from '../../types';
 import { ThreatType as ThreatTypeEnum } from '../../types';
-import { Icon } from '../UI';
+import { Icon, RiskIndicator } from '../UI';
 import styles from './RiskAssessmentList.module.css';
 
 interface RiskAssessmentListProps {
@@ -286,9 +286,13 @@ export const RiskAssessmentList: React.FC<RiskAssessmentListProps> = ({
                 <div className={styles.threatType}>
                   {formatThreatType(assessment.threatType)}
                 </div>
-                <div className={`${styles.priorityBadge} ${getPriorityClassName(assessment.priority)}`}>
-                  {assessment.priority.replace('-', ' ')}
-                </div>
+                <RiskIndicator 
+                  priority={assessment.priority}
+                  size="sm"
+                  variant="badge"
+                  showIcon={true}
+                  showLabel={true}
+                />
               </div>
 
               <div className={styles.magnitudeSection}>

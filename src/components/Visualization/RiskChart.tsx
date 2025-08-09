@@ -16,7 +16,7 @@ import type { ChartOptions, ChartData } from 'chart.js';
 import { Bar, Pie, getElementAtEvent } from 'react-chartjs-2';
 import type { RiskAssessment, ThreatType, RiskPriority } from '../../types';
 import { RiskCalculator } from '../../utils/RiskCalculator';
-import { Icon } from '../UI';
+import { Icon, RiskIndicator } from '../UI';
 import styles from './RiskChart.module.css';
 
 // Register Chart.js components
@@ -53,13 +53,13 @@ export const RiskChart: React.FC<RiskChartProps> = ({
 }) => {
   const chartRef = useRef<ChartJS>(null);
 
-  // Color schemes for different risk priorities
+  // Semantic color system for risk priorities (matching design system)
   const riskColors = {
-    'extremely-high': '#dc2626', // Red
-    'very-high': '#ea580c',      // Orange-red
-    'high': '#f59e0b',           // Orange
-    'medium-high': '#eab308',    // Yellow
-    'low': '#22c55e'             // Green
+    'extremely-high': '#ff6b35', // Critical orange (var(--color-risk-critical))
+    'very-high': '#dc3545',      // High risk red (var(--color-risk-high))
+    'high': '#fd7e14',           // Orange for high
+    'medium-high': '#ffc107',    // Medium risk yellow (var(--color-risk-medium))
+    'low': '#28a745'             // Low risk green (var(--color-risk-low))
   };
 
   const threatColors = {
@@ -379,14 +379,17 @@ export const RiskChart: React.FC<RiskChartProps> = ({
         <div className={styles.chartLegend}>
           <h4>Risk Priority Levels:</h4>
           <div className={styles.priorityLegend}>
-            {Object.entries(riskColors).map(([priority, color]) => (
+            {Object.entries(riskColors).map(([priority]) => (
               <div key={priority} className={styles.priorityItem}>
-                <div 
-                  className={styles.colorBox} 
-                  style={{ backgroundColor: color }}
+                <RiskIndicator 
+                  priority={priority as RiskPriority}
+                  size="sm"
+                  variant="dot"
+                  showIcon={false}
+                  showLabel={false}
                 />
                 <span>{priority.replace('-', ' ').toUpperCase()}</span>
-                <small>({RiskCalculator.getPriorityDescription(priority as RiskPriority)})</small>
+                <small>({RiskCalculator.getPriorityDescription?.(priority as RiskPriority) || 'Risk level description'})</small>
               </div>
             ))}
           </div>
