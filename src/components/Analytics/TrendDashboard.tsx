@@ -290,7 +290,7 @@ export const TrendDashboard: React.FC = () => {
             <li>
               <strong>Average Risk:</strong> {selectedSiteTrend.averageValue.toFixed(1)} magnitude on ABC scale
             </li>
-            {selectedSiteTrend.forecast && selectedSiteTrend.forecast.length > 0 && (
+            {selectedSiteTrend.forecast && selectedSiteTrend.forecast.length > 2 && (
               <li>
                 <strong>3-Month Forecast:</strong> Predicted risk level of {selectedSiteTrend.forecast[2].value.toFixed(1)} 
                 based on current trend

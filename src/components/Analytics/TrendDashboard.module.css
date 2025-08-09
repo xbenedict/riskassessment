@@ -3,35 +3,40 @@
 .trendDashboard {
   max-width: 1400px;
   margin: 0 auto;
-  padding: 2rem;
+  padding: var(--space-4);
   background: var(--color-bg-tertiary);
   min-height: 100vh;
+  animation: fadeIn var(--duration-normal) var(--timing-decelerate);
 }
 
 .header {
   text-align: center;
-  margin-bottom: 2rem;
+  margin-bottom: var(--space-8);
+  animation: slideInDown var(--duration-normal) var(--timing-decelerate);
 }
 
 .header h2 {
   color: var(--color-text-primary);
-  margin-bottom: 0.5rem;
-  font-size: 2rem;
-  font-weight: 600;
+  margin-bottom: var(--space-2);
+  font-size: var(--font-size-display-medium);
+  font-weight: var(--font-weight-semibold);
+  line-height: var(--line-height-tight);
 }
 
 .header p {
   color: var(--color-text-secondary);
-  font-size: 1.1rem;
+  font-size: var(--font-size-body-large);
   margin: 0;
+  line-height: var(--line-height-normal);
 }
 
 .viewControls {
   background: var(--color-bg-primary);
-  border-radius: 8px;
-  box-shadow: 0 2px 8px rgba(17, 31, 48, 0.1);
-  margin-bottom: 2rem;
+  border-radius: var(--radius-xl);
+  box-shadow: var(--shadow-md);
+  margin-bottom: var(--space-8);
   overflow: hidden;
+  animation: slideInUp var(--duration-normal) var(--timing-decelerate) 0.1s both;
 }
 
 .viewTabs {
@@ -41,56 +46,68 @@
 
 .viewTab {
   flex: 1;
-  padding: 1rem 1.5rem;
+  padding: var(--space-4) var(--space-6);
   background: none;
   border: none;
-  font-size: 1rem;
-  font-weight: 500;
+  font-size: var(--font-size-body-medium);
+  font-weight: var(--font-weight-medium);
   color: var(--color-text-muted);
   cursor: pointer;
-  transition: all 0.2s ease;
+  transition: all var(--duration-normal) var(--timing-standard);
   border-bottom: 3px solid transparent;
+  min-height: 44px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .viewTab:hover {
   background: var(--color-bg-secondary);
   color: var(--color-text-secondary);
+  transform: translateY(-1px);
+}
+
+.viewTab:active {
+  transform: translateY(0) scale(0.98);
+  transition: transform var(--duration-fast) var(--timing-accelerate);
 }
 
 .viewTab.active {
   color: var(--color-tertiary);
   border-bottom-color: var(--color-tertiary);
   background: var(--color-bg-secondary);
+  font-weight: var(--font-weight-semibold);
 }
 
 .filters {
   display: flex;
-  gap: 2rem;
-  padding: 1rem 1.5rem;
+  gap: var(--space-8);
+  padding: var(--space-4) var(--space-6);
   background: var(--color-bg-secondary);
 }
 
 .filterGroup {
   display: flex;
   flex-direction: column;
-  gap: 0.5rem;
+  gap: var(--space-2);
   min-width: 200px;
 }
 
 .filterGroup label {
-  font-weight: 500;
+  font-weight: var(--font-weight-medium);
   color: var(--color-text-primary);
-  font-size: 0.9rem;
+  font-size: var(--font-size-body-small);
 }
 
 .select {
-  padding: 0.5rem;
+  padding: var(--space-3) var(--space-4);
   border: 1px solid var(--color-border-medium);
-  border-radius: 4px;
-  font-size: 0.9rem;
+  border-radius: var(--radius-md);
+  font-size: var(--font-size-body-medium);
   background: var(--color-bg-primary);
   color: var(--color-text-primary);
-  transition: border-color 0.2s ease;
+  transition: all var(--duration-normal) var(--timing-standard);
+  min-height: 44px;
 }
 
 .select option {
@@ -98,51 +115,81 @@
   background: var(--color-bg-primary);
 }
 
+.select:hover {
+  border-color: var(--color-tertiary-light);
+}
+
 .select:focus {
   outline: none;
   border-color: var(--color-tertiary);
-  box-shadow: 0 0 0 2px rgba(54, 99, 124, 0.25);
+  box-shadow: 0 0 0 3px rgba(54, 99, 124, 0.1);
 }
 
 .content {
   background: var(--color-bg-primary);
-  border-radius: 8px;
-  box-shadow: 0 2px 8px rgba(17, 31, 48, 0.1);
+  border-radius: var(--radius-xl);
+  box-shadow: var(--shadow-md);
   overflow: hidden;
+  animation: slideInUp var(--duration-normal) var(--timing-decelerate) 0.2s both;
 }
 
 .loading,
 .error,
 .noData {
-  padding: 3rem;
+  padding: var(--space-12);
   text-align: center;
   color: var(--color-text-muted);
+  font-size: var(--font-size-body-large);
+  animation: fadeIn var(--duration-normal) var(--timing-decelerate);
+}
+
+.loading {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-4);
+}
+
+.loading::before {
+  content: '';
+  width: 32px;
+  height: 32px;
+  border: 3px solid var(--color-border-light);
+  border-top-color: var(--color-tertiary);
+  border-radius: var(--radius-full);
+  animation: spin 1s linear infinite;
 }
 
 .error {
   color: var(--color-risk-high);
-  background: rgba(220, 53, 69, 0.1);
+  background: rgba(220, 53, 69, 0.05);
+  border: 1px solid rgba(220, 53, 69, 0.1);
+  border-radius: var(--radius-lg);
+  animation: shake var(--duration-slow) var(--timing-standard);
 }
 
 .trendsView,
 .comparativeView,
 .evolutionView,
 .correlationsView {
-  padding: 2rem;
+  padding: var(--space-8);
+  animation: fadeIn var(--duration-normal) var(--timing-decelerate);
 }
 
 .insights {
-  margin-top: 2rem;
-  padding: 1.5rem;
+  margin-top: var(--space-8);
+  padding: var(--space-6);
   background: var(--color-bg-secondary);
-  border-radius: 6px;
+  border-radius: var(--radius-lg);
   border-left: 4px solid var(--color-tertiary);
+  animation: slideInLeft var(--duration-normal) var(--timing-decelerate) 0.3s both;
 }
 
 .insights h4 {
   color: var(--color-text-primary);
-  margin-bottom: 1rem;
-  font-size: 1.1rem;
+  margin-bottom: var(--space-4);
+  font-size: var(--font-size-heading-small);
+  font-weight: var(--font-weight-semibold);
 }
 
 .insights ul {
@@ -152,175 +199,241 @@
 }
 
 .insights li {
-  padding: 0.5rem 0;
+  padding: var(--space-2) 0;
   border-bottom: 1px solid var(--color-border-light);
+  font-size: var(--font-size-body-medium);
+  line-height: var(--line-height-normal);
+  animation: fadeIn var(--duration-normal) var(--timing-decelerate);
 }
 
 .insights li:last-child {
   border-bottom: none;
 }
 
+.insights li strong {
+  font-weight: var(--font-weight-semibold);
+  color: var(--color-text-primary);
+}
+
 .correlations {
-  margin-top: 2rem;
+  margin-top: var(--space-8);
+  animation: slideInRight var(--duration-normal) var(--timing-decelerate) 0.4s both;
 }
 
 .correlations h4 {
   color: var(--color-text-primary);
-  margin-bottom: 1rem;
-  font-size: 1.1rem;
+  margin-bottom: var(--space-4);
+  font-size: var(--font-size-heading-small);
+  font-weight: var(--font-weight-semibold);
 }
 
 .correlationGrid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-  gap: 1rem;
+  gap: var(--space-4);
 }
 
 .correlationItem {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 0.75rem;
+  padding: var(--space-3);
   background: var(--color-bg-secondary);
-  border-radius: 4px;
+  border-radius: var(--radius-md);
   border-left: 4px solid var(--color-border-light);
+  transition: all var(--duration-normal) var(--timing-standard);
+  animation: fadeIn var(--duration-normal) var(--timing-decelerate);
+}
+
+.correlationItem:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-md);
 }
 
 .sitePair {
-  font-weight: 500;
+  font-weight: var(--font-weight-medium);
   color: var(--color-text-primary);
+  font-size: var(--font-size-body-medium);
 }
 
 .correlationValue {
-  font-weight: 600;
-  padding: 0.25rem 0.5rem;
-  border-radius: 3px;
-  font-size: 0.9rem;
+  font-weight: var(--font-weight-semibold);
+  padding: var(--space-1) var(--space-2);
+  border-radius: var(--radius-sm);
+  font-size: var(--font-size-body-small);
+  transition: all var(--duration-normal) var(--timing-standard);
+}
+
+.correlationValue:hover {
+  transform: scale(1.05);
 }
 
 .correlationValue.strong {
-  background: rgba(40, 167, 69, 0.2);
+  background: rgba(40, 167, 69, 0.15);
   color: var(--color-risk-low);
+  border: 1px solid rgba(40, 167, 69, 0.3);
 }
 
 .correlationValue.moderate {
-  background: rgba(255, 193, 7, 0.2);
+  background: rgba(255, 193, 7, 0.15);
   color: var(--color-risk-medium);
+  border: 1px solid rgba(255, 193, 7, 0.3);
 }
 
 .correlationValue.weak {
-  background: rgba(220, 53, 69, 0.2);
+  background: rgba(220, 53, 69, 0.15);
   color: var(--color-risk-high);
+  border: 1px solid rgba(220, 53, 69, 0.3);
 }
 
 .criticalPeriods {
-  margin-top: 2rem;
+  margin-top: var(--space-8);
+  animation: slideInUp var(--duration-normal) var(--timing-decelerate) 0.5s both;
 }
 
 .criticalPeriods h4 {
   color: var(--color-text-primary);
-  margin-bottom: 1rem;
-  font-size: 1.1rem;
+  margin-bottom: var(--space-4);
+  font-size: var(--font-size-heading-small);
+  font-weight: var(--font-weight-semibold);
 }
 
 .periodsGrid {
   display: grid;
-  gap: 1rem;
+  gap: var(--space-4);
 }
 
 .periodItem {
-  padding: 1rem;
-  background: rgba(255, 193, 7, 0.2);
-  border-radius: 6px;
+  padding: var(--space-4);
+  background: rgba(255, 193, 7, 0.1);
+  border-radius: var(--radius-lg);
   border-left: 4px solid var(--color-risk-medium);
+  transition: all var(--duration-normal) var(--timing-standard);
+  animation: fadeIn var(--duration-normal) var(--timing-decelerate);
+}
+
+.periodItem:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-md);
+  background: rgba(255, 193, 7, 0.15);
 }
 
 .periodHeader {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 0.5rem;
+  margin-bottom: var(--space-2);
 }
 
 .periodDates {
-  font-weight: 500;
+  font-weight: var(--font-weight-medium);
   color: var(--color-risk-medium);
+  font-size: var(--font-size-body-medium);
 }
 
 .peakMagnitude {
-  font-weight: 600;
+  font-weight: var(--font-weight-semibold);
   color: var(--color-risk-high);
-  background: rgba(220, 53, 69, 0.2);
-  padding: 0.25rem 0.5rem;
-  border-radius: 3px;
-  font-size: 0.85rem;
+  background: rgba(220, 53, 69, 0.15);
+  padding: var(--space-1) var(--space-2);
+  border-radius: var(--radius-sm);
+  font-size: var(--font-size-body-small);
+  border: 1px solid rgba(220, 53, 69, 0.3);
+  transition: all var(--duration-normal) var(--timing-standard);
+}
+
+.peakMagnitude:hover {
+  transform: scale(1.05);
 }
 
 .periodReason {
   margin: 0;
-  color: var(--color-risk-medium);
-  font-size: 0.9rem;
+  color: var(--color-text-secondary);
+  font-size: var(--font-size-body-medium);
+  line-height: var(--line-height-normal);
 }
 
 .correlationMatrix {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
-  gap: 1.5rem;
-  margin-top: 1rem;
+  gap: var(--space-6);
+  margin-top: var(--space-4);
 }
 
 .correlationCard {
   background: var(--color-bg-secondary);
-  border-radius: 6px;
-  padding: 1.5rem;
+  border-radius: var(--radius-lg);
+  padding: var(--space-6);
   border: 1px solid var(--color-border-light);
+  transition: all var(--duration-normal) var(--timing-standard);
+  animation: fadeIn var(--duration-normal) var(--timing-decelerate);
+}
+
+.correlationCard:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-md);
 }
 
 .correlationHeader {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 1rem;
+  margin-bottom: var(--space-4);
 }
 
 .correlationHeader h4 {
   margin: 0;
   color: var(--color-text-primary);
-  font-size: 1rem;
+  font-size: var(--font-size-body-medium);
+  font-weight: var(--font-weight-semibold);
 }
 
 .correlationBadge {
-  font-weight: 600;
-  padding: 0.25rem 0.75rem;
-  border-radius: 12px;
-  font-size: 0.85rem;
+  font-weight: var(--font-weight-semibold);
+  padding: var(--space-1) var(--space-3);
+  border-radius: var(--radius-xl);
+  font-size: var(--font-size-body-small);
+  transition: all var(--duration-normal) var(--timing-standard);
+}
+
+.correlationBadge:hover {
+  transform: scale(1.05);
 }
 
 .correlationBadge.strong {
-  background: rgba(40, 167, 69, 0.2);
+  background: rgba(40, 167, 69, 0.15);
   color: var(--color-risk-low);
+  border: 1px solid rgba(40, 167, 69, 0.3);
 }
 
 .correlationBadge.moderate {
-  background: rgba(255, 193, 7, 0.2);
+  background: rgba(255, 193, 7, 0.15);
   color: var(--color-risk-medium);
+  border: 1px solid rgba(255, 193, 7, 0.3);
 }
 
 .correlationBadge.weak {
-  background: rgba(220, 53, 69, 0.2);
+  background: rgba(220, 53, 69, 0.15);
   color: var(--color-risk-high);
+  border: 1px solid rgba(220, 53, 69, 0.3);
 }
 
 .correlationDescription {
   color: var(--color-text-muted);
-  font-size: 0.9rem;
-  line-height: 1.4;
+  font-size: var(--font-size-body-medium);
+  line-height: var(--line-height-normal);
 }
 
-/* Responsive design */
+/* ===== RESPONSIVE DESIGN - MOBILE FIRST ===== */
+
+/* Tablet and smaller desktop screens */
 @media (max-width: 1024px) {
   .trendDashboard {
-    padding: 1rem;
+    padding: var(--space-4);
+  }
+  
+  .header {
+    margin-bottom: var(--space-6);
   }
   
   .viewTabs {
@@ -330,66 +443,137 @@
   .viewTab {
     flex: none;
     min-width: 150px;
+    padding: var(--space-3) var(--space-4);
   }
   
   .filters {
     flex-direction: column;
-    gap: 1rem;
+    gap: var(--space-4);
+    padding: var(--space-4);
   }
   
   .filterGroup {
     min-width: auto;
-  }
-}
-
-@media (max-width: 768px) {
-  .header h2 {
-    font-size: 1.5rem;
-  }
-  
-  .header p {
-    font-size: 1rem;
   }
   
   .trendsView,
   .comparativeView,
   .evolutionView,
   .correlationsView {
-    padding: 1rem;
+    padding: var(--space-6);
+  }
+  
+  .insights {
+    padding: var(--space-4);
+  }
+}
+
+/* Mobile landscape and tablet portrait */
+@media (max-width: 768px) {
+  .trendDashboard {
+    padding: var(--space-3);
+  }
+  
+  .header h2 {
+    font-size: var(--font-size-display-small);
+  }
+  
+  .header p {
+    font-size: var(--font-size-body-medium);
+  }
+  
+  .viewControls {
+    margin-bottom: var(--space-6);
+  }
+  
+  .trendsView,
+  .comparativeView,
+  .evolutionView,
+  .correlationsView {
+    padding: var(--space-4);
   }
   
   .correlationGrid {
     grid-template-columns: 1fr;
+    gap: var(--space-3);
   }
   
   .correlationMatrix {
     grid-template-columns: 1fr;
+    gap: var(--space-4);
   }
   
   .periodHeader {
     flex-direction: column;
     align-items: stretch;
-    gap: 0.5rem;
+    gap: var(--space-2);
   }
   
   .insights {
-    padding: 1rem;
+    padding: var(--space-4);
+    margin-top: var(--space-6);
+  }
+  
+  .correlations {
+    margin-top: var(--space-6);
+  }
+  
+  .criticalPeriods {
+    margin-top: var(--space-6);
   }
 }
 
+/* Mobile portrait */
 @media (max-width: 480px) {
+  .trendDashboard {
+    padding: var(--space-2);
+  }
+  
+  .header {
+    margin-bottom: var(--space-4);
+  }
+  
+  .header h2 {
+    font-size: var(--font-size-heading-large);
+  }
+  
+  .header p {
+    font-size: var(--font-size-body-small);
+  }
+  
   .viewTabs {
     flex-direction: column;
   }
   
   .viewTab {
     text-align: center;
+    padding: var(--space-3);
+    border-bottom: none;
+    border-right: 3px solid transparent;
+  }
+  
+  .viewTab.active {
+    border-bottom: none;
+    border-right-color: var(--color-tertiary);
+  }
+  
+  .filters {
+    padding: var(--space-3);
+    gap: var(--space-3);
+  }
+  
+  .trendsView,
+  .comparativeView,
+  .evolutionView,
+  .correlationsView {
+    padding: var(--space-3);
   }
   
   .correlationItem {
     flex-direction: column;
     align-items: stretch;
-    gap: 0.5rem;
+    gap: var(--space-2);
+    padding: var(--space-3);
   }
   
   .sitePair {
@@ -398,5 +582,28 @@
   
   .correlationValue {
     text-align: center;
+    align-self: center;
+    width: fit-content;
+  }
+  
+  .insights {
+    padding: var(--space-3);
+    margin-top: var(--space-4);
+  }
+  
+  .correlations {
+    margin-top: var(--space-4);
+  }
+  
+  .criticalPeriods {
+    margin-top: var(--space-4);
+  }
+  
+  .correlationCard {
+    padding: var(--space-4);
+  }
+  
+  .correlationMatrix {
+    gap: var(--space-3);
   }
 }

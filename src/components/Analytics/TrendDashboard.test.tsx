@@ -6,15 +6,17 @@ import { TrendDashboard } from './TrendDashboard';
 import { MockDataService } from '../../services/MockDataService';
 import { TrendAnalysisService } from '../../services/TrendAnalysisService';
 
-// Mock the services
-jest.mock('../../services/MockDataService');
-jest.mock('../../services/TrendAnalysisService');
+import { vi, describe, it, beforeEach, expect } from 'vitest';
 
-const mockMockDataService = MockDataService as jest.Mocked<typeof MockDataService>;
-const mockTrendAnalysisService = TrendAnalysisService as jest.Mocked<typeof TrendAnalysisService>;
+// Mock the services
+vi.mock('../../services/MockDataService');
+vi.mock('../../services/TrendAnalysisService');
+
+const mockMockDataService = MockDataService as any;
+const mockTrendAnalysisService = TrendAnalysisService as any;
 
 // Mock Chart.js
-jest.mock('react-chartjs-2', () => ({
+vi.mock('react-chartjs-2', () => ({
   Line: ({ data, options }: any) => (
     <div data-testid="trend-chart">
       <div data-testid="chart-data">{JSON.stringify(data)}</div>
@@ -162,14 +164,14 @@ const mockThreatEvolution = {
 
 describe('TrendDashboard', () => {
   beforeEach(() => {
-    jest.clearAllMocks();
-    mockMockDataService.getHeritageSites.mockResolvedValue(mockSites);
-    mockMockDataService.getRiskAssessments.mockResolvedValue(mockAssessments);
-    mockTrendAnalysisService.generateMockHistoricalData.mockReturnValue(mockAssessments);
-    mockTrendAnalysisService.generateRiskTimeSeries.mockReturnValue(mockTrendAnalysis.dataPoints);
-    mockTrendAnalysisService.analyzeTrend.mockReturnValue(mockTrendAnalysis);
-    mockTrendAnalysisService.performComparativeAnalysis.mockReturnValue(mockComparativeAnalysis);
-    mockTrendAnalysisService.analyzeThreatEvolution.mockReturnValue(mockThreatEvolution);
+    vi.clearAllMocks();
+    mockMockDataService.getHeritageSites = vi.fn().mockResolvedValue(mockSites);
+    mockMockDataService.getRiskAssessments = vi.fn().mockResolvedValue(mockAssessments);
+    mockTrendAnalysisService.generateMockHistoricalData = vi.fn().mockReturnValue(mockAssessments);
+    mockTrendAnalysisService.generateRiskTimeSeries = vi.fn().mockReturnValue(mockTrendAnalysis.dataPoints);
+    mockTrendAnalysisService.analyzeTrend = vi.fn().mockReturnValue(mockTrendAnalysis);
+    mockTrendAnalysisService.performComparativeAnalysis = vi.fn().mockReturnValue(mockComparativeAnalysis);
+    mockTrendAnalysisService.analyzeThreatEvolution = vi.fn().mockReturnValue(mockThreatEvolution);
   });
 
   it('renders trend dashboard interface', async () => {
@@ -325,7 +327,7 @@ describe('TrendDashboard', () => {
   });
 
   it('handles error state', async () => {
-    mockMockDataService.getHeritageSites.mockRejectedValue(new Error('Test error'));
+    mockMockDataService.getHeritageSites = vi.fn().mockRejectedValue(new Error('Test error'));
     
     render(<TrendDashboard />);
     
@@ -335,7 +337,7 @@ describe('TrendDashboard', () => {
   });
 
   it('shows no data message when insufficient data', async () => {
-    mockTrendAnalysisService.analyzeTrend.mockImplementation(() => {
+    mockTrendAnalysisService.analyzeTrend = vi.fn().mockImplementation(() => {
       throw new Error('Insufficient data');
     });
     
