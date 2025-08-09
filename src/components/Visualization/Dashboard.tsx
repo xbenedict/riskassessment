@@ -6,6 +6,7 @@ import { RiskChart } from './RiskChart';
 import { SiteMap } from './SiteMap';
 import { DataManager } from '../../services/DataManager';
 import { RiskCalculator } from '../../utils/RiskCalculator';
+import { Card, Button, Loading, Icon } from '../UI';
 import type { HeritageSite, RiskAssessment, RiskPriority } from '../../types';
 import styles from './Dashboard.module.css';
 
@@ -213,10 +214,11 @@ export const Dashboard: React.FC<DashboardProps> = ({ className }) => {
   if (loading) {
     return (
       <div className={`${styles.dashboard} ${className || ''}`}>
-        <div className={styles.loading}>
-          <div className={styles.spinner}></div>
-          <p>Loading dashboard data...</p>
-        </div>
+        <Loading 
+          variant="container" 
+          size="large" 
+          message="Loading dashboard data..." 
+        />
       </div>
     );
   }
@@ -224,13 +226,20 @@ export const Dashboard: React.FC<DashboardProps> = ({ className }) => {
   if (error) {
     return (
       <div className={`${styles.dashboard} ${className || ''}`}>
-        <div className={styles.error}>
-          <h3>Error Loading Dashboard</h3>
-          <p>{error}</p>
-          <button onClick={loadDashboardData} className={styles.retryButton}>
-            Retry
-          </button>
-        </div>
+        <Card className={styles.errorCard}>
+          <div className={styles.errorContent}>
+            <Icon name="AlertTriangle" size="lg" className={styles.errorIcon} />
+            <h3>Error Loading Dashboard</h3>
+            <p>{error}</p>
+            <Button 
+              onClick={loadDashboardData} 
+              variant="primary"
+              icon="RefreshCw"
+            >
+              Retry
+            </Button>
+          </div>
+        </Card>
       </div>
     );
   }
@@ -251,25 +260,39 @@ export const Dashboard: React.FC<DashboardProps> = ({ className }) => {
         <div className={styles.alertsSection}>
           <div className={styles.alertsHeader}>
             <h2>Alert Notifications</h2>
-            <button 
+            <Button 
+              variant="ghost"
+              size="small"
+              icon="EyeOff"
               onClick={() => setShowAlerts(false)}
-              className={styles.hideAlertsButton}
             >
               Hide Alerts
-            </button>
+            </Button>
           </div>
           <div className={styles.alertsList}>
             {alerts.slice(0, 5).map(alert => (
-              <div key={alert.id} className={`${styles.alert} ${styles[alert.type]}`}>
+              <Card 
+                key={alert.id} 
+                variant="outlined"
+                className={`${styles.alert} ${styles[alert.type]}`}
+              >
                 <div className={styles.alertContent}>
                   <div className={styles.alertHeader}>
-                    <h4>{alert.title}</h4>
-                    <button 
+                    <div className={styles.alertTitleRow}>
+                      <Icon 
+                        name={alert.type === 'critical' ? 'AlertTriangle' : alert.type === 'warning' ? 'AlertCircle' : 'Info'} 
+                        size="sm" 
+                        className={styles.alertIcon}
+                      />
+                      <h4>{alert.title}</h4>
+                    </div>
+                    <Button 
+                      variant="ghost"
+                      size="small"
+                      icon="X"
                       onClick={() => handleAlertDismiss(alert.id)}
                       className={styles.dismissButton}
-                    >
-                      ×
-                    </button>
+                    />
                   </div>
                   <p>{alert.message}</p>
                   <div className={styles.alertMeta}>
@@ -277,7 +300,7 @@ export const Dashboard: React.FC<DashboardProps> = ({ className }) => {
                     <span className={styles.timestamp}>{formatDate(alert.timestamp)}</span>
                   </div>
                 </div>
-              </div>
+              </Card>
             ))}
           </div>
         </div>
@@ -287,85 +310,143 @@ export const Dashboard: React.FC<DashboardProps> = ({ className }) => {
       <div className={styles.kpiSection}>
         <h2>Key Performance Indicators</h2>
         <div className={styles.kpiGrid}>
-          <div className={styles.kpiCard}>
+          <Card 
+            variant="elevated" 
+            interactive 
+            className={styles.kpiCard}
+          >
+            <div className={styles.kpiIcon}>
+              <Icon name="MapPin" size="lg" />
+            </div>
             <div className={styles.kpiValue}>{stats.totalSites}</div>
             <div className={styles.kpiLabel}>Total Heritage Sites</div>
             <div className={styles.kpiSubtext}>Under management</div>
-          </div>
+          </Card>
           
-          <div className={`${styles.kpiCard} ${stats.criticalSites > 0 ? styles.critical : ''}`}>
+          <Card 
+            variant="elevated" 
+            interactive 
+            className={`${styles.kpiCard} ${stats.criticalSites > 0 ? styles.critical : ''}`}
+          >
+            <div className={styles.kpiIcon}>
+              <Icon name="AlertTriangle" size="lg" />
+            </div>
             <div className={styles.kpiValue}>{stats.criticalSites}</div>
             <div className={styles.kpiLabel}>Critical Risk Sites</div>
             <div className={styles.kpiSubtext}>Requiring immediate attention</div>
-          </div>
+          </Card>
           
-          <div className={styles.kpiCard}>
+          <Card 
+            variant="elevated" 
+            interactive 
+            className={styles.kpiCard}
+          >
+            <div className={styles.kpiIcon}>
+              <Icon name="FileText" size="lg" />
+            </div>
             <div className={styles.kpiValue}>{stats.totalAssessments}</div>
             <div className={styles.kpiLabel}>Total Risk Assessments</div>
             <div className={styles.kpiSubtext}>Across all sites</div>
-          </div>
+          </Card>
           
-          <div className={styles.kpiCard}>
+          <Card 
+            variant="elevated" 
+            interactive 
+            className={styles.kpiCard}
+          >
+            <div className={styles.kpiIcon}>
+              <Icon name="BarChart3" size="lg" />
+            </div>
             <div className={styles.kpiValue}>{stats.averageRiskMagnitude}</div>
             <div className={styles.kpiLabel}>Average Risk Magnitude</div>
             <div className={styles.kpiSubtext}>ABC scale (3-15)</div>
-          </div>
+          </Card>
           
-          <div className={`${styles.kpiCard} ${stats.highPriorityRisks > 0 ? styles.warning : ''}`}>
+          <Card 
+            variant="elevated" 
+            interactive 
+            className={`${styles.kpiCard} ${stats.highPriorityRisks > 0 ? styles.warning : ''}`}
+          >
+            <div className={styles.kpiIcon}>
+              <Icon name="AlertCircle" size="lg" />
+            </div>
             <div className={styles.kpiValue}>{stats.highPriorityRisks}</div>
             <div className={styles.kpiLabel}>High Priority Risks</div>
             <div className={styles.kpiSubtext}>Extremely high + Very high</div>
-          </div>
+          </Card>
           
-          <div className={styles.kpiCard}>
+          <Card 
+            variant="elevated" 
+            interactive 
+            className={styles.kpiCard}
+          >
+            <div className={styles.kpiIcon}>
+              <Icon name="Clock" size="lg" />
+            </div>
             <div className={styles.kpiValue}>{stats.recentAssessments}</div>
             <div className={styles.kpiLabel}>Recent Assessments</div>
             <div className={styles.kpiSubtext}>Last 30 days</div>
-          </div>
+          </Card>
         </div>
       </div>
 
       {/* Main Content Grid */}
       <div className={styles.mainContent}>
         {/* Heritage Sites Map */}
-        <div className={styles.mapSection}>
+        <Card variant="elevated" className={styles.mapSection}>
+          <div className={styles.mapHeader}>
+            <h3>Heritage Sites Map</h3>
+            <Icon name="Map" size="md" />
+          </div>
           <SiteMap
             selectedSiteId={selectedSite?.id}
             onSiteSelect={handleSiteSelect}
             showThreatZones={true}
             className={styles.dashboardMap}
           />
-        </div>
+        </Card>
 
         {/* Risk Summary Charts */}
         <div className={styles.chartsSection}>
-          <div className={styles.chartContainer}>
+          <Card variant="elevated" className={styles.chartContainer}>
+            <div className={styles.chartHeader}>
+              <h3>Risk Priority Distribution</h3>
+              <Icon name="PieChart" size="md" />
+            </div>
             <RiskChart
               assessments={allAssessments}
               chartType="category"
-              title="Risk Priority Distribution"
+              title=""
               responsive={true}
               showExport={false}
             />
-          </div>
+          </Card>
           
-          <div className={styles.chartContainer}>
+          <Card variant="elevated" className={styles.chartContainer}>
+            <div className={styles.chartHeader}>
+              <h3>Threat Type Analysis</h3>
+              <Icon name="BarChart3" size="md" />
+            </div>
             <RiskChart
               assessments={allAssessments}
               chartType="threat-comparison"
-              title="Threat Type Analysis"
+              title=""
               responsive={true}
               showExport={false}
             />
-          </div>
+          </Card>
         </div>
       </div>
 
       {/* Recent Assessments Timeline */}
-      <div className={styles.timelineSection}>
-        <h2>Recent Risk Assessments</h2>
+      <Card variant="elevated" className={styles.timelineSection}>
+        <div className={styles.sectionHeader}>
+          <h2>Recent Risk Assessments</h2>
+          <Icon name="Clock" size="md" />
+        </div>
         {recentAssessments.length === 0 ? (
           <div className={styles.noData}>
+            <Icon name="Calendar" size="lg" className={styles.noDataIcon} />
             <p>No recent risk assessments found.</p>
           </div>
         ) : (
@@ -373,100 +454,116 @@ export const Dashboard: React.FC<DashboardProps> = ({ className }) => {
             {recentAssessments.map(assessment => {
               const site = sites.find(s => s.id === assessment.siteId);
               return (
-                <div key={assessment.id} className={styles.timelineItem}>
-                  <div className={`${styles.timelineMarker} ${styles[assessment.priority.replace('-', '')]}`}>
-                    <div className={styles.priorityDot}></div>
+                <Card 
+                  key={assessment.id} 
+                  variant="outlined"
+                  interactive
+                  className={styles.timelineItem}
+                >
+                  <div className={styles.timelineItemContent}>
+                    <div className={`${styles.timelineMarker} ${styles[assessment.priority.replace('-', '')]}`}>
+                      <Icon 
+                        name={assessment.priority === 'extremely-high' || assessment.priority === 'very-high' ? 'AlertTriangle' : 'AlertCircle'} 
+                        size="sm" 
+                      />
+                    </div>
+                    <div className={styles.timelineContent}>
+                      <div className={styles.timelineHeader}>
+                        <h4>{site?.name || 'Unknown Site'}</h4>
+                        <span className={styles.timelineDate}>
+                          {formatDate(assessment.assessmentDate)}
+                        </span>
+                      </div>
+                      <div className={styles.timelineDetails}>
+                        <span className={styles.threatType}>
+                          {formatThreatType(assessment.threatType)}
+                        </span>
+                        <span className={`${styles.priorityBadge} ${styles[assessment.priority.replace('-', '')]}`}>
+                          {assessment.priority.replace('-', ' ').toUpperCase()}
+                        </span>
+                        <span className={styles.magnitude}>
+                          Magnitude: {assessment.magnitude}
+                        </span>
+                      </div>
+                      <p className={styles.assessmentNotes}>
+                        {assessment.notes.length > 100 
+                          ? `${assessment.notes.substring(0, 100)}...`
+                          : assessment.notes
+                        }
+                      </p>
+                      <div className={styles.assessor}>
+                        Assessed by: {assessment.assessor}
+                      </div>
+                    </div>
                   </div>
-                  <div className={styles.timelineContent}>
-                    <div className={styles.timelineHeader}>
-                      <h4>{site?.name || 'Unknown Site'}</h4>
-                      <span className={styles.timelineDate}>
-                        {formatDate(assessment.assessmentDate)}
-                      </span>
-                    </div>
-                    <div className={styles.timelineDetails}>
-                      <span className={styles.threatType}>
-                        {formatThreatType(assessment.threatType)}
-                      </span>
-                      <span className={`${styles.priorityBadge} ${styles[assessment.priority.replace('-', '')]}`}>
-                        {assessment.priority.replace('-', ' ').toUpperCase()}
-                      </span>
-                      <span className={styles.magnitude}>
-                        Magnitude: {assessment.magnitude}
-                      </span>
-                    </div>
-                    <p className={styles.assessmentNotes}>
-                      {assessment.notes.length > 100 
-                        ? `${assessment.notes.substring(0, 100)}...`
-                        : assessment.notes
-                      }
-                    </p>
-                    <div className={styles.assessor}>
-                      Assessed by: {assessment.assessor}
-                    </div>
-                  </div>
-                </div>
+                </Card>
               );
             })}
           </div>
         )}
-      </div>
+      </Card>
 
       {/* Site Summary Table */}
-      <div className={styles.sitesSection}>
-        <h2>Heritage Sites Summary</h2>
-        <div className={styles.sitesTable}>
-          <div className={styles.tableHeader}>
-            <div className={styles.tableCell}>Site Name</div>
-            <div className={styles.tableCell}>Location</div>
-            <div className={styles.tableCell}>Risk Level</div>
-            <div className={styles.tableCell}>Status</div>
-            <div className={styles.tableCell}>Last Assessment</div>
-            <div className={styles.tableCell}>Active Threats</div>
-          </div>
+      <Card variant="elevated" className={styles.sitesSection}>
+        <div className={styles.sectionHeader}>
+          <h2>Heritage Sites Summary</h2>
+          <Icon name="Building" size="md" />
+        </div>
+        <div className={styles.sitesGrid}>
           {sites.map(site => (
-            <div 
+            <Card 
               key={site.id} 
-              className={`${styles.tableRow} ${selectedSite?.id === site.id ? styles.selected : ''}`}
+              variant="outlined"
+              interactive
+              className={`${styles.siteCard} ${selectedSite?.id === site.id ? styles.selected : ''}`}
               onClick={() => handleSiteSelect(site)}
             >
-              <div className={styles.tableCell}>
-                <strong>{site.name}</strong>
+              <div className={styles.siteCardHeader}>
+                <div className={styles.siteInfo}>
+                  <h4>{site.name}</h4>
+                  <p className={styles.siteLocation}>
+                    <Icon name="MapPin" size="sm" />
+                    {site.location.address}, {site.location.country}
+                  </p>
+                </div>
+                <div className={styles.siteStatus}>
+                  <span className={`${styles.riskBadge} ${styles[site.riskProfile.overallRisk.replace('-', '')]}`}>
+                    {site.riskProfile.overallRisk.replace('-', ' ').toUpperCase()}
+                  </span>
+                </div>
               </div>
-              <div className={styles.tableCell}>
-                {site.location.address}, {site.location.country}
-              </div>
-              <div className={styles.tableCell}>
-                <span className={`${styles.riskBadge} ${styles[site.riskProfile.overallRisk.replace('-', '')]}`}>
-                  {site.riskProfile.overallRisk.replace('-', ' ').toUpperCase()}
-                </span>
-              </div>
-              <div className={styles.tableCell}>
-                <span className={`${styles.statusBadge} ${styles[site.currentStatus.replace('-', '')]}`}>
-                  {site.currentStatus.replace('-', ' ').toUpperCase()}
-                </span>
-              </div>
-              <div className={styles.tableCell}>
-                {formatDate(site.lastAssessment)}
-              </div>
-              <div className={styles.tableCell}>
+              
+              <div className={styles.siteCardBody}>
+                <div className={styles.siteMetrics}>
+                  <div className={styles.metric}>
+                    <Icon name="Calendar" size="sm" />
+                    <span>Last Assessment: {formatDate(site.lastAssessment)}</span>
+                  </div>
+                  <div className={styles.metric}>
+                    <Icon name="Activity" size="sm" />
+                    <span className={`${styles.statusBadge} ${styles[site.currentStatus.replace('-', '')]}`}>
+                      {site.currentStatus.replace('-', ' ').toUpperCase()}
+                    </span>
+                  </div>
+                </div>
+                
                 <div className={styles.threatTags}>
-                  {site.riskProfile.activeThreats.slice(0, 2).map(threat => (
+                  {site.riskProfile.activeThreats.slice(0, 3).map(threat => (
                     <span key={threat} className={styles.threatTag}>
                       {formatThreatType(threat)}
                     </span>
                   ))}
-                  {site.riskProfile.activeThreats.length > 2 && (
+                  {site.riskProfile.activeThreats.length > 3 && (
                     <span className={styles.moreThreats}>
-                      +{site.riskProfile.activeThreats.length - 2} more
+                      +{site.riskProfile.activeThreats.length - 3} more
                     </span>
                   )}
                 </div>
               </div>
-            </div>
+            </Card>
           ))}
         </div>
-      </div>
+      </Card>
     </div>
   );
 };
