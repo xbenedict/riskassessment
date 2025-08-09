@@ -24,8 +24,7 @@
 }
 
 .headerIcon {
-  color: var(--color-text-inverse);
-  opacity: 0.9;
+  color: white;
 }
 
 .headerContent h2 {
