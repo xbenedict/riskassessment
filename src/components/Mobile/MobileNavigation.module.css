@@ -124,7 +124,7 @@
 /* Tablet adjustments */
 @media (min-width: 768px) {
   .mobileNavigation {
-    display: none; /* Hide on larger screens, could show a sidebar instead */
+    /* Keep navigation visible on larger screens */
   }
 }
 
