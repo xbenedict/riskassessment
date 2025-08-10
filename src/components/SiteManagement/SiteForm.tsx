@@ -217,27 +217,29 @@ export const SiteForm: React.FC<SiteFormProps> = ({ siteId, onSave, onCancel }) 
     }));
   };
 
-  const handleImageUpload = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const files = event.target.files;
-    if (files) {
-      const newImages: string[] = [];
-      const newPreviews: string[] = [];
+  const handleImageUpload = async (event: React.ChangeEvent<HTMLInputElement>) => {
+    const fileList = event.target.files ? Array.from(event.target.files) : [];
+    if (fileList.length === 0) return;
 
-      Array.from(files).forEach(file => {
-        // In a real application, you would upload to a server and get back URLs
-        // For now, we'll create object URLs for preview and mock URLs for storage
-        const objectUrl = URL.createObjectURL(file);
-        const mockUrl = `/images/${file.name}`;
-        
-        newPreviews.push(objectUrl);
-        newImages.push(mockUrl);
+    const readFileAsDataURL = (file: File): Promise<string> =>
+      new Promise((resolve, reject) => {
+        const reader = new FileReader();
+        reader.onload = () => resolve(reader.result as string);
+        reader.onerror = reject;
+        reader.readAsDataURL(file);
       });
 
-      setImagePreview(prev => [...prev, ...newPreviews]);
+    try {
+      const dataUrls = await Promise.all(fileList.map(readFileAsDataURL));
+
+      // Use data URLs for both preview and persisted images so they display everywhere
+      setImagePreview(prev => [...prev, ...dataUrls]);
       setFormData(prev => ({
         ...prev,
-        images: [...prev.images, ...newImages]
+        images: [...prev.images, ...dataUrls]
       }));
+    } catch (err) {
+      console.error('Failed to read image files', err);
     }
   };
 
