@@ -32,15 +32,9 @@ export class PDFExport {
     printWindow.document.write(htmlContent);
     printWindow.document.close();
 
-    // Wait for content to load, then trigger print
+    // Wait for content to load - PDF will be displayed in browser tab
     printWindow.onload = () => {
-      setTimeout(() => {
-        printWindow.print();
-        // Close the window after printing (user can cancel)
-        printWindow.onafterprint = () => {
-          printWindow.close();
-        };
-      }, 250);
+      // Content is ready for viewing - no automatic print dialog
     };
   }
 
