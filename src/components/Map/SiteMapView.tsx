@@ -1,7 +1,10 @@
 import React, { useState, useEffect } from 'react';
+import { MapContainer, TileLayer, Marker, Popup } from 'react-leaflet';
+import { Icon as LeafletIcon } from 'leaflet';
 import type { HeritageSite } from '../../types';
 import { mockSites } from '../../utils/mockData';
 import { Icon, type IconName } from '../UI';
+import 'leaflet/dist/leaflet.css';
 import styles from './SiteMapView.module.css';
 
 interface SiteMapViewProps {
@@ -47,6 +50,25 @@ export const SiteMapView: React.FC<SiteMapViewProps> = ({ site, onClose }) => {
       case 'climate-change': return 'thermometer';
       default: return 'help-circle';
     }
+  };
+
+  const createCustomMarkerIcon = (risk: string, isSelected: boolean = false) => {
+    const color = getRiskColor(risk);
+    const size = isSelected ? 40 : 32;
+    
+    const svgIcon = `
+      <svg width="${size}" height="${size}" viewBox="0 0 ${size} ${size}" xmlns="http://www.w3.org/2000/svg">
+        <circle cx="${size/2}" cy="${size/2}" r="${size/2 - 2}" fill="${color}" stroke="white" stroke-width="3"/>
+        <circle cx="${size/2}" cy="${size/2}" r="6" fill="white"/>
+      </svg>
+    `;
+
+    return new LeafletIcon({
+      iconUrl: `data:image/svg+xml;base64,${btoa(svgIcon)}`,
+      iconSize: [size, size],
+      iconAnchor: [size / 2, size / 2],
+      popupAnchor: [0, -size / 2]
+    });
   };
 
   const calculateDistance = (lat1: number, lon1: number, lat2: number, lon2: number) => {
@@ -95,51 +117,56 @@ export const SiteMapView: React.FC<SiteMapViewProps> = ({ site, onClose }) => {
               <p>Loading interactive map...</p>
             </div>
           ) : (
-            <div className={styles.mapPlaceholder}>
-              <div className={styles.mapOverlay}>
-                <div className={styles.centerMarker}>
-                  <div 
-                    className={styles.siteMarker}
-                    style={{ backgroundColor: getRiskColor(selectedSite.riskProfile.overallRisk) }}
-                  >
-                    <Icon name="map-pin" size="sm" />
-                  </div>
-                  <div className={styles.markerLabel}>
-                    {selectedSite.name}
-                  </div>
-                </div>
-                
-                {/* Simulate nearby sites on map */}
-                {nearbySites.slice(0, 3).map((site, index) => (
-                  <div 
-                    key={site.id}
-                    className={styles.nearbyMarker}
-                    style={{
-                      top: `${30 + index * 15}%`,
-                      left: `${20 + index * 20}%`
-                    }}
-                    onClick={() => setSelectedSite(site)}
-                  >
-                    <div 
-                      className={styles.siteMarker}
-                      style={{ backgroundColor: getRiskColor(site.riskProfile.overallRisk) }}
-                    >
-                      <Icon name="map-pin" size="sm" />
-                    </div>
-                    <div className={styles.markerLabel}>
-                      {site.name}
-                    </div>
-                  </div>
-                ))}
-              </div>
+            <MapContainer
+              center={[selectedSite.location.latitude, selectedSite.location.longitude]}
+              zoom={13}
+              className={styles.leafletMap}
+              scrollWheelZoom={true}
+              zoomControl={true}
+            >
+              <TileLayer
+                attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+                url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+              />
               
-              <div className={styles.mapInfo}>
-                <p>Interactive map showing {selectedSite.name} and nearby heritage sites</p>
-                <div className={styles.coordinates}>
-                  <span><Icon name="map-pin" size="sm" /> {selectedSite.location.latitude.toFixed(4)}, {selectedSite.location.longitude.toFixed(4)}</span>
-                </div>
-              </div>
-            </div>
+              {/* Main site marker */}
+              <Marker 
+                position={[selectedSite.location.latitude, selectedSite.location.longitude]}
+                icon={createCustomMarkerIcon(selectedSite.riskProfile.overallRisk, true)}
+              >
+                <Popup>
+                  <div className={styles.markerPopup}>
+                    <h4>{selectedSite.name}</h4>
+                    <p><strong>Risk Level:</strong> {selectedSite.riskProfile.overallRisk.replace('-', ' ').toUpperCase()}</p>
+                    <p><strong>Location:</strong> {selectedSite.location.address}</p>
+                    <p><strong>Coordinates:</strong> {selectedSite.location.latitude.toFixed(4)}, {selectedSite.location.longitude.toFixed(4)}</p>
+                  </div>
+                </Popup>
+              </Marker>
+              
+              {/* Nearby sites markers */}
+              {nearbySites.slice(0, 5).map((site) => (
+                <Marker 
+                  key={site.id} 
+                  position={[site.location.latitude, site.location.longitude]}
+                  icon={createCustomMarkerIcon(site.riskProfile.overallRisk, false)}
+                >
+                  <Popup>
+                    <div className={styles.markerPopup}>
+                      <h4>{site.name}</h4>
+                      <p><strong>Risk Level:</strong> {site.riskProfile.overallRisk.replace('-', ' ').toUpperCase()}</p>
+                      <p><strong>Distance:</strong> {site.distance.toFixed(1)} km away</p>
+                      <button 
+                        className={styles.viewSiteButton}
+                        onClick={() => setSelectedSite(site)}
+                      >
+                        View This Site
+                      </button>
+                    </div>
+                  </Popup>
+                </Marker>
+              ))}
+            </MapContainer>
           )}
         </div>
 
