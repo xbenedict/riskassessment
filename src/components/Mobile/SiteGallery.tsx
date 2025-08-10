@@ -62,9 +62,24 @@ export const SiteGallery: React.FC<SiteGalleryProps> = ({ onSiteSelect }) => {
 
   return (
     <div className={styles.siteGallery}>
-      <header className={styles.galleryHeader}>
-        <h1>Heritage Sites</h1>
-        <p>Tap a site to view details and risk assessment</p>
+      <header className={styles.appHeader}>
+        <div className={styles.headerContent}>
+          <div className={styles.brandSection}>
+            <div className={styles.titleSection}>
+              <h1 className={styles.appTitle}>Heritage Sites</h1>
+              <p className={styles.appSubtitle}>Risk Assessment Platform</p>
+            </div>
+          </div>
+          <div className={styles.headerMeta}>
+            <div className={styles.statsQuick}>
+              <span className={styles.statValue}>{mockSites.length}</span>
+              <span className={styles.statLabel}>Sites</span>
+            </div>
+          </div>
+        </div>
+        <div className={styles.headerDescription}>
+          <p>Tap a site to view details and risk assessment</p>
+        </div>
       </header>
       
       <div className={styles.sitesGrid}>

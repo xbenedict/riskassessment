@@ -220,15 +220,28 @@ export const ReportGenerator: React.FC<ReportGeneratorProps> = ({
 
   return (
     <div className={styles.reportGenerator}>
-      <Card className={styles.headerCard}>
-        <div className={styles.header}>
-          <Icon name="file-text" size="xl" className={styles.headerIcon} />
-          <div className={styles.headerContent}>
-            <h2>Heritage Risk Assessment Report Generator</h2>
-            <p>Generate standardized reports following international heritage guidelines</p>
+      <header className={styles.appHeader}>
+        <div className={styles.headerContent}>
+          <div className={styles.brandSection}>
+            <div className={styles.logo}>
+              <Icon name="FileText" size="lg" color="var(--color-accent)" />
+            </div>
+            <div className={styles.titleSection}>
+              <h1 className={styles.appTitle}>Reports</h1>
+              <p className={styles.appSubtitle}>Assessment Documentation</p>
+            </div>
+          </div>
+          <div className={styles.headerMeta}>
+            <div className={styles.statsQuick}>
+              <span className={styles.statValue}>{availableSites.length}</span>
+              <span className={styles.statLabel}>Sites</span>
+            </div>
           </div>
         </div>
-      </Card>
+        <div className={styles.headerDescription}>
+          <p>Generate standardized reports following international heritage guidelines</p>
+        </div>
+      </header>
 
       <Card className={styles.controlsCard}>
         <div className={styles.controls}>

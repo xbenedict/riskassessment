@@ -551,15 +551,29 @@ export const DataManager: React.FC<DataManagerProps> = ({
   
   return (
     <div className={styles.dataManager}>
-      <Card padding="large" className={styles.header}>
+      <header className={styles.appHeader}>
         <div className={styles.headerContent}>
-          <Icon name="database" size="xl" className={styles.headerIcon} />
-          <div>
-            <h2>Data Management</h2>
-            <p>Export and import heritage site data with comprehensive validation</p>
+          <div className={styles.brandSection}>
+            <div className={styles.titleSection}>
+              <h1 className={styles.appTitle}>Data Management</h1>
+              <p className={styles.appSubtitle}>Import & Export Tools</p>
+            </div>
+          </div>
+          <div className={styles.headerMeta}>
+            <div className={styles.statsQuick}>
+              <span className={styles.statValue}>{sites.length}</span>
+              <span className={styles.statLabel}>Sites</span>
+            </div>
+            <div className={styles.statsQuick}>
+              <span className={styles.statValue}>{assessments.length}</span>
+              <span className={styles.statLabel}>Records</span>
+            </div>
           </div>
         </div>
-      </Card>
+        <div className={styles.headerDescription}>
+          <p>Export and import heritage site data with comprehensive validation</p>
+        </div>
+      </header>
       
       {error && (
         <Card variant="outlined" padding="medium" className={styles.error}>

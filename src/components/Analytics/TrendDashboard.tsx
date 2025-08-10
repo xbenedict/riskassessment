@@ -4,6 +4,7 @@
 import React, { useState, useEffect, useMemo } from 'react';
 import { TrendChart } from '../Visualization/TrendChart';
 import { MockDataService } from '../../services/MockDataService';
+import { Icon } from '../UI';
 import { 
   TrendAnalysisService, 
   type TrendAnalysis, 
@@ -463,10 +464,32 @@ export const TrendDashboard: React.FC = () => {
   
   return (
     <div className={styles.trendDashboard}>
-      <div className={styles.header}>
-        <h2>Heritage Risk Trend Analysis</h2>
-        <p>Temporal analysis and forecasting for heritage site risk management</p>
-      </div>
+      <header className={styles.appHeader}>
+        <div className={styles.headerContent}>
+          <div className={styles.brandSection}>
+            <div className={styles.logo}>
+              <Icon name="TrendingUp" size="lg" color="var(--color-accent)" />
+            </div>
+            <div className={styles.titleSection}>
+              <h1 className={styles.appTitle}>Analytics</h1>
+              <p className={styles.appSubtitle}>Trend Analysis & Forecasting</p>
+            </div>
+          </div>
+          <div className={styles.headerMeta}>
+            <div className={styles.statsQuick}>
+              <span className={styles.statValue}>{sites.length}</span>
+              <span className={styles.statLabel}>Sites</span>
+            </div>
+            <div className={styles.statsQuick}>
+              <span className={styles.statValue}>{siteTrends.length}</span>
+              <span className={styles.statLabel}>Trends</span>
+            </div>
+          </div>
+        </div>
+        <div className={styles.headerDescription}>
+          <p>Temporal analysis and forecasting for heritage site risk management</p>
+        </div>
+      </header>
       
       {renderViewControls()}
       

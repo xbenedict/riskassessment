@@ -29,9 +29,80 @@ interface AugmentedRealityProps {
 
 export const AugmentedReality: React.FC<AugmentedRealityProps> = () => {
   return (
-    <div style={{ padding: '1rem' }}>
-      <h2>Augmented Reality Preview</h2>
-      <p>View a restoration concept in AR. Petra support is enabled as a demo.</p>
+    <div style={{ padding: '1rem', paddingBottom: '5rem', background: 'var(--color-bg-tertiary)', minHeight: '100vh' }}>
+      <header style={{
+        background: 'linear-gradient(135deg, var(--color-bg-primary) 0%, var(--color-bg-secondary) 100%)',
+        borderBottom: '1px solid var(--color-border-light)',
+        marginBottom: '2rem',
+        padding: '1.5rem 1rem 1rem',
+        boxShadow: '0 2px 12px rgba(0, 0, 0, 0.05)',
+        borderRadius: '0'
+      }}>
+        <div style={{
+          display: 'flex',
+          justifyContent: 'space-between',
+          alignItems: 'center',
+          marginBottom: '1rem',
+          flexWrap: 'wrap',
+          gap: '1rem'
+        }}>
+          <div style={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
+            <div>
+              <h1 style={{
+                fontSize: '1.75rem',
+                color: 'var(--color-accent)',
+                margin: '0',
+                fontWeight: '700',
+                lineHeight: '1.2'
+              }}>Augmented Reality</h1>
+              <p style={{
+                color: 'var(--color-text-secondary)',
+                fontSize: '0.875rem',
+                margin: '0',
+                fontWeight: '500',
+                textTransform: 'uppercase',
+                letterSpacing: '0.5px'
+              }}>3D Site Visualization</p>
+            </div>
+          </div>
+          <div style={{
+            display: 'flex',
+            flexDirection: 'column',
+            alignItems: 'center',
+            padding: '0.5rem 1rem',
+            background: 'rgba(var(--color-accent-rgb), 0.1)',
+            borderRadius: '8px',
+            border: '1px solid rgba(var(--color-accent-rgb), 0.2)',
+            minWidth: '60px'
+          }}>
+            <span style={{
+              fontSize: '1.25rem',
+              fontWeight: '700',
+              color: 'var(--color-accent)',
+              lineHeight: '1'
+            }}>1</span>
+            <span style={{
+              fontSize: '0.75rem',
+              color: 'var(--color-text-muted)',
+              textTransform: 'uppercase',
+              letterSpacing: '0.5px',
+              fontWeight: '500'
+            }}>Model</span>
+          </div>
+        </div>
+        <div style={{
+          textAlign: 'center',
+          paddingTop: '0.5rem',
+          borderTop: '1px solid var(--color-border-light)'
+        }}>
+          <p style={{
+            color: 'var(--color-text-muted)',
+            fontSize: '0.9rem',
+            margin: '0',
+            opacity: '0.8'
+          }}>View a restoration concept in AR. Petra support is enabled as a demo.</p>
+        </div>
+      </header>
       {/* Wrapper card ensures consistent app styling if Card exists; fallback to div if missing */}
       <div style={{ borderRadius: 12, overflow: 'hidden', boxShadow: 'var(--shadow-lg, 0 10px 20px rgba(0,0,0,0.1))' }}>
         <iframe

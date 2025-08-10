@@ -247,13 +247,35 @@ export const Dashboard: React.FC<DashboardProps> = ({ className }) => {
   return (
     <div className={`${styles.dashboard} ${className || ''}`}>
       {/* Dashboard Header */}
-      <div className={styles.header}>
-        <h1>Heritage Guardian Dashboard</h1>
-        <p>Comprehensive overview of all managed heritage sites</p>
-        <div className={styles.lastUpdated}>
-          Last updated: {formatDate(new Date())}
+      <header className={styles.appHeader}>
+        <div className={styles.headerContent}>
+          <div className={styles.brandSection}>
+            <div className={styles.logo}>
+              <Icon name="BarChart3" size="lg" color="var(--color-accent)" />
+            </div>
+            <div className={styles.titleSection}>
+              <h1 className={styles.appTitle}>Dashboard</h1>
+              <p className={styles.appSubtitle}>Risk Overview & Analytics</p>
+            </div>
+          </div>
+          <div className={styles.headerMeta}>
+            <div className={styles.statsQuick}>
+              <span className={styles.statValue}>{stats.totalSites}</span>
+              <span className={styles.statLabel}>Sites</span>
+            </div>
+            <div className={styles.statsQuick}>
+              <span className={styles.statValue}>{stats.criticalSites}</span>
+              <span className={styles.statLabel}>Critical</span>
+            </div>
+          </div>
         </div>
-      </div>
+        <div className={styles.headerDescription}>
+          <p>Comprehensive overview of all managed heritage sites</p>
+          <div className={styles.lastUpdated}>
+            Last updated: {formatDate(new Date())}
+          </div>
+        </div>
+      </header>
 
       {/* Alert Notifications */}
       {showAlerts && alerts.length > 0 && (
