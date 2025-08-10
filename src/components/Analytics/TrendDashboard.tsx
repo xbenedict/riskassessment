@@ -278,7 +278,7 @@ export const TrendDashboard: React.FC = () => {
         />
         
         <div className={styles.insights}>
-          <h4>Key Insights</h4>
+          <h4>AI Key Insights</h4>
           <ul>
             <li>
               <strong>Trend Direction:</strong> Risk levels are {selectedSiteTrend.trend} 
@@ -323,22 +323,6 @@ export const TrendDashboard: React.FC = () => {
           height={450}
           showForecast={false}
         />
-        
-        <div className={styles.correlations}>
-          <h4>Site Correlations</h4>
-          <div className={styles.correlationGrid}>
-            {comparativeAnalysis.correlations.map((corr, index) => (
-              <div key={index} className={styles.correlationItem}>
-                <span className={styles.sitePair}>
-                  {corr.siteA} ↔ {corr.siteB}
-                </span>
-                <span className={`${styles.correlationValue} ${getCorrelationClass(corr.correlation)}`}>
-                  {(corr.correlation * 100).toFixed(0)}%
-                </span>
-              </div>
-            ))}
-          </div>
-        </div>
         
         <div className={styles.insights}>
           <h4>Comparative Insights</h4>
