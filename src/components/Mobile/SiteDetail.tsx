@@ -1,12 +1,12 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import type { HeritageSite, RiskAssessment } from '../../types';
-import { mockSites } from '../../utils/mockData';
 import { RiskAssessmentForm } from '../Assessment/RiskAssessmentForm';
 import { AssessmentsList } from '../Assessment/AssessmentsList';
 import { FullAssessmentView } from '../Assessment/FullAssessmentView';
 import { SiteMapView } from '../Map/SiteMapView';
 import { ReportGenerator } from '../Reports/ReportGenerator';
 import { RiskAssessmentService } from '../../services/RiskAssessmentService';
+import { DataManager } from '../../services/DataManager';
 import { Icon, type IconName, Button, Card, Spinner } from '../UI';
 import styles from './SiteDetail.module.css';
 import backgroundImage from '../../assets/images/background.jpeg';
@@ -20,11 +20,29 @@ export const SiteDetail: React.FC<SiteDetailProps> = ({ siteId, onBack }) => {
   const [activeImageIndex, setActiveImageIndex] = useState(0);
   const [activeView, setActiveView] = useState<'detail' | 'assessment' | 'map' | 'report' | 'add-assessment' | 'assessments-list'>('detail');
   const [selectedAssessment, setSelectedAssessment] = useState<RiskAssessment | null>(null);
-  const [isLoading, setIsLoading] = useState(false);
   const [loadingAction, setLoadingAction] = useState<string | null>(null);
-  const site = mockSites.find(s => s.id === siteId);
+  const [site, setSite] = useState<HeritageSite | null>(null);
+  const [loadingSite, setLoadingSite] = useState<boolean>(true);
+  const [siteError, setSiteError] = useState<string | null>(null);
 
-  if (!site) {
+  useEffect(() => {
+    const load = async () => {
+      try {
+        setLoadingSite(true);
+        setSiteError(null);
+        const s = await DataManager.getHeritageSite(siteId);
+        setSite(s);
+      } catch (e) {
+        console.error(e);
+        setSiteError('Failed to load site');
+      } finally {
+        setLoadingSite(false);
+      }
+    };
+    load();
+  }, [siteId]);
+
+  if (loadingSite) {
     return (
       <div 
         className={styles.siteDetail}
@@ -34,7 +52,31 @@ export const SiteDetail: React.FC<SiteDetailProps> = ({ siteId, onBack }) => {
           <Button 
             variant="ghost" 
             size="medium"
-            icon="arrow-left"
+            icon={'arrow-left' as any}
+            onClick={onBack}
+            className={styles.backButton}
+          >
+            Back
+          </Button>
+        </div>
+        <Card variant="default" padding="large" className={styles.errorMessage}>
+          <Spinner size="medium" />
+        </Card>
+      </div>
+    );
+  }
+
+  if (!site || siteError) {
+    return (
+      <div 
+        className={styles.siteDetail}
+        style={{ backgroundImage: `url(${backgroundImage})` }}
+      >
+        <div className={styles.detailHeader}>
+          <Button 
+            variant="ghost" 
+            size="medium"
+            icon={'arrow-left' as any}
             onClick={onBack}
             className={styles.backButton}
           >
@@ -44,11 +86,11 @@ export const SiteDetail: React.FC<SiteDetailProps> = ({ siteId, onBack }) => {
         <Card variant="default" padding="large" className={styles.errorMessage}>
           <Icon name="alert-circle" size="lg" />
           <h3>Site not found</h3>
-          <p>The requested site could not be found. Please check the URL or go back to the sites list.</p>
+          <p>{siteError || 'The requested site could not be found. Please check the URL or go back to the sites list.'}</p>
           <Button 
             variant="primary"
             size="medium"
-            icon="arrow-left"
+            icon={'arrow-left' as any}
             onClick={onBack}
           >
             Back to Sites
@@ -86,41 +128,33 @@ export const SiteDetail: React.FC<SiteDetailProps> = ({ siteId, onBack }) => {
 
   const handleViewFullAssessment = async () => {
     setLoadingAction('assessment');
-    setIsLoading(true);
     // Simulate loading delay for better UX
     await new Promise(resolve => setTimeout(resolve, 300));
     setActiveView('assessment');
-    setIsLoading(false);
     setLoadingAction(null);
   };
 
   const handleViewOnMap = async () => {
     setLoadingAction('map');
-    setIsLoading(true);
     // Simulate loading delay for better UX
     await new Promise(resolve => setTimeout(resolve, 300));
     setActiveView('map');
-    setIsLoading(false);
     setLoadingAction(null);
   };
 
   const handleGenerateReport = async () => {
     setLoadingAction('report');
-    setIsLoading(true);
     // Simulate loading delay for better UX
     await new Promise(resolve => setTimeout(resolve, 300));
     setActiveView('report');
-    setIsLoading(false);
     setLoadingAction(null);
   };
 
   const handleAddRiskAssessment = async () => {
     setLoadingAction('add-assessment');
-    setIsLoading(true);
     // Simulate loading delay for better UX
     await new Promise(resolve => setTimeout(resolve, 300));
     setActiveView('add-assessment');
-    setIsLoading(false);
     setLoadingAction(null);
   };
 
@@ -160,6 +194,22 @@ export const SiteDetail: React.FC<SiteDetailProps> = ({ siteId, onBack }) => {
     setSelectedAssessment(null);
   };
 
+  const handleDeleteSite = async () => {
+    if (!site) return;
+    const confirmed = window.confirm(`Delete site "${site.name}"? This will remove the site and all its assessments.`);
+    if (!confirmed) return;
+    try {
+      setLoadingAction('delete-site');
+      await DataManager.deleteHeritageSite(site.id);
+      onBack();
+    } catch (err) {
+      console.error('Failed to delete site', err);
+      alert('Failed to delete site. Please try again.');
+    } finally {
+      setLoadingAction(null);
+    }
+  };
+
   // Render different views based on activeView state
   if (activeView === 'assessment') {
     return <FullAssessmentView site={site} onClose={handleBackToDetail} />;
@@ -179,7 +229,7 @@ export const SiteDetail: React.FC<SiteDetailProps> = ({ siteId, onBack }) => {
           <Button 
             variant="ghost" 
             size="medium"
-            icon="arrow-left"
+            icon={'arrow-left' as any}
             onClick={handleBackToDetail}
             className={styles.backButton}
           >
@@ -213,7 +263,7 @@ export const SiteDetail: React.FC<SiteDetailProps> = ({ siteId, onBack }) => {
           <Button 
             variant="ghost" 
             size="medium"
-            icon="arrow-left"
+            icon={'arrow-left' as any}
             onClick={handleBackToDetail}
             className={styles.backButton}
           >
@@ -239,7 +289,7 @@ export const SiteDetail: React.FC<SiteDetailProps> = ({ siteId, onBack }) => {
         <Button 
           variant="ghost" 
           size="medium"
-          icon="arrow-left"
+          icon={'arrow-left' as any}
           onClick={onBack}
           className={styles.backButton}
         >
@@ -370,6 +420,16 @@ export const SiteDetail: React.FC<SiteDetailProps> = ({ siteId, onBack }) => {
             fullWidth
           >
             Generate Report
+          </Button>
+          <Button
+            variant="ghost"
+            size="large"
+            icon="trash-2"
+            loading={loadingAction === 'delete-site'}
+            onClick={handleDeleteSite}
+            fullWidth
+          >
+            Delete Site
           </Button>
         </div>
 

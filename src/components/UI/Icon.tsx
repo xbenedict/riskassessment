@@ -26,6 +26,7 @@ import {
   Camera,
   X,
   ArrowRight,
+  ArrowLeft,
   
   // Threat icons
   Globe,
@@ -81,6 +82,7 @@ export type IconName =
   | 'camera'
   | 'x'
   | 'arrow-right'
+  | 'arrow-left'
   
   // Threats
   | 'globe'
@@ -133,6 +135,7 @@ const iconMap: Record<IconName, LucideIcon> = {
   'camera': Camera,
   'x': X,
   'arrow-right': ArrowRight,
+  'arrow-left': ArrowLeft,
   
   // Threats
   'globe': Globe,
