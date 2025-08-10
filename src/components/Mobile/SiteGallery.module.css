@@ -390,6 +390,7 @@
   background: white;
   box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
   animation: modalSlideIn 0.3s ease-out;
+  padding-bottom: 2.5rem; /* Ensure last content isn't clipped by viewport */
 }
 
 @keyframes modalFadeIn {

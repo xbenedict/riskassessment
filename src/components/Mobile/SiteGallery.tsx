@@ -153,7 +153,7 @@ export const SiteGallery: React.FC<SiteGalleryProps> = ({ onSiteSelect }) => {
               onClick={() => setShowAddModal(true)}
               aria-label="Add a site"
             >
-              <Icon name="plus" size="md" />
+              +
             </button>
           </div>
         </div>

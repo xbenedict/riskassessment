@@ -303,8 +303,8 @@ export const SiteForm: React.FC<SiteFormProps> = ({ siteId, onSave, onCancel }) 
     <div className={styles.container}>
       <div className={styles.header}>
         <h1>{isEditMode ? 'Edit Heritage Site' : 'Add New Heritage Site'}</h1>
-        <button onClick={onCancel} className={styles.closeButton}>
-          <Icon name="x" size="md" />
+        <button onClick={onCancel} className={styles.closeButton} aria-label="Close add site form">
+          x
         </button>
       </div>
 
