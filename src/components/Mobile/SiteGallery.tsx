@@ -3,6 +3,7 @@ import type { HeritageSite } from '../../types';
 import { mockSites } from '../../utils/mockData';
 import { Icon, Card } from '../UI';
 import styles from './SiteGallery.module.css';
+import backgroundImage from '../../assets/images/background.jpeg';
 
 interface SiteGalleryProps {
   onSiteSelect: (siteId: string) => void;
@@ -61,7 +62,10 @@ export const SiteGallery: React.FC<SiteGalleryProps> = ({ onSiteSelect }) => {
   };
 
   return (
-    <div className={styles.siteGallery}>
+    <div 
+      className={styles.siteGallery}
+      style={{ backgroundImage: `url(${backgroundImage})` }}
+    >
       <header className={styles.appHeader}>
         <div className={styles.headerContent}>
           <div className={styles.brandSection}>

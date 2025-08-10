@@ -8,6 +8,7 @@ import { PDFExport } from '../../utils/PDFExport';
 import type { HeritageSite, RiskAssessment } from '../../types';
 import { Button, Input, Select, Card, Icon, Progress, type SelectOption } from '../UI';
 import styles from './ReportGenerator.module.css';
+import backgroundImage from '../../assets/images/background.jpeg';
 
 interface ReportGeneratorProps {
   selectedSites?: HeritageSite[];
@@ -219,7 +220,10 @@ export const ReportGenerator: React.FC<ReportGeneratorProps> = ({
   }));
 
   return (
-    <div className={styles.reportGenerator}>
+    <div 
+      className={styles.reportGenerator}
+      style={{ backgroundImage: `url(${backgroundImage})` }}
+    >
       <header className={styles.appHeader}>
         <div className={styles.headerContent}>
           <div className={styles.brandSection}>

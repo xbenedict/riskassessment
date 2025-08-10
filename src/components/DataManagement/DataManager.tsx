@@ -11,6 +11,7 @@ import { MockDataService } from '../../services/MockDataService';
 import type { HeritageSite, RiskAssessment } from '../../types';
 import { Icon, Button, Card, Loading } from '../UI';
 import styles from './DataManager.module.css';
+import backgroundImage from '../../assets/images/background.jpeg';
 
 type ActiveTab = 'export' | 'import' | 'validation';
 
@@ -550,7 +551,10 @@ export const DataManager: React.FC<DataManagerProps> = ({
   );
   
   return (
-    <div className={styles.dataManager}>
+    <div 
+      className={styles.dataManager}
+      style={{ backgroundImage: `url(${backgroundImage})` }}
+    >
       <header className={styles.appHeader}>
         <div className={styles.headerContent}>
           <div className={styles.brandSection}>

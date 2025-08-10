@@ -1,7 +1,43 @@
 .siteDetail {
-  background: var(--color-bg-tertiary);
+  background-color: var(--color-bg-tertiary);
+  background-position: center center;
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-attachment: scroll;
   min-height: 100vh;
   padding-bottom: var(--space-8);
+  position: relative;
+}
+
+.siteDetail::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(135deg, rgba(21, 47, 75, 0.8) 0%, rgba(13, 34, 56, 0.7) 100%);
+  mix-blend-mode: multiply;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.siteDetail::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(54, 99, 124, 0.3);
+  mix-blend-mode: overlay;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.siteDetail > * {
+  position: relative;
+  z-index: 1;
 }
 
 .detailHeader {
@@ -305,12 +341,84 @@
 
 .reportsListView {
   min-height: 100vh;
-  background: var(--color-bg-tertiary);
+  background-color: var(--color-bg-tertiary);
+  background-position: center center;
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-attachment: scroll;
+  position: relative;
+}
+
+.reportsListView::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(135deg, rgba(21, 47, 75, 0.8) 0%, rgba(13, 34, 56, 0.7) 100%);
+  mix-blend-mode: multiply;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.reportsListView::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(54, 99, 124, 0.3);
+  mix-blend-mode: overlay;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.reportsListView > * {
+  position: relative;
+  z-index: 1;
 }
 
 .reportView {
   min-height: 100vh;
-  background: var(--color-bg-tertiary);
+  background-color: var(--color-bg-tertiary);
+  background-position: center center;
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-attachment: scroll;
+  position: relative;
+}
+
+.reportView::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(135deg, rgba(21, 47, 75, 0.8) 0%, rgba(13, 34, 56, 0.7) 100%);
+  mix-blend-mode: multiply;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.reportView::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(54, 99, 124, 0.3);
+  mix-blend-mode: overlay;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.reportView > * {
+  position: relative;
+  z-index: 1;
 }
 
 .reportHeader {

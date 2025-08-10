@@ -13,6 +13,7 @@ import {
 } from '../../services/TrendAnalysisService';
 import type { HeritageSite, RiskAssessment, ThreatType } from '../../types';
 import styles from './TrendDashboard.module.css';
+import backgroundImage from '../../assets/images/background.jpeg';
 
 type AnalysisView = 'site-trends' | 'comparative' | 'threat-evolution' | 'correlations';
 
@@ -463,7 +464,10 @@ export const TrendDashboard: React.FC = () => {
   }
   
   return (
-    <div className={styles.trendDashboard}>
+    <div 
+      className={styles.trendDashboard}
+      style={{ backgroundImage: `url(${backgroundImage})` }}
+    >
       <header className={styles.appHeader}>
         <div className={styles.headerContent}>
           <div className={styles.brandSection}>

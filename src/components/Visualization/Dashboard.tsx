@@ -9,6 +9,7 @@ import { RiskCalculator } from '../../utils/RiskCalculator';
 import { Card, Button, Loading, Icon } from '../UI';
 import type { HeritageSite, RiskAssessment, RiskPriority } from '../../types';
 import styles from './Dashboard.module.css';
+import backgroundImage from '../../assets/images/background.jpeg';
 
 interface DashboardProps {
   className?: string;
@@ -245,7 +246,10 @@ export const Dashboard: React.FC<DashboardProps> = ({ className }) => {
   }
 
   return (
-    <div className={`${styles.dashboard} ${className || ''}`}>
+    <div 
+      className={`${styles.dashboard} ${className || ''}`}
+      style={{ backgroundImage: `url(${backgroundImage})` }}
+    >
       {/* Dashboard Header */}
       <header className={styles.appHeader}>
         <div className={styles.headerContent}>

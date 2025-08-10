@@ -9,6 +9,7 @@ import { ReportGenerator } from '../Reports/ReportGenerator';
 import { RiskAssessmentService } from '../../services/RiskAssessmentService';
 import { Icon, type IconName, Button, Card, Spinner } from '../UI';
 import styles from './SiteDetail.module.css';
+import backgroundImage from '../../assets/images/background.jpeg';
 
 interface SiteDetailProps {
   siteId: string;
@@ -25,7 +26,10 @@ export const SiteDetail: React.FC<SiteDetailProps> = ({ siteId, onBack }) => {
 
   if (!site) {
     return (
-      <div className={styles.siteDetail}>
+      <div 
+        className={styles.siteDetail}
+        style={{ backgroundImage: `url(${backgroundImage})` }}
+      >
         <div className={styles.detailHeader}>
           <Button 
             variant="ghost" 
@@ -167,7 +171,10 @@ export const SiteDetail: React.FC<SiteDetailProps> = ({ siteId, onBack }) => {
 
   if (activeView === 'report') {
     return (
-      <div className={styles.reportView}>
+      <div 
+        className={styles.reportView}
+        style={{ backgroundImage: `url(${backgroundImage})` }}
+      >
         <div className={styles.reportHeader}>
           <Button 
             variant="ghost" 
@@ -198,7 +205,10 @@ export const SiteDetail: React.FC<SiteDetailProps> = ({ siteId, onBack }) => {
 
   if (activeView === 'assessments-list') {
     return (
-      <div className={styles.reportsListView}>
+      <div 
+        className={styles.reportsListView}
+        style={{ backgroundImage: `url(${backgroundImage})` }}
+      >
         <div className={styles.reportHeader}>
           <Button 
             variant="ghost" 
@@ -221,7 +231,10 @@ export const SiteDetail: React.FC<SiteDetailProps> = ({ siteId, onBack }) => {
   }
 
   return (
-    <div className={styles.siteDetail}>
+    <div 
+      className={styles.siteDetail}
+      style={{ backgroundImage: `url(${backgroundImage})` }}
+    >
       <div className={styles.detailHeader}>
         <Button 
           variant="ghost" 

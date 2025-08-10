@@ -59,7 +59,7 @@ function App() {
       <MobileNavigation 
         activeView={activeView} 
         onViewChange={setActiveView}
-        showNavigation={!selectedSiteId}
+        showNavigation={true}
       />
     </div>
   );

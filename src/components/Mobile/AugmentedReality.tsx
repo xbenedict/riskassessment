@@ -1,4 +1,5 @@
 import React from 'react';
+import backgroundImage from '../../assets/images/background.jpeg';
 
 // Minimal JSX typing for the <model-viewer> custom element
 declare global {
@@ -29,7 +30,41 @@ interface AugmentedRealityProps {
 
 export const AugmentedReality: React.FC<AugmentedRealityProps> = () => {
   return (
-    <div style={{ padding: '1rem', paddingBottom: '5rem', background: 'var(--color-bg-tertiary)', minHeight: '100vh' }}>
+    <div style={{ 
+      padding: '1rem', 
+      paddingBottom: '5rem', 
+      backgroundImage: `url(${backgroundImage})`,
+      backgroundColor: 'var(--color-bg-tertiary)',
+      backgroundPosition: 'center center',
+      backgroundSize: 'cover',
+      backgroundRepeat: 'no-repeat',
+      backgroundAttachment: 'scroll',
+      minHeight: '100vh',
+      position: 'relative'
+    }}>
+      <div style={{
+        position: 'absolute',
+        top: 0,
+        left: 0,
+        right: 0,
+        bottom: 0,
+        background: 'linear-gradient(135deg, rgba(21, 47, 75, 0.8) 0%, rgba(13, 34, 56, 0.7) 100%)',
+        mixBlendMode: 'multiply',
+        pointerEvents: 'none',
+        zIndex: 0
+      }} />
+      <div style={{
+        position: 'absolute',
+        top: 0,
+        left: 0,
+        right: 0,
+        bottom: 0,
+        background: 'rgba(54, 99, 124, 0.3)',
+        mixBlendMode: 'overlay',
+        pointerEvents: 'none',
+        zIndex: 0
+      }} />
+      <div style={{ position: 'relative', zIndex: 1 }}>
       <header style={{
         background: 'linear-gradient(135deg, var(--color-bg-primary) 0%, var(--color-bg-secondary) 100%)',
         borderBottom: '1px solid var(--color-border-light)',
@@ -116,6 +151,7 @@ export const AugmentedReality: React.FC<AugmentedRealityProps> = () => {
       <small style={{ display: 'block', marginTop: 8, color: 'var(--color-text-muted, #666)' }}>
         Tip: For AR, device/browser support depends on Sketchfab capabilities for this model.
       </small>
+      </div>
     </div>
   );
 };
