@@ -7,6 +7,7 @@
   background: white;
   z-index: 1000;
   overflow-y: auto;
+  padding-bottom: calc(var(--space-20) + var(--space-4) + env(safe-area-inset-bottom));
 }
 
 .loading,
@@ -56,12 +57,14 @@
   margin: 0 0 8px 0;
   font-size: 1.5rem;
   font-weight: 600;
+  color: var(--color-accent);
 }
 
 .siteInfo h2 {
   margin: 0 0 4px 0;
   font-size: 1.8rem;
   font-weight: 700;
+  color: var(--color-accent);
 }
 
 .siteInfo p {
@@ -165,14 +168,14 @@
 }
 
 .siteDescription h3 {
-  color: #2c3e50;
+  color: var(--color-accent);
   margin: 0 0 12px 0;
   font-size: 1.2rem;
 }
 
 .siteDescription p {
   line-height: 1.6;
-  color: #555;
+  color: white;
   margin-bottom: 24px;
 }
 
@@ -207,7 +210,7 @@
 }
 
 .activeThreats h3 {
-  color: #2c3e50;
+  color: var(--color-accent);
   margin: 0 0 16px 0;
   font-size: 1.2rem;
 }
@@ -246,7 +249,7 @@
 
 .assessmentsHeader h3 {
   margin: 0 0 8px 0;
-  color: #2c3e50;
+  color: var(--color-accent);
   font-size: 1.3rem;
 }
 
@@ -291,7 +294,7 @@
 
 .threatInfo h4 {
   margin: 0 0 4px 0;
-  color: #2c3e50;
+  color: var(--color-accent);
   font-size: 1.1rem;
 }
 
@@ -360,7 +363,7 @@
 
 .assessmentNotes h5 {
   margin: 0 0 8px 0;
-  color: #2c3e50;
+  color: var(--color-accent);
   font-size: 0.9rem;
 }
 
@@ -380,7 +383,7 @@
 /* History Tab */
 .history h3 {
   margin: 0 0 24px 0;
-  color: #2c3e50;
+  color: var(--color-accent);
   font-size: 1.3rem;
 }
 
